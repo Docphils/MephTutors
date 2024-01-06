@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->boolean('isAdmin')->default(false); // isAdmin column with default value false
+            $table->boolean('isTutor')->default(false); // isTutor column with default value false
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
