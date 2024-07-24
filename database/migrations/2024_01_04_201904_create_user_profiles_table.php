@@ -17,20 +17,20 @@ return new class extends Migration
             $table->bigInteger('phone');
             $table->string('address');
             $table->integer('age');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->enum('gender', ['Male', 'Female']);
             $table->timestamps();
 
             // Foreign key constraint linking to the users table
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
+            // Adding an index to user_id
+            $table->index('user_id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('user_profiles');
-    }
+public function down(): void
+{
+    Schema::dropIfExists('user_profiles');
+}
 };

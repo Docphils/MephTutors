@@ -23,9 +23,11 @@ return new class extends Migration
             $table->string('duration');
             $table->enum('tutorGender', ['Male', 'Female', 'Any']);
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
-            $table->enum('status', ['Assigned', 'Cancelled', 'Pending']);
+            $table->enum('status', ['Assigned', 'Cancelled', 'Pending', 'Completed']);
             $table->string('classes');
-            $table->string('remarks')->nullable();            
+            $table->string('tutorRemarks')->nullable(); 
+            $table->string('clientRemarks')->nullable();            
+           
             $table->timestamps();
 
             // Foreign key constraint linking to the users table

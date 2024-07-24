@@ -24,27 +24,45 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Admin Dashboard
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth', 'verified'])->name('admin.dashboard');
+
+// Client Dashboard
+Route::get('/client/dashboard', function () {
+    return view('client.dashboard');
+})->middleware(['auth', 'verified'])->name('client.dashboard');
+
+// Tutor Dashboard
+Route::get('/tutor/dashboard', function () {
+    return view('tutor.dashboard');
+})->middleware(['auth', 'verified'])->name('tutor.dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile/{id}', [UserProfileController::class, 'show'])->name('userProfile.show');
-    Route::get('/profile/create', [UserProfileController::class, 'create'])->name('userProfile.create');
-    Route::get('/profile/{id}/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
-    Route::post('/profile/store/{id?}', [UserProfileController::class, 'store'])->name('userProfile.store');
-
+    // User profile
+    Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('userProfile.show');
+    Route::get('/user-profile/create', [UserProfileController::class, 'create'])->name('userProfile.create');
+    Route::get('/user-profile/{id}/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
+    Route::post('/user-profile', [UserProfileController::class, 'store'])->name('userProfile.store');
+    Route::put('/user-profile/{id}', [UserProfileController::class, 'store'])->name('userProfile.update');
+   
+   
     Route::middleware(['can:Admin'])->group(function () {
         // Routes accessible only by users with the 'Admin' gate
         
     });
 
     Route::middleware(['can:Tutor'])->group(function () {
-        // Routes accessible only by users with the 'Tutor' gate
-        Route::get('/tutor/dashboard', [TutorProfileController::class, 'dashboard'])->name('tutor.dashboard');
+        Route::get('/tutor-profile/{id}', [TutorProfileController::class, 'show'])->name('tutorProfile.show');
+        Route::get('/tutor-profile/create', [TutorProfileController::class, 'create'])->name('tutorProfile.create');
+        Route::get('/tutor-profile/{id}/edit', [TutorProfileController::class, 'edit'])->name('tutorProfile.edit');
+        Route::post('/tutor-profile', [TutorProfileController::class, 'store'])->name('tutorProfile.store');
+        Route::put('/tutor-profile/{id}', [TutorProfileController::class, 'store'])->name('tutorProfile.update');
     });
 });
 
