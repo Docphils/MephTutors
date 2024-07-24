@@ -16,6 +16,20 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Role -->
+        <div>
+            <x-input-label for="role" :value="__('Role')" />
+            <x-select-input 
+                id="role" 
+                name="role" 
+                :options="['admin' => 'Admin', 'client' => 'Client', 'tutor' => 'Tutor']"
+                :selected="old('role')" 
+                required 
+                autofocus
+            />
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

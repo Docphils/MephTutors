@@ -6,22 +6,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TutorProfile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 
 class TutorProfileController extends Controller
 {
     public function show($id)
     {
+        Gate::authorize('Tutor');
+
         $tutorProfile = TutorProfile::findOrFail($id);
         return view('tutor.dashboard', compact('tutorProfile'));
     }
 
     public function create()
     {
+        Gate::authorize('Tutor');
         return view('tutorProfile.create');
     }
 
     public function edit($id)
     {
+        Gate::authorize('Tutor');
         $tutorProfile = TutorProfile::findOrFail($id);
         return view('tutorProfile.edit', compact('tutorProfile'));
     }

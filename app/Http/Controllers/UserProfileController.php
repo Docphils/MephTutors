@@ -7,11 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 
 class UserProfileController extends Controller
 {
     public function show($id)
     {
+        Gate::authorize('Admin', 'Client');
+
         $userProfile = UserProfile::findOrFail($id);
         $user = Auth::user();
 
@@ -27,11 +31,13 @@ class UserProfileController extends Controller
 
     public function create()
     {
+        Gate::authorize('Admin', 'Client');
         return view('userProfile.create');
     }
 
     public function edit($id)
     {
+        Gate::authorize('Admin', 'Client');
         $userProfile = UserProfile::findOrFail($id);
         return view('userProfile.edit', compact('userProfile'));
     }

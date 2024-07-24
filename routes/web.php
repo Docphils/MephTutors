@@ -50,20 +50,30 @@ Route::middleware('auth')->group(function () {
     Route::get('/user-profile/{id}/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
     Route::post('/user-profile', [UserProfileController::class, 'store'])->name('userProfile.store');
     Route::put('/user-profile/{id}', [UserProfileController::class, 'store'])->name('userProfile.update');
+   //Lessons
+    Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
+    Route::get('/lessons/create', [LessonController::class, 'create'])->name('lessons.create');
+    Route::post('/lessons', [LessonController::class, 'store'])->name('lessons.store');
+    Route::get('/lessons/{id}', [LessonController::class, 'show'])->name('lessons.show');
+    Route::get('/lessons/{id}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
+    Route::put('/lessons/{id}', [LessonController::class, 'update'])->name('lessons.update');
    
-   
-    Route::middleware(['can:Admin'])->group(function () {
-        // Routes accessible only by users with the 'Admin' gate
-        
-    });
 
-    Route::middleware(['can:Tutor'])->group(function () {
-        Route::get('/tutor-profile/{id}', [TutorProfileController::class, 'show'])->name('tutorProfile.show');
-        Route::get('/tutor-profile/create', [TutorProfileController::class, 'create'])->name('tutorProfile.create');
-        Route::get('/tutor-profile/{id}/edit', [TutorProfileController::class, 'edit'])->name('tutorProfile.edit');
-        Route::post('/tutor-profile', [TutorProfileController::class, 'store'])->name('tutorProfile.store');
-        Route::put('/tutor-profile/{id}', [TutorProfileController::class, 'store'])->name('tutorProfile.update');
-    });
+    
+});
+
+Route::middleware(['auth', 'can:Tutor'])->group(function () {
+    Route::get('/tutor-profile/{id}', [TutorProfileController::class, 'show'])->name('tutorProfile.show');
+    Route::get('/tutor-profile/create', [TutorProfileController::class, 'create'])->name('tutorProfile.create');
+    Route::get('/tutor-profile/{id}/edit', [TutorProfileController::class, 'edit'])->name('tutorProfile.edit');
+    Route::post('/tutor-profile', [TutorProfileController::class, 'store'])->name('tutorProfile.store');
+    Route::put('/tutor-profile/{id}', [TutorProfileController::class, 'store'])->name('tutorProfile.update');
+});
+
+Route::middleware(['auth', 'can:admin'])->group(function () {
+    Route::get('/admin/lessons', [LessonController::class, 'allLessons'])->name('admin.lessons');
+    Route::delete('/lessons/{id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+
 });
 
 require __DIR__.'/auth.php';
