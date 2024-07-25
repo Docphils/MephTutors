@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/services', function () {
+    return view('services');
+});
+
 // Admin Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
@@ -57,9 +61,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/lessons/{id}', [LessonController::class, 'show'])->name('lessons.show');
     Route::get('/lessons/{id}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
     Route::put('/lessons/{id}', [LessonController::class, 'update'])->name('lessons.update');
+   //Bookings
+    Route::resource('bookings', BookingController::class)->except(['show', 'create', 'edit']);
+    Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
    
 
-    
+});
+
+Route::middleware(['auth', 'can:Client'])->group(function () {
+    Route::post('bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
+
 });
 
 Route::middleware(['auth', 'can:Tutor'])->group(function () {
@@ -68,11 +79,19 @@ Route::middleware(['auth', 'can:Tutor'])->group(function () {
     Route::get('/tutor-profile/{id}/edit', [TutorProfileController::class, 'edit'])->name('tutorProfile.edit');
     Route::post('/tutor-profile', [TutorProfileController::class, 'store'])->name('tutorProfile.store');
     Route::put('/tutor-profile/{id}', [TutorProfileController::class, 'store'])->name('tutorProfile.update');
+    //Bookings
+    Route::post('bookings/{booking}/tutorRemarks', [BookingController::class, 'addTutorRemarks'])->name('bookings.addTutorRemarks');
+
 });
 
-Route::middleware(['auth', 'can:admin'])->group(function () {
+Route::middleware(['auth', 'can:Admin'])->group(function () {
     Route::get('/admin/lessons', [LessonController::class, 'allLessons'])->name('admin.lessons');
     Route::delete('/lessons/{id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+    //Bookings
+    Route::get('bookings/admin/create', [BookingController::class, 'create'])->name('bookings.create');
+    Route::get('bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
+    Route::get('bookings/admin/all', [BookingController::class, 'allBookings'])->name('bookings.all');
+
 
 });
 

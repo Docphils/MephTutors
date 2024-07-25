@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('tutor_id');
+            $table->string('lesson_id');
             $table->date('start_date');
             $table->string('location');
             $table->string('days_times');
@@ -26,13 +29,15 @@ return new class extends Migration
             $table->enum('status', ['Assigned', 'Cancelled', 'Pending', 'Completed']);
             $table->string('classes');
             $table->string('tutorRemarks')->nullable(); 
-            $table->string('clientRemarks')->nullable();            
-           
+            $table->string('clientRemarks')->nullable();
             $table->timestamps();
-
-            // Foreign key constraint linking to the users table
+        
+            // Foreign key constraints linking to the users table
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('client_id')->references('id')->on('users');
+            $table->foreign('tutor_id')->references('id')->on('users');
         });
+        
     }
 
     /**

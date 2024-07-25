@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
             case 'tutor':
                 return redirect()->route('tutor.dashboard');
             default:
-                return redirect(RouteServiceProvider::HOME);
+                return redirect()->route('/');
         }
     }
 
