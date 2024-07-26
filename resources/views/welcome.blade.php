@@ -14,26 +14,18 @@
         }
     </style>
       
+      @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body class="bg-cyan-300 font-sans leading-normal tracking-normal">
     <!-- Header Section -->
-    <header class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-6 shadow-lg">
-        <div class="container mx-auto sm:flex justify-between items-center px-6">
-            <h1 class="text-4xl mr-2 font-extrabold">MephEd</h1>
-            <nav class="md:space-x-4 text-lg">
-                <a href="#" class="hover:text-gray-200 transition">Home</a>
-                <a href="{{ url('/services') }}" class="hover:text-gray-200 transition">Services</a>
-                <a href="#" class="hover:text-gray-200 transition">About</a>
-                <a href="#" class="hover:text-gray-200 transition">Contact</a>
-            </nav>
-        </div>
-    </header>
+    @include('layouts.header')
 
     <!-- Welcome Banner -->
     <section class="my-4 text-center py-36 bg-cover bg-center rounded-sm shadow-md" style="background-image: url('/images/banner2.jpg');">
-        <h2 class="text-5xl font-bold text-white">Welcome to MephEd</h2>
-            <div class="relative flex mx-auto items-baseline rounded-lg justify-center mt-5 text-2xl text-yellow-300 font-bold gap-1">Your one-stop solution for <div class="text-container flex text-3xl text-cyan-300">
+        <h2 class="text-5xl font-bold text-white">Welcome to Meph<span class="text-cyan-300">Ed</span></h2>
+            <div class="relative flex mx-auto items-baseline rounded-lg justify-center mt-5 text-2xl text-cyan-300 font-bold gap-1">Your one-stop solution for <div class="text-container flex text-2xl bg-cyan-800 rounded-lg p-1 text-cyan-200">
                     <span> Home Tutoring</span>
                     <span> Coding</span>
                     <span> Robotics</span>
@@ -130,9 +122,15 @@
                         <label for="name" class="block text-gray-700 font-semibold">Name</label>
                         <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
                     </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700 font-semibold">Email</label>
-                        <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
+                    <div class="mb-4 flex gap-4">
+                        <div class="w-full">
+                            <label for="email" class="block text-gray-700 font-semibold">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
+                        </div>
+                        <div class="w-full">
+                            <label for="phone" class="block text-gray-700 font-semibold">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label for="message" class="block text-gray-700 font-semibold">Message</label>
@@ -144,27 +142,10 @@
         </section>
 
     <!-- Footer Section -->
-    <footer class="bg-gradient-to-r from-blue-500 to-teal-500 text-white py-6">
-        <div class="container flex mx-auto  justify-between">
-            <p>&copy; 2024 MephEd. All rights reserved.</p>
-            <div class="grid">
-                <a href="#" class="hover:underline">Privacy Policy</a>
-                <a href="#" class="hover:underline">Terms of Service</a>
-            </div>
-            <div class="grid">
-                <a href="#" class="hover:underline">Facebook</a>
-                <a href="#" class="hover:underline">Twitter</a>
-                <a href="#" class="hover:underline">Instagram</a>
-            </div>
-        </div>
-    </footer>
-
-
-
+    @include('layouts.footer')
 
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
       const spans = document.querySelectorAll('.text-container span');
       let currentIndex = 0;

@@ -22,7 +22,7 @@
             <x-select-input 
                 id="role" 
                 name="role" 
-                :options="['admin' => 'Admin', 'client' => 'Client', 'tutor' => 'Tutor']"
+                :options="['client' => 'Client', 'tutor' => 'Tutor']"
                 :selected="old('role')" 
                 required 
                 autofocus

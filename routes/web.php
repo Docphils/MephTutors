@@ -28,6 +28,14 @@ Route::get('/services', function () {
     return view('services');
 });
 
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
 // Admin Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
