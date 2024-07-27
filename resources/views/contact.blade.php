@@ -18,11 +18,11 @@
 
         <!-- Contact Form Section -->
         <section class="py-20 bg-gradient-to-r from-cyan-800 to-cyan-900">
-            <div class="container mx-auto w-2/3">
+            <div class="container mx-auto w-3/4 md:w-2/3">
                 <h3 class="text-3xl font-semibold text-gray-100 text-center">Contact Us</h3>
                 <h6 class="text-xl my-4 text-gray-50 text-center">Send us a message and a member of our team will reach out to you within the shortest possible time. </h6>
-                <div class="grid mx-auto md:grid-cols-3 gap-8">
-                    <form action="#" method="POST" class="mt-12 col-span-2 w-full mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <div class="relative grid mx-auto sm:grid-cols-3 gap-8">
+                    <form action="#" method="POST" class="relative mt-12 sm:col-span-2 w-full mx-auto bg-white p-8 rounded-lg shadow-lg">
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 font-semibold">Name</label>
                             <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
@@ -44,16 +44,20 @@
                         </div>
                         <button type="submit" class="w-full bg-cyan-800 text-white px-4 py-2 rounded-lg hover:text-cyan-100 hover:bg-cyan-900 transition">Send Message</button>
                     </form>
-                    <div class="mt-12 ml-6 border-l-8 p-6 shadow-lg shadow-cyan-300 w-full rounded-lg text-cyan-300">
+                    <div class="mt-12 md:ml-6 border-l-8 p-6 shadow-lg shadow-cyan-300 w-full rounded-lg text-cyan-300">
                         <div class="mb-10">
                             <h4 class="text-white text-xl font-bold">Contact Address:</h4>
                             <p> House 101, Zone D, Apo Resettlement, Abuja, Nigeria</p>
                         </div>
-                        <div class="mb-10">
+                        <div class="relative mb-10">
                             <h4 class="text-white text-xl font-bold">Contact Info:</h4>
-                            <p class="flex justify-between text-between"><span> 07062599737 </span> <span> 08062869170 </span></p>
-                            <p>Email: info@mephconsults.com.ng</p>
-                        </div>
+                            <div class="flex flex-wrap md:flex-row sm:text-sm justify-between text-between">
+                              <p>07062599737</p>
+                              <p>08062869170</p>
+                              <p class="mt-2 sm:mt-0">Email: info@meph<wbr>consults.com.ng</p>
+                            </div>
+                          </div>
+                          
                         <div class="mb-10">
                             <h4 class="text-white text-xl font-bold">Office Hours:</h4>
                             <p> Mondays - Fridays: 8:00AM to 6:00PM (WAT)</p>

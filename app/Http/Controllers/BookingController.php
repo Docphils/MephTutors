@@ -73,7 +73,7 @@ class BookingController extends Controller
         ]);
 
         $bookingData = $request->all();
-        $bookingData['user_id'] = Auth::id();
+        $bookingData['user_id'] = Auth::user()->id;
 
         Booking::create($bookingData);
 

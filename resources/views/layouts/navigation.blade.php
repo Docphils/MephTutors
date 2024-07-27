@@ -35,6 +35,18 @@
                             {{ __('Tutor Dashboard') }}
                         </x-nav-link>
                     @endif
+                    <x-nav-link :href="url('/')" :active="request()->is('/')">
+                        {{ __('Home') }}
+                    </x-nav-link>
+                    <x-nav-link :href="url('/services')" :active="request()->is('/services')">
+                        {{ __('Services') }}
+                    </x-nav-link>
+                    <x-nav-link :href="url('/about')" :active="request()->is('/about')">
+                        {{ __('About') }}
+                    </x-nav-link>
+                    <x-nav-link :href="url('/contact')" :active="request()->is('/contact')">
+                        {{ __('Contact') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -100,6 +112,18 @@
                     {{ __('Tutor Dashboard') }}
                 </x-responsive-nav-link>
             @endif
+            <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
+                {{ __('Home') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="url('/services')" :active="request()->is('/services')">
+                {{ __('Services') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="url('/about')" :active="request()->is('/about')">
+                {{ __('About') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="url('/contact')" :active="request()->is('/contact')">
+                {{ __('Contact') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
