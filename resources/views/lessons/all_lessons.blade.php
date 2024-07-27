@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-cyan-200 dark:text-gray-200 leading-tight">
             {{ __('All Lessons') }}
         </h2>
     </x-slot>
@@ -11,8 +11,7 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
-                        <p><strong>User ID:</strong> {{ $lesson->user_id }}</p>
-                        <p><strong>Location:</strong> {{ $lesson->location }}</p>
+                        <p><strong>Boooked By:</strong> {{ $lesson->user->name }}</p>
                         <p><strong>Status:</strong> {{ $lesson->status }}</p>
                         <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
                         <p><strong>End Date:</strong> {{ $lesson->end_date }}</p>

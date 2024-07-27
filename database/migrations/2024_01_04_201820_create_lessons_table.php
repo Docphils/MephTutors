@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('learners');
             $table->string('sessions');
             $table->string('duration');
-            $table->string('tutor');
+            $table->enum('tutor_gender', ['Male', 'Female', 'Any']);
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
-            $table->enum('status', ['Active', 'Completed', 'Closed']);
+            $table->enum('status', ['Active', 'Completed', 'Closed'])->default('Active');
             $table->string('amount');
             $table->string('remarks')->nullable();
             $table->timestamps();

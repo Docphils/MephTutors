@@ -30,6 +30,7 @@ class LessonController extends Controller
 
     public function store(Request $request)
     {
+        
         $request->validate([
             'start_date' => 'required|date',
             'end_date' => 'required|date',
@@ -39,15 +40,14 @@ class LessonController extends Controller
             'learners' => 'required|string',
             'sessions' => 'required|string',
             'duration' => 'required|string',
-            'tutor' => 'required|string',
+            'tutor_gender' => 'required|in:Male,Female,Any',            
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'required|in:Active,Completed,Closed',
+            'status' => 'sometimes|in:Active,Completed,Closed',
             'amount' => 'required|string',
             'remarks' => 'nullable|string',
         ]);
-
         $lessonData = $request->all();
-        $lessonData['user_id'] = Auth::id();
+        $lessonData['user_id'] = Auth::user()->id;
 
         Lesson::create($lessonData);
 
@@ -71,7 +71,7 @@ class LessonController extends Controller
             'learners' => 'required|string',
             'sessions' => 'required|string',
             'duration' => 'required|string',
-            'tutor' => 'required|string',
+            'tutor_gender' => 'required|in:Male,Female,Any',
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
             'status' => 'required|in:Active,Completed,Closed',
             'amount' => 'required|string',
@@ -98,7 +98,7 @@ class LessonController extends Controller
 
     public function allLessons()
     {
-        Gate::authorize('admin');
+        Gate::authorize('Admin');
 
         $lessons = Lesson::with('user')->orderBy('user_id')->get();
         return view('lessons.all_lessons', compact('lessons'));

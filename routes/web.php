@@ -36,6 +36,11 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+});
+
+
 // Admin Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
@@ -56,12 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // User profile
-    Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('userProfile.show');
-    Route::get('/user-profile/create', [UserProfileController::class, 'create'])->name('userProfile.create');
-    Route::get('/user-profile/{id}/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
-    Route::post('/user-profile', [UserProfileController::class, 'store'])->name('userProfile.store');
-    Route::put('/user-profile/{id}', [UserProfileController::class, 'store'])->name('userProfile.update');
+
    //Lessons
     Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
     Route::get('/lessons/create', [LessonController::class, 'create'])->name('lessons.create');
@@ -76,8 +76,22 @@ Route::middleware('auth')->group(function () {
 
 });
 
+
+Route::middleware(['auth', 'can:AdminOrClient'])->group(function () {
+    // User profile
+    Route::get('/user-profile/create', [UserProfileController::class, 'create'])->name('userProfile.create');
+    Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('userProfile.show');
+    Route::get('/user-profile/{id}/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
+    Route::post('/user-profile', [UserProfileController::class, 'store'])->name('userProfile.store');
+    Route::put('/user-profile/{id}', [UserProfileController::class, 'store'])->name('userProfile.update');
+});
+
 Route::middleware(['auth', 'can:Client'])->group(function () {
     Route::post('bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
+    Route::get('/bookings/clientRemarks', [BookingController::class, 'clientBookings'])->name('bookings.clientBookings');
+    Route::post('/bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
+
+
 
 });
 

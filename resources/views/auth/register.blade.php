@@ -17,7 +17,7 @@
         </div>
 
         <!-- Role -->
-        <div>
+        <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <x-select-input 
                 id="role" 

@@ -56,7 +56,7 @@ class BookingController extends Controller
         Gate::authorize('Admin');
 
         $request->validate([
-            'lesson_id' => 'required|string',
+            'lesson_id' => 'required|exists:lessons,id',
             'start_date' => 'required|date',
             'location' => 'required|string',
             'days_times' => 'required|string',
@@ -86,7 +86,7 @@ class BookingController extends Controller
         $this->authorize('update', $booking);
 
         $request->validate([
-            'lesson_id' => 'sometimes|string',
+            'lesson_id' => 'sometimes|exists:lessons,id',
             'start_date' => 'sometimes|date',
             'location' => 'sometimes|string',
             'days_times' => 'sometimes|string',
@@ -135,6 +135,30 @@ class BookingController extends Controller
 
         return redirect()->route('bookings.index')->with('success', 'Remarks added successfully');
     }
+
+
+    //Client's Bookings
+    public function clientBookings(Request $request)
+        {
+            $user = Auth::user();
+            Gate::authorize('Client');
+
+            // Retrieve bookings for the authenticated user
+            $closedBookings = Booking::where('client_id', $user->id)
+                                    ->whereIn('status', ['Completed', 'Cancelled'])
+                                    ->get();
+
+            $pendingBookings = Booking::where('client_id', $user->id)
+                                    ->where('status', 'Pending')
+                                    ->get();
+
+            $activeBookings = Booking::where('client_id', $user->id)
+                                    ->where('status', 'Assigned')
+                                    ->get();
+
+            return view('client.bookings.index', compact('closedBookings', 'pendingBookings', 'activeBookings'));
+        }
+
 
     public function addClientRemarks(Request $request, $id)
     {

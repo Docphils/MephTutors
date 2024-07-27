@@ -23,13 +23,19 @@
     @include('layouts.header')
 
     <!-- Welcome Banner -->
-    <section class="my-4 text-center py-36 bg-cover bg-center rounded-sm shadow-md" style="background-image: url('/images/banner2.jpg');">
+    <section class="my-4 text-center py-36 bg-cover bg-center rounded-sm shadow-md" style="background-image: url('/images/banner.png');">
         <h2 class="text-5xl font-bold text-white">Welcome to Meph<span class="text-cyan-300">Ed</span></h2>
             <div class="relative flex mx-auto items-baseline rounded-lg justify-center mt-5 text-2xl text-cyan-300 font-bold gap-1">Your one-stop solution for <div class="text-container flex text-2xl bg-cyan-800 rounded-lg p-1 text-cyan-200">
                     <span> Home Tutoring</span>
                     <span> Coding</span>
                     <span> Robotics</span>
                 </div>
+            </div>
+            <div class="mt-5">
+                <a class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
+                    href="{{ route('lessons.create') }}">
+                    Request Tutor
+                </a>
             </div>
     </section>
 

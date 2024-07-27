@@ -14,10 +14,10 @@ class UserProfileController extends Controller
 {
     public function show($id)
     {
-        Gate::authorize('Admin', 'Client');
-
-        $userProfile = UserProfile::findOrFail($id);
+        Gate::authorize('AdminOrClient');
         $user = Auth::user();
+        $userProfile = $user->userProfile;
+        
 
         // Load role-specific dashboard views
         if ($user->role === 'admin') {
@@ -31,21 +31,21 @@ class UserProfileController extends Controller
 
     public function create()
     {
-        Gate::authorize('Admin', 'Client');
+        Gate::authorize('AdminOrClient');        
         return view('userProfile.create');
     }
 
     public function edit($id)
     {
-        Gate::authorize('Admin', 'Client');
-        $userProfile = UserProfile::findOrFail($id);
+        Gate::authorize('AdminOrClient');
+        $userProfile = Auth::user()->userProfile->findOrFail($id);
         return view('userProfile.edit', compact('userProfile'));
     }
 
     public function store(Request $request, $id = null)
     {
         $request->validate([
-            'phone' => 'required|numeric',
+            'phone' => 'required|string|max:16',
             'address' => 'required|string',
             'age' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

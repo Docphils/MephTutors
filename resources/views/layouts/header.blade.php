@@ -3,7 +3,7 @@
  <!-- Header Section -->
  <header class="bg-gradient-to-r from-cyan-500 to-cyan-900 text-white py-6 shadow-lg">
     <div class="container mx-auto sm:flex justify-between items-center px-6">
-        <h1 class="text-4xl mr-2 font-extrabold">Meph<span class="text-cyan-300">Ed</span></h1>
+        <img src="/images/MephEd.png" alt="Logo Image" class="object-cover h-8 w-32  ">
         <nav class="md:space-x-4 text-lg">
             <a href="{{ url('/')}}" class="hover:text-gray-200 transition {{ request()->is('/') ? 'active' : '' }}">Home</a>
             <a href="{{ url('/services')}}" class="hover:text-gray-200 transition {{ request()->is('services') ? 'active' : '' }}">Services</a>
