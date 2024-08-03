@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TutorProfileController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\BookingController;
-
-
+use App\Http\Controllers\ClientDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,22 +40,6 @@ Route::get('/privacy-policy', function () {
 });
 
 
-// Admin Dashboard
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('admin.dashboard');
-
-// Client Dashboard
-Route::get('/client/dashboard', function () {
-    return view('client.dashboard');
-})->middleware(['auth', 'verified'])->name('client.dashboard');
-
-// Tutor Dashboard
-Route::get('/tutor/dashboard', function () {
-    return view('tutor.dashboard');
-})->middleware(['auth', 'verified'])->name('tutor.dashboard');
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -87,6 +70,8 @@ Route::middleware(['auth', 'can:AdminOrClient'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:Client'])->group(function () {
+    // Client Dashboard
+    Route::get('/client/dashboard', [ClientDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('client.dashboard');
     Route::post('bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
     Route::get('/bookings/clientRemarks', [BookingController::class, 'clientBookings'])->name('bookings.clientBookings');
     Route::post('/bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
@@ -96,6 +81,8 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:Tutor'])->group(function () {
+    // Tutor Dashboard
+    Route::get('/tutor/dashboard', function () {return view('tutor.dashboard');})->middleware(['auth', 'verified'])->name('tutor.dashboard');
     Route::get('/tutor-profile/{id}', [TutorProfileController::class, 'show'])->name('tutorProfile.show');
     Route::get('/tutor-profile/create', [TutorProfileController::class, 'create'])->name('tutorProfile.create');
     Route::get('/tutor-profile/{id}/edit', [TutorProfileController::class, 'edit'])->name('tutorProfile.edit');
@@ -107,6 +94,9 @@ Route::middleware(['auth', 'can:Tutor'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:Admin'])->group(function () {
+    // Admin Dashboard
+    Route::get('/admin/dashboard', function () {return view('admin.dashboard');})->middleware(['auth', 'verified'])->name('admin.dashboard');
+
     Route::get('/admin/lessons', [LessonController::class, 'allLessons'])->name('admin.lessons');
     Route::delete('/lessons/{id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
     //Bookings

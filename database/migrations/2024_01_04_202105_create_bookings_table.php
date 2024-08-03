@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('tutor_id');
-            $table->string('lesson_id');
+            $table->unsignedBigInteger('lesson_id');
             $table->date('start_date');
             $table->string('location');
             $table->string('days_times');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('duration');
             $table->enum('tutorGender', ['Male', 'Female', 'Any']);
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
-            $table->enum('status', ['Assigned', 'Cancelled', 'Pending', 'Completed']);
+            $table->enum('status', ['Active', 'Completed', 'Closed']);
             $table->string('classes');
             $table->string('tutorRemarks')->nullable(); 
             $table->string('clientRemarks')->nullable();
@@ -36,6 +36,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('tutor_id')->references('id')->on('users');
+            $table->foreign('lesson_id')->references('id')->on('lessons');
+
         });
         
     }

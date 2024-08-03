@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('duration');
             $table->enum('tutor_gender', ['Male', 'Female', 'Any']);
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
-            $table->enum('status', ['Active', 'Completed', 'Closed'])->default('Active');
+            $table->enum('status', ['Pending', 'Assigned', 'Completed', 'Closed'])->default('Pending');
             $table->string('amount');
             $table->string('remarks')->nullable();
             $table->timestamps();

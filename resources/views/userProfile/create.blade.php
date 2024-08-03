@@ -5,13 +5,13 @@
         </h2>
     </x-slot>        
 
-    <div class="container w-1/2 text-gray-800 mx-auto p-4">
+    <div class="container w-1/2 text-gray-800 mx-auto p-8 shadow-lg shadow-cyan-300 my-6">
         <form action="{{ route('userProfile.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Phone Field -->
             <div class="mb-4">
-                <label for="phone" class="block text-sm font-medium text-gray-100">Phone</label>
+                <label for="phone" class="block text-md font-medium text-gray-100">Phone</label>
                 <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
                 @error('phone')
                     <p class="text-red-600 text-sm">{{ $message }}</p>
@@ -20,7 +20,7 @@
 
             <!-- Address Field -->
             <div class="mb-4">
-                <label for="address" class="block text-sm font-medium text-gray-100">Address</label>
+                <label for="address" class="block text-md font-medium text-gray-100">Address</label>
                 <input type="text" id="address" name="address" value="{{ old('address') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
                 @error('address')
                     <p class="text-red-600 text-sm">{{ $message }}</p>
@@ -29,7 +29,7 @@
 
             <!-- Age Field -->
             <div class="mb-4">
-                <label for="age" class="block text-sm font-medium text-gray-100">Age</label>
+                <label for="age" class="block text-md font-medium text-gray-100">Age</label>
                 <input type="number" id="age" name="age" value="{{ old('age') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
                 @error('age')
                     <p class="text-red-600 text-sm">{{ $message }}</p>
@@ -38,7 +38,7 @@
 
             <!-- Image Field -->
             <div class="mb-4">
-                <label for="image" class="block text-sm font-medium text-gray-100">Profile Image</label>
+                <label for="image" class="block text-md font-medium text-gray-100">Profile Image</label>
                 <input type="file" id="image" name="image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 @error('image')
                     <p class="text-red-600 text-sm">{{ $message }}</p>
@@ -47,7 +47,7 @@
 
             <!-- Gender Field -->
             <div class="mb-4">
-                <label for="gender" class="block text-sm font-medium text-gray-100">Gender</label>
+                <label for="gender" class="block text-md font-medium text-gray-100">Gender</label>
                 <select id="gender" name="gender" class="mt-1 block w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
                     <option value="Male" {{ old('gender') === 'Male' ? 'selected' : '' }}>Male</option>
                     <option value="Female" {{ old('gender') === 'Female' ? 'selected' : '' }}>Female</option>
@@ -59,10 +59,11 @@
 
             <!-- Submit Button -->
             <div class="flex items-center justify-end">
-                <button type="submit" class="inline-flex items-center px-4 py-2 bg-pink-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-pink-800 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:shadow-outline-blue disabled:opacity-25 transition ease-in-out duration-150">
+                <button type="submit" class="inline-flex items-center px-4 py-2 bg-pink-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-pink-800 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:shadow-outline-blue disabled:opacity-25 transition ease-in-out duration-150">
                     Save
                 </button>
             </div>
         </form>
     </div>
+    @include('layouts.footer')
 </x-app-layout>

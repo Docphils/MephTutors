@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('My Bookings') }}
+        <h2 class="font-semibold text-xl text-cyan-100 dark:text-gray-200 leading-tight">
+            {{ __('All Lessons') }}
         </h2>
     </x-slot>
 

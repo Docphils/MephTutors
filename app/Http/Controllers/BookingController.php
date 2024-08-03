@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\Lesson;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
@@ -15,9 +16,11 @@ class BookingController extends Controller
     {
         $user = Auth::user();
 
-        if (Gate::allows('admin')) {
+        if(Gate::allows('Admin'))
+        {
             $bookings = Booking::all();
-        } else {
+        }else
+        {
             $bookings = Booking::where('user_id', $user->id)->get();
         }
 
@@ -37,7 +40,8 @@ class BookingController extends Controller
         Gate::authorize('Admin');
         $clients = User::where('role', 'client')->get();
         $tutors = User::where('role', 'tutor')->get();
-        return view('bookings.create', compact('clients', 'tutors'));
+        $lessons = Lesson::where('status', 'Pending')->get();
+        return view('bookings.create', compact('clients', 'tutors', 'lessons'));
     }
 
     public function edit($id)
@@ -45,10 +49,11 @@ class BookingController extends Controller
         Gate::authorize('Admin');
         $clients = User::where('role', 'client')->get();
         $tutors = User::where('role', 'tutor')->get();
+        $lessons = Lesson::where('status', 'Pending')->get();
         $booking = Booking::findOrFail($id);
         $this->authorize('update', $booking);
 
-        return view('bookings.edit', compact('booking', 'clients', 'tutors'));
+        return view('bookings.edit', compact('booking', 'clients', 'tutors', 'lessons'));
     }
 
     public function store(Request $request)
@@ -66,12 +71,12 @@ class BookingController extends Controller
             'duration' => 'required|string',
             'tutorGender' => 'required|in:Male,Female,Any',
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'required|in:Assigned,Cancelled,Pending,Completed',
+            'status' => 'required|in:Active,Completed,Closed',
             'classes' => 'required|string',
             'client_id' => 'required|exists:users,id',
             'tutor_id' => 'required|exists:users,id',
         ]);
-
+        dd($request);
         $bookingData = $request->all();
         $bookingData['user_id'] = Auth::user()->id;
 

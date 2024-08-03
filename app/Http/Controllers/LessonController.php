@@ -13,8 +13,17 @@ class LessonController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $lessons = Lesson::where('user_id', $userId)->get();
-        return view('lessons.index', compact('lessons'));
+        $pendingLessons = Lesson::where('user_id', $userId)
+                            ->where('status', 'Pending')
+                            ->get();
+        $activeLessons = Lesson::where('user_id', $userId)
+                            ->where('status', 'Assigned')
+                            ->get();
+        $closedLessons = Lesson::where('user_id', $userId)
+                            ->whereIn('status', ['Completed', 'Closed'])
+                            ->paginate(6);
+        
+        return view('lessons.index', compact('pendingLessons','activeLessons', 'closedLessons'));
     }
 
     public function show($id)
@@ -32,8 +41,8 @@ class LessonController extends Controller
     {
         
         $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after:start_date',
             'location' => 'required|string',
             'days_times' => 'required|string',
             'subjects' => 'required|string',
@@ -42,7 +51,7 @@ class LessonController extends Controller
             'duration' => 'required|string',
             'tutor_gender' => 'required|in:Male,Female,Any',            
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'sometimes|in:Active,Completed,Closed',
+            'status' => 'sometimes|in:Pending,Assigned,Completed,Closed',
             'amount' => 'required|string',
             'remarks' => 'nullable|string',
         ]);
@@ -73,7 +82,7 @@ class LessonController extends Controller
             'duration' => 'required|string',
             'tutor_gender' => 'required|in:Male,Female,Any',
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'required|in:Active,Completed,Closed',
+            'status' => 'required|in:Assigned,Pending,Completed,Closed',
             'amount' => 'required|string',
             'remarks' => 'nullable|string',
         ]);

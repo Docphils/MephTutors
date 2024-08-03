@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Booking') }}
+        <h2 class="font-semibold text-xl text-cyan-200 dark:text-gray-200 leading-tight">
+            {{ __('Assign Lesson') }}
         </h2>
     </x-slot>
 
@@ -12,8 +12,12 @@
                     <form method="POST" action="{{ route('bookings.store') }}">
                         @csrf
                         <div class="mb-4">
-                            <label for="lesson_id" class="block font-medium text-sm text-gray-700">Lesson ID</label>
-                            <input type="text" name="lesson_id" id="lesson_id" class="form-input rounded-md shadow-sm mt-1 block w-full" required>
+                            <label for="client_id" class="block font-medium text-sm text-gray-700">Client</label>
+                            <select name="client_id" id="client_id" class="form-select rounded-md shadow-sm mt-1 block w-full" required>
+                                @foreach($lessons as $lesson)
+                                    <option value="{{ $lesson->id }}">{{ $lesson->subjects }}, {{ $lesson->id}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-4">
                             <label for="start_date" class="block font-medium text-sm text-gray-700">Start Date</label>
@@ -63,10 +67,9 @@
                         <div class="mb-4">
                             <label for="status" class="block font-medium text-sm text-gray-700">Status</label>
                             <select name="status" id="status" class="form-select rounded-md shadow-sm mt-1 block w-full" required>
-                                <option value="Assigned">Assigned</option>
-                                <option value="Cancelled">Cancelled</option>
-                                <option value="Pending">Pending</option>
+                                <option value="Active">Active</option>
                                 <option value="Completed">Completed</option>
+                                <option value="Closed">Closed</option>
                             </select>
                         </div>
                         <div class="mb-4">

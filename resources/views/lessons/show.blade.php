@@ -6,6 +6,9 @@
     </x-slot>
 
     <div class="py-12">
+        <div class="mx-auto mb-4  mx-8">
+            <a href="{{ route('lessons.index') }}" class="mx-8 text-cyan-900 bg-cyan-300 p-1 rounded-lg font-semibold shadow-lg shadow-cyan-600">Back to all requests</a>
+        </div>
         <div class="w-2/3 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
