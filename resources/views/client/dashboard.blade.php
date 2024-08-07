@@ -101,7 +101,7 @@
                                             <path d="M4 3a1 1 0 00-1 1v12a1 1 0 002 0V4a1 1 0 00-1-1zM8 4a1 1 0 00-1 1v10a1 1 0 002 0V5a1 1 0 00-1-1zm6 2a1 1 0 00-1 1v8a1 1 0 002 0V7a1 1 0 00-1-1zm4 3a1 1 0 00-1 1v4a1 1 0 002 0v-4a1 1 0 00-1-1z"/>
                                         </svg>
                                         <div class="ml-4">
-                                            <h4 class="text-lg font-semibold"><a href="{{ route('bookings.index') }}" class="text-blue-500 hover:underline">All Booked Lessons</a></h4>
+                                            <h4 class="text-lg font-semibold"><a href="{{ route('client.lessons') }}" class="text-blue-500 hover:underline">All Booked Lessons</a></h4>
                                             <p>View all your booked lessons.</p>
                                         </div>
                                     </div>
@@ -172,29 +172,31 @@
     
     <!--Modals-->
     <!-- Ongoing Lessons Modal -->
-    <dialog id="ongoingLessons" class="modal modal-bottom sm:modal-middle p-6 overflow-y-visible w-1/2">
+    <dialog id="ongoingLessons" class="modal modal-bottom sm:modal-middle p-6 w-1/2">
     <div class="modal-box">
         <div class="text-cyan-800 text-xl mb-4">Active/Assigned Lessons</div>
-            <div class="max-w-7xl grid sm:grid-cols-2 gap-8 mx-auto sm:px-6 lg:px-8 ">
-                @foreach($ongoingBookings as $lesson)
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
-                            <div class="flex justify-between">
-                                <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
-                                <p><strong>End Date:</strong> {{ $lesson->location }}</p>
-                            </div>
-                            <a href="{{ route('bookings.show', $lesson->id) }}" class="text-blue-500">View Details</a>
-                            <a href="{{ route('bookings.edit', $lesson->id) }}" class="text-blue-500 ml-4">Edit</a>
-                            <form action="{{ route('bookings.destroy', $lesson->id) }}" method="POST" class="inline-block ml-4">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500">Delete</button>
-                            </form>
+
+        <div class="grid sm:grid-cols-2 gap-8 mx-auto sm:px-6 lg:px-8 ">
+            @foreach($ongoingBookings as $lesson)
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
+                        <div class="flex justify-between">
+                            <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
+                            <p><strong>End Date:</strong> {{ $lesson->end_date }}</p>
                         </div>
+                        <a href="{{ route('bookings.show', $lesson->id) }}" class="text-blue-500">View Details</a>
+                        <a href="{{ route('bookings.edit', $lesson->id) }}" class="text-blue-500 ml-4">Edit</a>
+                        <form action="{{ route('bookings.destroy', $lesson->id) }}" method="POST" class="inline-block ml-4">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500">Delete</button>
+                        </form>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+        </div>
+
         <div class="modal-action">
         <form method="dialog">
             <!-- if there is a button in form, it will close the modal -->

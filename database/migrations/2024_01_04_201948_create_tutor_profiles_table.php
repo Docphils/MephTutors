@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tutor_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->string('fullName');
             $table->bigInteger('phone');
             $table->string('address');
             $table->date('DOB');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('discipline');
             $table->enum('experience', ['0-1 year', '2-5 years', '6-10 years', 'Above 10 years ']);
             $table->string('CV');
+            $table->text('careerProfile');
             $table->timestamps();
 
             // Foreign key constraint linking to the users table

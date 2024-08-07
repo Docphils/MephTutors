@@ -64,9 +64,8 @@
                         <div class="mb-4">
                             <label for="status" class="block font-medium text-sm text-gray-700">Status</label>
                             <select name="status" id="status" class="form-select rounded-md shadow-sm mt-1 block w-full" required>
-                                <option value="Assigned" {{ $booking->status == 'Assigned' ? 'selected' : '' }}>Assigned</option>
-                                <option value="Cancelled" {{ $booking->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
-                                <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="Active" {{ $booking->status == 'Assigned' ? 'selected' : '' }}>Active</option>
+                                <option value="Closed" {{ $booking->status == 'Cancelled' ? 'selected' : '' }}>Closed</option>
                                 <option value="Completed" {{ $booking->status == 'Completed' ? 'selected' : '' }}>Completed</option>
                             </select>
                         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Lesson;
+use App\Models\TutorProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
@@ -16,13 +17,8 @@ class BookingController extends Controller
     {
         $user = Auth::user();
 
-        if(Gate::allows('Admin'))
-        {
+        Gate::allows('Admin');
             $bookings = Booking::all();
-        }else
-        {
-            $bookings = Booking::where('user_id', $user->id)->get();
-        }
 
         return view('bookings.index', compact('bookings'));
     }
@@ -30,7 +26,6 @@ class BookingController extends Controller
     public function show($id)
     {
         $booking = Booking::findOrFail($id);
-        $this->authorize('view', $booking);
 
         return view('bookings.show', compact('booking'));
     }
@@ -56,13 +51,15 @@ class BookingController extends Controller
         return view('bookings.edit', compact('booking', 'clients', 'tutors', 'lessons'));
     }
 
+    //Store  Method
     public function store(Request $request)
     {
         Gate::authorize('Admin');
 
         $request->validate([
             'lesson_id' => 'required|exists:lessons,id',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after:start_date',
             'location' => 'required|string',
             'days_times' => 'required|string',
             'subjects' => 'required|string',
@@ -71,20 +68,30 @@ class BookingController extends Controller
             'duration' => 'required|string',
             'tutorGender' => 'required|in:Male,Female,Any',
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'required|in:Active,Completed,Closed',
+            'status' => 'required|in:Pending,Active,Completed,Closed',
+            'paymentStatus' => 'required|in:Pending,Paid',
+            'paymentEvidence' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'amount' => 'required|string',
             'classes' => 'required|string',
             'client_id' => 'required|exists:users,id',
             'tutor_id' => 'required|exists:users,id',
         ]);
-        dd($request);
+
         $bookingData = $request->all();
         $bookingData['user_id'] = Auth::user()->id;
+
+        if ($request->hasFile('paymentEvidence')) {
+            $file = $request->file('paymentEvidence');
+            $filePath = $file->store('payment_evidences', 'public'); // Store the file in the 'public/payment_evidences' directory
+            $bookingData['paymentEvidence'] = $filePath; // Save the file path to the database
+        }
 
         Booking::create($bookingData);
 
         return redirect()->route('bookings.index')->with('success', 'Booking created successfully');
     }
 
+    //Update Method
     public function update(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
@@ -92,7 +99,8 @@ class BookingController extends Controller
 
         $request->validate([
             'lesson_id' => 'sometimes|exists:lessons,id',
-            'start_date' => 'sometimes|date',
+            'start_date' => 'sometimes|date|after_or_equal:today',
+            'end_date' => 'sometimes|date|after:start_date',
             'location' => 'sometimes|string',
             'days_times' => 'sometimes|string',
             'subjects' => 'sometimes|string',
@@ -101,15 +109,26 @@ class BookingController extends Controller
             'duration' => 'sometimes|string',
             'tutorGender' => 'sometimes|in:Male,Female,Any',
             'curriculum' => 'sometimes|in:British,French,Nigerian,Blended',
-            'status' => 'sometimes|in:Assigned,Cancelled,Pending,Completed',
+            'status' => 'sometimes|in:Pending,Active,Completed,Closed',
             'classes' => 'sometimes|string',
+            'amount' => 'sometimes|string',
+            'paymentStatus' => 'sometimes|in:Pending,Paid',
+            'paymentEvidence' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
             'client_id' => 'sometimes|exists:users,id',
             'tutor_id' => 'sometimes|exists:users,id',
             'tutorRemarks' => 'nullable|string',
             'clientRemarks' => 'nullable|string',
         ]);
 
-        $booking->update($request->all());
+        $bookingData = $request->except('paymentEvidence');
+
+        if ($request->hasFile('paymentEvidence')) {
+            $file = $request->file('paymentEvidence');
+            $filePath = $file->store('payment_evidences', 'public'); // Store the file in the 'public/payment_evidences' directory
+            $bookingData['paymentEvidence'] = $filePath; // Save the file path to the database
+        }
+
+        $booking->update($bookingData);
 
         return redirect()->route('bookings.index')->with('success', 'Booking updated successfully');
     }
@@ -150,18 +169,21 @@ class BookingController extends Controller
 
             // Retrieve bookings for the authenticated user
             $closedBookings = Booking::where('client_id', $user->id)
-                                    ->whereIn('status', ['Completed', 'Cancelled'])
+                                    ->where('status', 'Closed')
+                                    ->with('tutor')
                                     ->get();
 
-            $pendingBookings = Booking::where('client_id', $user->id)
-                                    ->where('status', 'Pending')
+            $completedBookings = Booking::where('client_id', $user->id)
+                                    ->where('status', 'Completed')
+                                    ->with('tutor')
                                     ->get();
 
             $activeBookings = Booking::where('client_id', $user->id)
-                                    ->where('status', 'Assigned')
+                                    ->where('status', 'Active')
+                                    ->with('tutor')
                                     ->get();
 
-            return view('client.bookings.index', compact('closedBookings', 'pendingBookings', 'activeBookings'));
+            return view('client.lessons', compact('closedBookings', 'completedBookings', 'activeBookings'));
         }
 
 
@@ -178,7 +200,7 @@ class BookingController extends Controller
             'clientRemarks' => $request->clientRemarks
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Remarks added successfully');
+        return redirect()->route('client.lessons')->with('success', 'Remarks added successfully');
     }
 
     public function allBookings()

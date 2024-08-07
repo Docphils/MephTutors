@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tutor_id');
             $table->unsignedBigInteger('lesson_id');
             $table->date('start_date');
+            $table->date('end_date');
             $table->string('location');
             $table->string('days_times');
             $table->string('subjects');
@@ -26,8 +27,11 @@ return new class extends Migration
             $table->string('duration');
             $table->enum('tutorGender', ['Male', 'Female', 'Any']);
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
-            $table->enum('status', ['Active', 'Completed', 'Closed']);
+            $table->enum('status', ['Pending', 'Active', 'Completed', 'Closed']);
             $table->string('classes');
+            $table->string('amount');
+            $table->enum('paymentStatus', ['Pending', 'Paid'])->default('Pending');
+            $table->string('paymentEvidence')->nullable();
             $table->string('tutorRemarks')->nullable(); 
             $table->string('clientRemarks')->nullable();
             $table->timestamps();

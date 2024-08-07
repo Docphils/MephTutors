@@ -30,4 +30,9 @@ class Lesson extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'lesson_id');
+    }
 }

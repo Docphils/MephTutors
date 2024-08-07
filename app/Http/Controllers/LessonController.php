@@ -19,11 +19,8 @@ class LessonController extends Controller
         $activeLessons = Lesson::where('user_id', $userId)
                             ->where('status', 'Assigned')
                             ->get();
-        $closedLessons = Lesson::where('user_id', $userId)
-                            ->whereIn('status', ['Completed', 'Closed'])
-                            ->paginate(6);
         
-        return view('lessons.index', compact('pendingLessons','activeLessons', 'closedLessons'));
+        return view('lessons.index', compact('pendingLessons','activeLessons'));
     }
 
     public function show($id)
@@ -51,7 +48,7 @@ class LessonController extends Controller
             'duration' => 'required|string',
             'tutor_gender' => 'required|in:Male,Female,Any',            
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'sometimes|in:Pending,Assigned,Completed,Closed',
+            'status' => 'sometimes|in:Pending,Assigned',
             'amount' => 'required|string',
             'remarks' => 'nullable|string',
         ]);
@@ -82,7 +79,7 @@ class LessonController extends Controller
             'duration' => 'required|string',
             'tutor_gender' => 'required|in:Male,Female,Any',
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'required|in:Assigned,Pending,Completed,Closed',
+            'status' => 'required|in:Assigned,Pending',
             'amount' => 'required|string',
             'remarks' => 'nullable|string',
         ]);

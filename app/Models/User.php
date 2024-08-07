@@ -11,7 +11,8 @@ use App\Models\UserProfile;
 use App\Models\TutorProfile;
 use App\Models\Booking;
 use App\Models\Lesson;
-use App\Models\LessonUser;
+use App\Models\Crm;
+use App\Models\Payment;
 
 
 
@@ -67,5 +68,13 @@ class User extends Authenticatable
 
     public function bookings(){
         return $this->hasMany(Booking::class);
+    }
+
+    public function crm(){
+        return $this->hasMany(Crm::class);
+    }
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
     }
 }

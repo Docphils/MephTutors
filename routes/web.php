@@ -73,9 +73,7 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
     // Client Dashboard
     Route::get('/client/dashboard', [ClientDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('client.dashboard');
     Route::post('bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
-    Route::get('/bookings/clientRemarks', [BookingController::class, 'clientBookings'])->name('bookings.clientBookings');
-    Route::post('/bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
-
+    Route::get('/client/lessons', [BookingController::class, 'clientBookings'])->name('client.lessons');
 
 
 });

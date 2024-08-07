@@ -8,14 +8,23 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form method="POST" action="{{ route('bookings.store') }}">
                         @csrf
                         <div class="mb-4">
-                            <label for="client_id" class="block font-medium text-sm text-gray-700">Client</label>
-                            <select name="client_id" id="client_id" class="form-select rounded-md shadow-sm mt-1 block w-full" required>
+                            <label for="lesson_id" class="block font-medium text-sm text-gray-700">Lesson</label>
+                            <select name="lesson_id" id="lesson_id" class="form-select rounded-md shadow-sm mt-1 block w-full" required>
                                 @foreach($lessons as $lesson)
-                                    <option value="{{ $lesson->id }}">{{ $lesson->subjects }}, {{ $lesson->id}}</option>
+                                    <option value="{{ $lesson->id }}">{{ $lesson->subjects }}</option>
                                 @endforeach
                             </select>
                         </div>
