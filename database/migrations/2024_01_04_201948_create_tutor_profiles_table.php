@@ -25,6 +25,9 @@ return new class extends Migration
             $table->enum('experience', ['0-1 year', '2-5 years', '6-10 years', 'Above 10 years ']);
             $table->string('CV');
             $table->text('careerProfile');
+            $table->string('bankName');
+            $table->string('accountName');
+            $table->integer('accountNumber');
             $table->timestamps();
 
             // Foreign key constraint linking to the users table

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('tutor_id');
-            $table->unsignedBigInteger('lesson_id');
+            $table->unsignedBigInteger('tutorRequest_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('location');
@@ -27,20 +27,21 @@ return new class extends Migration
             $table->string('duration');
             $table->enum('tutorGender', ['Male', 'Female', 'Any']);
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
-            $table->enum('status', ['Pending', 'Active', 'Completed', 'Closed']);
+            $table->enum('status', ['Pending', 'Adjust', 'Accepted', 'Active', 'Completed', 'Declined','Closed']);
             $table->string('classes');
             $table->string('amount');
-            $table->enum('paymentStatus', ['Pending', 'Paid'])->default('Pending');
+            $table->enum('paymentStatus', ['Pending', 'Comfirmed', 'Paid'])->default('Pending');
             $table->string('paymentEvidence')->nullable();
             $table->string('tutorRemarks')->nullable(); 
-            $table->string('clientRemarks')->nullable();
+            $table->string('clientAcceptanceRemarks')->nullable();
+            $table->string('clientApprovalRemarks')->nullable();
             $table->timestamps();
         
             // Foreign key constraints linking to the users table
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('tutor_id')->references('id')->on('users');
-            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('tutorRequest_id')->references('id')->on('tutorRequest');
 
         });
         

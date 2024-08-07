@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Lesson extends Model
+class TutorRequest extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -33,6 +33,6 @@ class Lesson extends Model
 
     public function bookings()
     {
-        return $this->hasMany(Booking::class, 'lesson_id');
+        return $this->hasMany(Booking::class, 'tutorRequest_id');
     }
 }

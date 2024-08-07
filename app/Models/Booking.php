@@ -24,7 +24,9 @@ class Booking extends Model
         'amount',
         'curriculum',
         'subjects',
-        'remarks',
+        'tutorRemarks',
+        'clientAcceptanceRemarks',
+        'clientApprovalRemarks',
         'status',
         'paymentStatus',
         'paymentEvidence',
@@ -39,9 +41,15 @@ class Booking extends Model
         return $this->belongsTo(User::class, 'tutor_id');
     }
 
-    public function lesson()
+    public function client()
     {
-        return $this->belongsTo(Lesson::class, 'lesson_id');
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+
+    public function tutorRequest()
+    {
+        return $this->belongsTo(TutorRequest::class, 'tutorRequest_id');
     }
 
     protected static function boot()
@@ -49,10 +57,10 @@ class Booking extends Model
         parent::boot();
 
         static::created(function ($booking) {
-            $lesson = $booking->lesson;
-            if ($lesson && $lesson->status == 'Pending') {
-                $lesson->status = 'Assigned';
-                $lesson->save();
+            $tutorRequest = $booking->tutorRequest;
+            if ($tutorRequest && $tutorRequest->status == 'Pending') {
+                $tutorRequest->status = 'Assigned';
+                $tutorRequest->save();
             }
         });
     }

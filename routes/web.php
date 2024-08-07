@@ -4,7 +4,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TutorProfileController;
-use App\Http\Controllers\LessonController;
+use App\Http\Controllers\TutorRequestController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientDashboardController;
 
@@ -46,12 +46,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
    //Lessons
-    Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
-    Route::get('/lessons/create', [LessonController::class, 'create'])->name('lessons.create');
-    Route::post('/lessons', [LessonController::class, 'store'])->name('lessons.store');
-    Route::get('/lessons/{id}', [LessonController::class, 'show'])->name('lessons.show');
-    Route::get('/lessons/{id}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
-    Route::put('/lessons/{id}', [LessonController::class, 'update'])->name('lessons.update');
+    Route::get('/tutor_request', [TutorRequestController::class, 'index'])->name('lessons.index');
+    Route::get('/tutor_request/create', [TutorRequestController::class, 'create'])->name('lessons.create');
+    Route::post('/tutor_request', [TutorRequestController::class, 'store'])->name('lessons.store');
+    Route::get('/tutor_request/{id}', [TutorRequestController::class, 'show'])->name('lessons.show');
+    Route::get('/tutor_request/{id}/edit', [TutorRequestController::class, 'edit'])->name('lessons.edit');
+    Route::put('/tutor_request/{id}', [TutorRequestController::class, 'update'])->name('lessons.update');
    //Bookings
     Route::resource('bookings', BookingController::class)->except(['show', 'create', 'edit']);
     Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
@@ -72,7 +72,8 @@ Route::middleware(['auth', 'can:AdminOrClient'])->group(function () {
 Route::middleware(['auth', 'can:Client'])->group(function () {
     // Client Dashboard
     Route::get('/client/dashboard', [ClientDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('client.dashboard');
-    Route::post('bookings/{booking}/clientRemarks', [BookingController::class, 'addClientRemarks'])->name('bookings.addClientRemarks');
+    Route::post('bookings/{booking}/client_approval', [BookingController::class, 'clientApprovalRemarks'])->name('bookings.clientApproval');
+    Route::post('bookings/{booking}/client_acceptance', [BookingController::class, 'clientAcceptanceRemarks'])->name('bookings.clientAcceptance');
     Route::get('/client/lessons', [BookingController::class, 'clientBookings'])->name('client.lessons');
 
 
@@ -95,8 +96,8 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     // Admin Dashboard
     Route::get('/admin/dashboard', function () {return view('admin.dashboard');})->middleware(['auth', 'verified'])->name('admin.dashboard');
 
-    Route::get('/admin/lessons', [LessonController::class, 'allLessons'])->name('admin.lessons');
-    Route::delete('/lessons/{id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+    Route::get('/admin/tutor_request', [TutorRequestController::class, 'allLessons'])->name('admin.lessons');
+    Route::delete('/tutor_request/{id}', [TutorRequestController::class, 'destroy'])->name('lessons.destroy');
     //Bookings
     Route::get('bookings/admin/create', [BookingController::class, 'create'])->name('bookings.create');
     Route::get('bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');

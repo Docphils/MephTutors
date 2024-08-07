@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
-use App\Models\Lesson;
+use App\Models\Payment;
+use App\Models\TutorRequest;
 use App\Models\TutorProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -35,8 +36,8 @@ class BookingController extends Controller
         Gate::authorize('Admin');
         $clients = User::where('role', 'client')->get();
         $tutors = User::where('role', 'tutor')->get();
-        $lessons = Lesson::where('status', 'Pending')->get();
-        return view('bookings.create', compact('clients', 'tutors', 'lessons'));
+        $tutorRequests = TutorRequest::where('status', 'Pending')->get();
+        return view('bookings.create', compact('clients', 'tutors', 'tutorRequests'));
     }
 
     public function edit($id)
@@ -44,11 +45,11 @@ class BookingController extends Controller
         Gate::authorize('Admin');
         $clients = User::where('role', 'client')->get();
         $tutors = User::where('role', 'tutor')->get();
-        $lessons = Lesson::where('status', 'Pending')->get();
+        $tutorRequests = TutorRequest::whereIn('status', ['Pending', 'Accepted'])->get();
         $booking = Booking::findOrFail($id);
         $this->authorize('update', $booking);
 
-        return view('bookings.edit', compact('booking', 'clients', 'tutors', 'lessons'));
+        return view('bookings.edit', compact('booking', 'clients', 'tutors', 'tutorRequests'));
     }
 
     //Store  Method
@@ -57,7 +58,7 @@ class BookingController extends Controller
         Gate::authorize('Admin');
 
         $request->validate([
-            'lesson_id' => 'required|exists:lessons,id',
+            'tutorRequest_id' => 'required|exists:tutorRequest,id',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
             'location' => 'required|string',
@@ -68,10 +69,10 @@ class BookingController extends Controller
             'duration' => 'required|string',
             'tutorGender' => 'required|in:Male,Female,Any',
             'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'required|in:Pending,Active,Completed,Closed',
-            'paymentStatus' => 'required|in:Pending,Paid',
+            'status' => 'required|in:Pending,Accepted,Active,Completed,Closed',
+            'paymentStatus' => 'required|in:Pending,Paid,Confirmed',
             'paymentEvidence' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
-            'amount' => 'required|string',
+            'amount' => 'required|numeric',
             'classes' => 'required|string',
             'client_id' => 'required|exists:users,id',
             'tutor_id' => 'required|exists:users,id',
@@ -86,10 +87,18 @@ class BookingController extends Controller
             $bookingData['paymentEvidence'] = $filePath; // Save the file path to the database
         }
 
-        Booking::create($bookingData);
+        $newBooking = Booking::create($bookingData);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking created successfully');
-    }
+        // Create payment with 70% of the booking amount
+        Payment::create([
+            'tutor_id' => $newBooking->tutor_id,
+            'booking_id' => $newBooking->id,
+            'amount' => $newBooking->amount * 0.7,
+            'status' => 'Pending', // Default status
+        ]);
+
+            return redirect()->route('bookings.index')->with('success', 'Booking created successfully');
+        }
 
     //Update Method
     public function update(Request $request, $id)
@@ -98,7 +107,7 @@ class BookingController extends Controller
         $this->authorize('update', $booking);
 
         $request->validate([
-            'lesson_id' => 'sometimes|exists:lessons,id',
+            'tutorRequest_id' => 'sometimes|exists:tutorRequest,id',
             'start_date' => 'sometimes|date|after_or_equal:today',
             'end_date' => 'sometimes|date|after:start_date',
             'location' => 'sometimes|string',
@@ -109,15 +118,16 @@ class BookingController extends Controller
             'duration' => 'sometimes|string',
             'tutorGender' => 'sometimes|in:Male,Female,Any',
             'curriculum' => 'sometimes|in:British,French,Nigerian,Blended',
-            'status' => 'sometimes|in:Pending,Active,Completed,Closed',
+            'status' => 'sometimes|in:Pending,Accepted,Active,Completed,Closed',
             'classes' => 'sometimes|string',
             'amount' => 'sometimes|string',
-            'paymentStatus' => 'sometimes|in:Pending,Paid',
+            'paymentStatus' => 'sometimes|in:Pending,Paid,Confirmed',
             'paymentEvidence' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
             'client_id' => 'sometimes|exists:users,id',
             'tutor_id' => 'sometimes|exists:users,id',
-            'tutorRemarks' => 'nullable|string',
-            'clientRemarks' => 'nullable|string',
+            'tutorRemarks' => 'sometimes|string',
+            'clientAcceptanceRemarks' => 'sometimes|string',
+            'clientApprovalRemarks' => 'sometimes|string',
         ]);
 
         $bookingData = $request->except('paymentEvidence');
@@ -129,6 +139,15 @@ class BookingController extends Controller
         }
 
         $booking->update($bookingData);
+
+        // Update the payment
+        $payment = Payment::where('booking_id', $booking->id)->first();
+        if ($payment) {
+            $payment->update([
+                'tutor_id' => $booking->tutor_id,
+                'amount' => $booking->amount * 0.7,
+            ]);
+        }
 
         return redirect()->route('bookings.index')->with('success', 'Booking updated successfully');
     }
@@ -150,11 +169,12 @@ class BookingController extends Controller
 
         $request->validate([
             'tutorRemarks' => 'required|string',
+            'status' => 'in:Completed'
         ]);
 
         $booking->update([
             'tutorRemarks' => $request->tutorRemarks,
-            'status' => 'Completed'
+            'status' => $request->status,
         ]);
 
         return redirect()->route('bookings.index')->with('success', 'Remarks added successfully');
@@ -183,31 +203,71 @@ class BookingController extends Controller
                                     ->with('tutor')
                                     ->get();
 
-            return view('client.lessons', compact('closedBookings', 'completedBookings', 'activeBookings'));
+            $acceptedBookings = Booking::where('client_id', $user->id)
+                                    ->where('status', 'Accepted')
+                                    ->with('tutor')
+                                    ->get();
+            $pendingBookings = Booking::where('client_id', $user->id)
+                                    ->where('status', 'Pending')
+                                    ->with('tutor')
+                                    ->get();
+
+            return view('client.lessons', compact('closedBookings', 'completedBookings', 'activeBookings', 'acceptedBookings', 'pendingBookings'));
         }
 
 
-    public function addClientRemarks(Request $request, $id)
-    {
-        $booking = Booking::findOrFail($id);
-        Gate::authorize('Client');
+    public function clientAcceptanceRemarks(Request $request, $id)
+        {
+            $booking = Booking::findOrFail($id);
+            Gate::authorize('Client');
 
-        $request->validate([
-            'clientRemarks' => 'required|string',
-        ]);
+            $request->validate([
+                'clientAcceptanceRemarks' => 'required|string',
+                'status' => 'required|in:Adjust,Accepted',
+                'paymentEvidence' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            ]);
 
-        $booking->update([
-            'clientRemarks' => $request->clientRemarks
-        ]);
+            $bookingData = $request->except('paymentEvidence');
 
-        return redirect()->route('client.lessons')->with('success', 'Remarks added successfully');
-    }
+            if ($request->hasFile('paymentEvidence')) {
+                $file = $request->file('paymentEvidence');
+                $filePath = $file->store('payment_evidences', 'public'); // Store the file in the 'public/payment_evidences' directory
+                $bookingData['paymentEvidence'] = $filePath; // Save the file path to the database
+            }
+    
+            $booking->update($bookingData);
+
+            return redirect()->route('client.lessons')->with('success', 'Remarks updated successfully');
+        }
+
+    public function clientApprovalRemarks(Request $request, $id)
+        {
+            $booking = Booking::findOrFail($id);
+            Gate::authorize('Client');
+
+            $request->validate([
+                'clientApprovalRemarks' => 'required|string',
+                'status' => 'required|in:Declined,Closed',
+            ]);
+
+            $booking->update([
+                'clientApprovalRemarks' => $request->clientAppovalRemarks,
+                'status' => $request->status
+            ]);
+
+            return redirect()->route('client.lessons')->with('success', 'Remarks added successfully');
+        }
 
     public function allBookings()
-    {
-        Gate::authorize('Admin');
+        {
+            Gate::authorize('Admin');
 
-        $bookings = Booking::orderBy('user_id')->get();
-        return view('bookings.all', compact('bookings'));
-    }
+            $clients = User::where('role', 'client')->get();
+            $tutors = User::where('role', 'tutor')->get();
+        
+            $clientsBookings = $clients->bookings;
+            $tutorsBookings = $tutors->bookings;
+
+            return view('bookings.all', compact('clientsBookings', 'tutorsBookings'));
+        }
 }

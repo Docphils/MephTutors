@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('start_date');
             $table->enum('state', [
-                'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'Cross River', 'Delta', 
+                'Abia', 'Adamawa', 'AkwaIbom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'CrossRiver', 'Delta', 
                 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 
                 'Kwara', 'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto', 
                 'Taraba', 'Yobe', 'Zamfara', 'FCT']);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('languages')->nullable();
             $table->enum('learnersGrade', ['under_12', 'teen', 'adult']);
             $table->enum('class_type', ['home_tutoring', 'online'])->nullable();
-            $table->enum('status', ['Pending','Ongoing', 'Closed'])->default('Pending');
+            $table->enum('status', ['Pending', 'Cancelled', 'Ongoing', 'Closed'])->default('Pending');
             $table->string('remarks')->nullable();
             $table->enum('request_type', ['coding_tutor', 'club']);
             $table->string('school_name')->nullable();

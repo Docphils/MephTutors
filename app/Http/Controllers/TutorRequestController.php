@@ -4,29 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Lesson;
+use App\Models\TutorRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class LessonController extends Controller
+class TutorRequestController extends Controller
 {
     public function index()
     {
         $userId = Auth::id();
-        $pendingLessons = Lesson::where('user_id', $userId)
+        $pendingRequests = TutorRequest::where('user_id', $userId)
                             ->where('status', 'Pending')
                             ->get();
-        $activeLessons = Lesson::where('user_id', $userId)
+        $activeRequests = TutorRequest::where('user_id', $userId)
                             ->where('status', 'Assigned')
                             ->get();
         
-        return view('lessons.index', compact('pendingLessons','activeLessons'));
+        return view('lessons.index', compact('pendingRequests','activeRequests'));
     }
 
     public function show($id)
     {
-        $lesson = Lesson::findOrFail($id);
-        return view('lessons.show', compact('lesson'));
+        $tutorRequest = TutorRequest::findOrFail($id);
+        return view('lessons.show', compact('tutorRequest'));
     }
 
     public function create()
@@ -52,18 +52,18 @@ class LessonController extends Controller
             'amount' => 'required|string',
             'remarks' => 'nullable|string',
         ]);
-        $lessonData = $request->all();
-        $lessonData['user_id'] = Auth::user()->id;
+        $tutorRequestData = $request->all();
+        $tutorRequestData['user_id'] = Auth::user()->id;
 
-        Lesson::create($lessonData);
+        TutorRequest::create($tutorRequestData);
 
         return redirect()->route('lessons.index')->with('success', 'Lesson created successfully');
     }
 
     public function edit($id)
     {
-        $lesson = Lesson::findOrFail($id);
-        return view('lessons.edit', compact('lesson'));
+        $tutorRequest = TutorRequest::findOrFail($id);
+        return view('lessons.edit', compact('tutorRequest'));
     }
 
     public function update(Request $request, $id)
@@ -84,10 +84,10 @@ class LessonController extends Controller
             'remarks' => 'nullable|string',
         ]);
 
-        $lessonData = $request->all();
+        $tutorRequestData = $request->all();
 
-        $lesson = Lesson::findOrFail($id);
-        $lesson->update($lessonData);
+        $tutorRequest = TutorRequest::findOrFail($id);
+        $tutorRequest->update($tutorRequestData);
 
         return redirect()->route('lessons.index')->with('success', 'Lesson updated successfully');
     }
@@ -96,8 +96,8 @@ class LessonController extends Controller
     {
         Gate::authorize('admin');
 
-        $lesson = Lesson::findOrFail($id);
-        $lesson->delete();
+        $tutorRequest = TutorRequest::findOrFail($id);
+        $tutorRequest->delete();
 
         return redirect()->route('lessons.index')->with('success', 'Lesson deleted successfully');
     }
@@ -106,7 +106,7 @@ class LessonController extends Controller
     {
         Gate::authorize('Admin');
 
-        $lessons = Lesson::with('user')->orderBy('user_id')->get();
+        $tutorRequest = TutorRequest::with('user')->orderBy('user_id')->get();
         return view('lessons.all_lessons', compact('lessons'));
     }
 }

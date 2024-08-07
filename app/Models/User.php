@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserProfile;
 use App\Models\TutorProfile;
 use App\Models\Booking;
-use App\Models\Lesson;
+use App\Models\TutorRequest;
 use App\Models\Crm;
 use App\Models\Payment;
 
@@ -62,8 +62,8 @@ class User extends Authenticatable
         return $this->hasOne(tutorProfile::class);
     }
 
-    public function lessons(){
-        return $this->hasMany(Lesson::class);
+    public function tutorRequest(){
+        return $this->hasMany(TutorRequest::class);
     }
 
     public function bookings(){

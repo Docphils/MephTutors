@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('tutorRequest', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->date('start_date');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('duration');
             $table->enum('tutor_gender', ['Male', 'Female', 'Any']);
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
-            $table->enum('status', ['Pending', 'Assigned'])->default('Pending');
+            $table->enum('status', ['Pending', 'Cancelled','Assigned'])->default('Pending');
             $table->string('amount');
             $table->string('remarks')->nullable();
             $table->timestamps();
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('tutorRequest');
     }
 };

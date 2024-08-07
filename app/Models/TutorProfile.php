@@ -20,6 +20,9 @@ class TutorProfile extends Model
         'CV',
         'discipline',
         'careerProfile',
+        'bankName',
+        'accountName',
+        'accountNumber',
     ];
 
     public function user(){

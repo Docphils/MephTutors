@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('booking_id');
             $table->string('amount');
             $table->string('evidence');
-            $table->enum('status', ['Pending','Paid']);
+            $table->enum('status', ['Pending','Earned', 'Paid']);
             $table->unsignedBigInteger('tutor_id');
             $table->timestamps();
 
