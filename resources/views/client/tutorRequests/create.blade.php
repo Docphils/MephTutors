@@ -16,10 +16,10 @@
     @endif
 
     <div class="py-12">
-        <div class="w-1/2 mx-auto sm:px-6 lg:px-8">
+        <div class="w-2/3 sm:w-1/2 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form method="POST" action="{{ route('lessons.store') }}">
+                    <form method="POST" action="{{ route('client.tutorRequests.store') }}">
                         @csrf
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Intended Start Date</label>
@@ -89,7 +89,7 @@
                             <textarea name="remarks" class="mt-1 block w-full" placeholder="Type additional remarks here"></textarea>
                         </div>
                         <div class="flex items-center justify-end mt-4">
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+                            <button type="submit" class="bg-cyan-800 text-white px-4 py-2 rounded-md">
                                 Request Tutor
                             </button>
                         </div>

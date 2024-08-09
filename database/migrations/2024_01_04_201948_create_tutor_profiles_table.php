@@ -20,9 +20,9 @@ return new class extends Migration
             $table->date('DOB');
             $table->string('image');
             $table->enum('gender', ['Male', 'Female']);
-            $table->enum('qualification', ['O Level', 'National Diploma', 'NCE', 'HND/BSc/BEd/BA/BEng', 'MSc/MA', 'PhD']);
+            $table->enum('qualification', ['SSCE', 'Diploma', 'NCE', 'HND/BSc/BEd/BA/BEng', 'MSc/MA', 'PhD']);
             $table->string('discipline');
-            $table->enum('experience', ['0-1 year', '2-5 years', '6-10 years', 'Above 10 years ']);
+            $table->enum('experience', ['0-1 year', '2-5 years', '6-10 years', 'Above 10 years']);
             $table->string('CV');
             $table->text('careerProfile');
             $table->string('bankName');

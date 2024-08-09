@@ -9,32 +9,54 @@ use Illuminate\Support\Facades\Gate;
 
 class CrmController extends Controller
 {
-    //
+    //admin index
     public function index()
     {
         Gate::allows('Admin');
             $crm = Crm::all();
 
-        return view('crm.index', compact('crm'));
+        return view('admin.crm.index', compact('crm'));
     }
 
-    //show method
+    //client index
+    public function clientIndex()
+    {
+        Gate::allows('Client');
+            $crm = Auth::user()->crm;
+
+        return view('client.crm.index', compact('crm'));
+    }
+
+    //admin show method
     public function show($id)
     {
+        Gate::allows('Admin');
         $crm = Crm::findOrFail($id);
 
-        return view('crm.show', compact('$crm'));
+        return view('admin.crm.show', compact('$crm'));
     }
 
-    //create Method
+    //client show method
+    public function clientshow($id)
+    {
+        Gate::allows('Client');
+        $crm = Crm::findOrFail($id);
+
+        return view('client.crm.show', compact('$crm'));
+    }
+
+    //client create Method
     public function create()
     {
+        Gate::allows('Client');
 
-        return view('crm.create');
+        return view('client.crm.create');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('Client');
+
         $request->validate([
             'start_date' => 'required|date|after_or_equal:today',
             'state' => 'required|in:Abia,Adamawa,AkwaIbom,Anambra,Bauchi,Bayelsa,Benue,Borno,CrossRiver,Delta,Ebonyi,Edo,Enugu,Gombe,Jigawa,Ekiti,Imo,Kaduna,Kano,Katsina,Kebbi,Kogi,Kwara,Lagos,Nasarawa,Niger,Ogun,Ondo,Osun,Oyo,Plateau,Rivers,Sokoto,Taraba,Yobe,Zamfara,FCT',
@@ -58,20 +80,29 @@ class CrmController extends Controller
 
         Crm::create($crmData);
 
-        return redirect()->route('crm.index')->with('success', 'Request Submitted Successfully');
+        return redirect()->route('client.crm.index')->with('success', 'Request Submitted Successfully');
     }
 
-    //Edit Method
+    //Admin Edit Method
     public function edit($id)
     {
         $crm = Crm::findOrFail($id);
 
-        return view('crm.edit', compact('crm'));
+        return view('admin.crm.edit', compact('crm'));
+    }
+
+    //Client Edit Method
+    public function clientedit($id)
+    {
+        $crm = Crm::findOrFail($id);
+
+        return view('client.crm.edit', compact('crm'));
     }
 
     //Update Method
     public function update(Request $request, $id)
     {    
+        Gate::authorize('Client');
 
         $request->validate([
             'user_id' => 'somtimes|exists:users,id',
@@ -97,17 +128,27 @@ class CrmController extends Controller
         $crm = Crm::findOrFail($id);
         $crm->update($crmData);
 
-        return redirect()->route('crm.index')->with('success', 'Request Updated Successfully');
+        return redirect()->route('client.crm.index')->with('success', 'Request Updated Successfully');
     }
 
-    //Delete Method
+    //Admin Delete Method
     public function destroy($id)
     {
         $crm = Crm::findOrFail($id);
 
         $crm->delete();
 
-        return redirect()->route('crm.index')->with('success', 'Request deleted successfully');
+        return redirect()->route('admin.crm.index')->with('success', 'Request deleted successfully');
+    }
+
+    //Client Delete Method
+    public function clientDestroy($id)
+    {
+        $crm = Crm::findOrFail($id);
+
+        $crm->delete();
+
+        return redirect()->route('client.crm.index')->with('success', 'Request deleted successfully');
     }
 
     //Change Status
@@ -124,7 +165,7 @@ class CrmController extends Controller
             'status' => $request->status
         ]);
 
-        return redirect()->route('crm.index')->with('success', 'Request status updated successfully');
+        return redirect()->route('admin.crm.index')->with('success', 'Request status updated successfully');
 
     }
 }

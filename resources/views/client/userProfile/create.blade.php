@@ -11,8 +11,17 @@
 
             <!-- Phone Field -->
             <div class="mb-4">
+                <label for="fullname" class="block text-md font-medium text-gray-100">Your Full Name(Surname first)</label>
+                <input type="text" id="fullname" name="fullname" value="{{ old('fullname') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                @error('fullname')
+                    <p class="text-red-600 text-sm">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Phone Field -->
+            <div class="mb-4">
                 <label for="phone" class="block text-md font-medium text-gray-100">Phone</label>
-                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
                 @error('phone')
                     <p class="text-red-600 text-sm">{{ $message }}</p>
                 @enderror
@@ -27,20 +36,11 @@
                 @enderror
             </div>
 
-            <!-- Age Field -->
+            <!-- DOB Field -->
             <div class="mb-4">
-                <label for="age" class="block text-md font-medium text-gray-100">Age</label>
-                <input type="number" id="age" name="age" value="{{ old('age') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-                @error('age')
-                    <p class="text-red-600 text-sm">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Image Field -->
-            <div class="mb-4">
-                <label for="image" class="block text-md font-medium text-gray-100">Profile Image</label>
-                <input type="file" id="image" name="image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                @error('image')
+                <label for="DOB" class="block text-md font-medium text-gray-100">Date of Birth</label>
+                <input type="date" id="DOB" name="DOB" value="{{ old('DOB') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                @error('DOB')
                     <p class="text-red-600 text-sm">{{ $message }}</p>
                 @enderror
             </div>
@@ -53,6 +53,15 @@
                     <option value="Female" {{ old('gender') === 'Female' ? 'selected' : '' }}>Female</option>
                 </select>
                 @error('gender')
+                    <p class="text-red-600 text-sm">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Image Field -->
+            <div class="mb-4">
+                <label for="image" class="block text-md font-medium text-gray-100">Profile Image</label>
+                <input type="file" id="image" name="image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                @error('image')
                     <p class="text-red-600 text-sm">{{ $message }}</p>
                 @enderror
             </div>

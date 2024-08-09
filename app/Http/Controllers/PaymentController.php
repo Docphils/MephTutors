@@ -9,24 +9,39 @@ use Illuminate\Support\Facades\Gate;
 
 class PaymentController extends Controller
 {
-    // Index Method
+    // Admin Index Method
     public function index()
     {
-        if (Gate::allows('Admin')) {
+       Gate::allows('Admin');
             $payments = Payment::all();
-        } else {
-            $payments = Payment::where('tutor_id', Auth::id())->get();
-        }
-    
-        return view('payments.index', compact('payments'));
+       
+        return view('admin.payments.index', compact('payments'));
     }
 
-    // Show Method
+    // Tutor Index Method
+    public function tutorIndex()
+    {
+        Gate::allows('Tutor');
+    
+            $payments = Payment::where('tutor_id', Auth::id())->get();
+    
+        return view('tutor.payments.index', compact('payments'));
+    }
+
+    //Admin Show Method
     public function show($id)
     {
         $payment = Payment::findOrFail($id);
 
-        return view('payments.show', compact('payment'));
+        return view('admin.payments.show', compact('payment'));
+    }
+
+    //Tutor Show Method
+    public function toturShow($id)
+    {
+        $payment = Payment::findOrFail($id);
+
+        return view('tutor.payments.show', compact('payment'));
     }
 
     // Create Method
@@ -34,7 +49,7 @@ class PaymentController extends Controller
     {
         Gate::authorize('Admin');
 
-        return view('payments.create');
+        return view('admin.payments.create');
     }
 
     // Store Method
@@ -60,7 +75,7 @@ class PaymentController extends Controller
 
         Payment::create($paymentData);
 
-        return redirect()->route('payments.index')->with('success', 'Payment saved successfully');
+        return redirect()->route('admin.payments.index')->with('success', 'Payment saved successfully');
     }
 
     // Update Method
@@ -88,6 +103,6 @@ class PaymentController extends Controller
 
         $payment->update($paymentData);
 
-        return redirect()->route('payments.index')->with('success', 'Payment updated successfully');
+        return redirect()->route('admin.payments.index')->with('success', 'Payment updated successfully');
     }
 }

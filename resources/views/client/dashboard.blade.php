@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="grid sm:grid-cols-5">
         <!-- Sidebar-->
-        <div class="bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 pl-16 pr-6 p-6 sm:py-16 border-l-4">
+        <section class="bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 pl-16 pr-6 p-6 sm:py-16 border-l-4">
             <div class="hidden sm:block mb-6">
                 @if ($userProfile)
                 <div class="text-center mb-4">
@@ -49,7 +49,7 @@
                     </ul>
             </div>
 
-        </div>
+        </section>
         
         <div class="sm:col-span-4 ">
             <x-slot name="header">
@@ -77,7 +77,7 @@
                                             <path d="M6 2a1 1 0 000 2h8a1 1 0 000-2H6zM3 5a1 1 0 011-1h12a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V5zm10 6a1 1 0 112 0v2a1 1 0 11-2 0v-2zm-4 0a1 1 0 112 0v2a1 1 0 11-2 0v-2zM7 9a1 1 0 000 2h2a1 1 0 000-2H7z"/>
                                         </svg>
                                         <div class="ml-4">
-                                            <h4 class="text-lg font-semibold"><a href="{{ route('lessons.create') }}" class="text-blue-500 hover:underline">Request Tutor</a></h4>
+                                            <h4 class="text-lg font-semibold"> <a href="{{ route('client.tutorRequests.create') }}" class="text-blue-500 hover:underline">Request Tutor</a></h4>
                                             <p>Request a tutor for yourself or wards.</p>
                                         </div>
                                     </div>
@@ -89,7 +89,7 @@
                                             <path d="M9 2a1 1 0 00-1 1v14a1 1 0 001.707.707l5-5A1 1 0 0015 11H9V3a1 1 0 00-1-1zM3 7a1 1 0 011-1h4a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V7zm0 4a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-1z"/>
                                         </svg>
                                         <div class="ml-4">
-                                            <h4 class="text-lg font-semibold"><a href="{{ route('lessons.index') }}" class="text-blue-500 hover:underline">View/Edit Tutor Requests</a></h4>
+                                            <h4 class="text-lg font-semibold"><a href="{{ route('client.tutorRequests.index') }}" class="text-blue-500 hover:underline">View/Edit Tutor Requests</a></h4>
                                             <p>View and edit your requested sessions.</p>
                                         </div>
                                     </div>
@@ -148,7 +148,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
                                         <h4 class="text-lg font-semibold">Total Tutor Requests</h4>
-                                        <p class="text-3xl mt-2">{{$lessons->count() }}</p>
+                                        <p class="text-3xl mt-2">{{$tutorRequests->count() }}</p>
                                     </div>
                                     <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
                                         <h4 class="text-lg font-semibold">Completed Lessons </h4>

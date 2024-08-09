@@ -41,7 +41,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('tutor_id')->references('id')->on('users');
-            $table->foreign('tutorRequest_id')->references('id')->on('tutorRequest');
+            $table->foreign('tutorRequest_id')->references('id')->on('tutor_requests');
 
         });
         

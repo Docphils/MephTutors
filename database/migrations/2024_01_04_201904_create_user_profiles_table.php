@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->bigInteger('phone');
             $table->string('address');
-            $table->integer('age');
+            $table->string('fullname');
+            $table->date('DOB');
             $table->string('image')->nullable();
             $table->enum('gender', ['Male', 'Female']);
             $table->timestamps();

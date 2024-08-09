@@ -62,7 +62,7 @@ class User extends Authenticatable
         return $this->hasOne(tutorProfile::class);
     }
 
-    public function tutorRequest(){
+    public function tutorRequests(){
         return $this->hasMany(TutorRequest::class);
     }
 
@@ -70,7 +70,7 @@ class User extends Authenticatable
         return $this->hasMany(Booking::class);
     }
 
-    public function crm(){
+    public function crms(){
         return $this->hasMany(Crm::class);
     }
 

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
 
 
 class UserProfileController extends Controller
@@ -21,9 +21,9 @@ class UserProfileController extends Controller
 
         // Load role-specific dashboard views
         if ($user->role === 'admin') {
-            return view('admin.dashboard', compact('userProfile'));
+            return view('admin.userProfile.show', compact('userProfile'));
         } elseif ($user->role === 'client') {
-            return view('client.dashboard', compact('userProfile'));
+            return view('client.userProfile.show', compact('userProfile'));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -31,25 +31,48 @@ class UserProfileController extends Controller
 
     public function create()
     {
-        Gate::authorize('AdminOrClient');        
-        return view('userProfile.create');
+        Gate::authorize('AdminOrClient'); 
+        $user = Auth::user();
+        if($user->role ==='admin'){
+            return view('admin.userProfile.create');
+        }elseif($user->role === 'client'){
+            return view('client.userProfile.create');
+        }else{
+            abort(403, 'Unauthorized Action');
+        } 
+       
     }
 
     public function edit($id)
     {
         Gate::authorize('AdminOrClient');
-        $userProfile = Auth::user()->userProfile->findOrFail($id);
-        return view('userProfile.edit', compact('userProfile'));
+        $user = Auth::user();
+        $userProfile = $user->userProfile->findOrFail($id);
+        if($user->role ==='admin'){
+            return view('admin.userProfile.create', compact('userProfile'));
+        }elseif($user->role === 'client'){
+            return view('client.userProfile.create', compact('userProfile'));
+        }else{
+            abort(403, 'Unauthorized Action');
+        } 
     }
 
     public function store(Request $request, $id = null)
     {
         $request->validate([
+            'fullname' => 'required|string',
             'phone' => 'required|string|max:16',
             'address' => 'required|string',
-            'age' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'gender' => 'required|in:Male,Female',
+            'DOB' => ['required', 'date',
+                function ($attribute, $value, $fail) {
+                    $eighteenYearsAgo = Carbon::now()->subYears(18);
+                    if (Carbon::parse($value)->isAfter($eighteenYearsAgo)) {
+                        $fail('The ' . $attribute . ' must be a date before ' . $eighteenYearsAgo->format('Y-m-d'));
+                    }
+                },
+            ],
         ]);
 
         $userProfileData = $request->except('image');

@@ -6,54 +6,64 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="mx-auto mb-4 text-right mx-8">
-            <a href="{{ route('lessons.create') }}" class="mx-8 text-cyan-900 bg-cyan-300 p-1 rounded-lg font-semibold shadow-lg shadow-cyan-600">Place Another Request</a>
+        <div class="mx-auto mb-4 text-right mx-6">
+            <a href="{{ route('client.tutorRequests.create') }}" class="mx-6 text-cyan-900 bg-cyan-300 p-1 rounded-lg font-semibold shadow-lg shadow-cyan-600">Make New Request</a>
         </div>
 
-        <div class="text-cyan-50 text-3xl mb-4 mx-16">New Requests</div>
-        <div class="max-w-7xl grid sm:grid-cols-2 gap-8 mx-auto sm:px-6 lg:px-8 my-6">
-            @foreach($pendingLessons as $lesson)
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
-                        <div class="flex justify-between">
-                            <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
-                            <p><strong>End Date:</strong> {{ $lesson->end_date }}</p>
+        @if (session('success'))
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
+                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" 
+                    role="alert">
+                    <strong class="font-bold">Success!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
+        <div class="text-cyan-50 text-3xl mb-2 mx-6 sm:mx-16">New Requests</div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-sm sm:rounded-lg border border-b-2 border-b-cyan-900">
+                <div class="px-6 p-3 sm:p-6 text-gray-900 dark:text-gray-100">
+                        <div class="relative font-bold text-lg flex justify-between justify-items-start items-center  px-6 p-3 border border-b-2 border-b-cyan-900">
+                            <div class="w-full">Subjects</div>
+                            <div class="w-full">Start Date</div>
+                            <div class="w-full">End Date</div>
+                            <div class="w-1/2">Action</div>
                         </div>
-                        <a href="{{ route('lessons.show', $lesson->id) }}" class="text-blue-500">View Details</a>
-                        <a href="{{ route('lessons.edit', $lesson->id) }}" class="text-blue-500 ml-4">Edit</a>
-                        <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" class="inline-block ml-4">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500">Delete</button>
-                        </form>
+                        @foreach($pendingRequests as $request)
+                        <div class="relative flex justify-around w-full items-center px-6 py-3 border border-b-2 border-b-cyan-900">
+                            <div class="w-full font-semibold">{{ $request->subjects }}</div>
+                            <div class="w-full"> {{ $request->start_date }}</div>
+                            <div class="w-full"> {{ $request->end_date }}</div>
+                            <a href="{{ route('client.tutorRequests.show', $request->id) }}" class="w-1/2 text-blue-500">View Details</a>
+                        </div>
+                        
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
         </div>
         
 
-        <!--Assigned Lessons-->
-        <div class="text-cyan-50 text-3xl mb-4 mx-16">Assigned Lessons</div>
-        <div class="max-w-7xl grid sm:grid-cols-2 gap-8 mx-auto sm:px-6 lg:px-8 my-6">
-            @foreach($activeLessons as $lesson)
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
-                        <div class="flex justify-between">
-                            <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
-                            <p><strong>End Date:</strong> {{ $lesson->end_date }}</p>
+        <!--Assigned Requests-->
+        <div class="text-cyan-50 text-3xl mb-2 mx-6 sm:mx-16">Assigned Requests</div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+                <div class="bg-cyan-50 dark:bg-gray-800 overflow-hidden shadow-sm rounded-sm sm:rounded-lg border border-b-2 border-b-cyan-900">
+                    <div class="px-6 p-3 sm:p-6 text-gray-900 dark:text-gray-100">
+                        <div class="relative font-bold text-lg flex justify-between justify-items-start items-center  px-6 p-3 border border-b-2 border-b-cyan-900">
+                            <div class="w-full">Subjects</div>
+                            <div class="w-full">Start Date</div>
+                            <div class="w-full">End Date</div>
+                            <div class="w-1/2">Action</div>
                         </div>
-                        <a href="{{ route('lessons.show', $lesson->id) }}" class="text-blue-500">View Details</a>
-                        <a href="{{ route('lessons.edit', $lesson->id) }}" class="text-blue-500 ml-4">Edit</a>
-                        <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" class="inline-block ml-4">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500">Delete</button>
-                        </form>
+                        @foreach($assignedRequests as $request)
+                        <div class="relative flex justify-around w-full items-center px-6 py-3 border border-b-2 border-b-cyan-900">
+                            <div class="w-full font-semibold">{{ $request->subjects }}</div>
+                            <div class="w-full"> {{ $request->start_date }}</div>
+                            <div class="w-full"> {{ $request->end_date }}</div>
+                            <a href="{{ route('client.tutorRequests.show', $request->id) }}" class="w-1/2 text-blue-500">View Details</a>
+                        </div>
+                        
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
         </div>
 
         
