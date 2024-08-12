@@ -14,7 +14,10 @@ class Crm extends Model
         'start_date',
         'state',
         'full_address',
-        'languages',
+        'days',
+        'daysPerWeek',
+        'learnersNumber',
+        'duration',
         'learnersGrade',
         'class_type',
         'status',
@@ -22,10 +25,8 @@ class Crm extends Model
         'request_type',
         'school_name',
         'school_address',
-        'learnersNumber',
-        'daysPerWeek',
-        'days',
-        'duration',
+        'languages',
+
     ];
 
 

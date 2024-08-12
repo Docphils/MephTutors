@@ -46,12 +46,14 @@ class UserProfileController extends Controller
     public function edit($id)
     {
         Gate::authorize('AdminOrClient');
-        $user = Auth::user();
-        $userProfile = $user->userProfile->findOrFail($id);
+        // Find the user profile by ID
+        $userProfile = UserProfile::where('user_id', auth()->id())->firstOrFail();
+        $user = Auth::user();      
+        
         if($user->role ==='admin'){
-            return view('admin.userProfile.create', compact('userProfile'));
+            return view('admin.userProfile.edit', compact('userProfile'));
         }elseif($user->role === 'client'){
-            return view('client.userProfile.create', compact('userProfile'));
+            return view('client.userProfile.edit', compact('userProfile'));
         }else{
             abort(403, 'Unauthorized Action');
         } 
@@ -61,7 +63,6 @@ class UserProfileController extends Controller
     {
         $request->validate([
             'fullname' => 'required|string',
-            'phone' => 'required|string|max:16',
             'address' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'gender' => 'required|in:Male,Female',
@@ -72,6 +73,12 @@ class UserProfileController extends Controller
                         $fail('The ' . $attribute . ' must be a date before ' . $eighteenYearsAgo->format('Y-m-d'));
                     }
                 },
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:16',
+                'regex:/^[0-9\s\-\+\(\)]*$/',
             ],
         ]);
 

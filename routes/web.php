@@ -10,6 +10,8 @@ use App\Http\Controllers\ClientDashboardController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\TutorDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +90,8 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
 
 Route::middleware(['auth', 'can:Tutor'])->group(function () {
     // Tutor Dashboard
-    Route::get('/tutor/dashboard', function () {return view('tutor.dashboard');})->middleware(['auth', 'verified'])->name('tutor.dashboard');
+    Route::get('/tutor/dashboard', [TutorDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('tutor.dashboard');
+    //Tutor Profile Routes
     Route::get('/tutor-profile/{id}', [TutorProfileController::class, 'show'])->name('tutorProfile.show');
     Route::get('/tutor-profile/create', [TutorProfileController::class, 'create'])->name('tutorProfile.create');
     Route::get('/tutor-profile/{id}/edit', [TutorProfileController::class, 'edit'])->name('tutorProfile.edit');
@@ -106,7 +109,7 @@ Route::middleware(['auth', 'can:Tutor'])->group(function () {
 
 Route::middleware(['auth', 'can:Admin'])->group(function () {
     // Admin Dashboard
-    Route::get('/admin/dashboard', function () {return view('admin.dashboard');})->middleware(['auth', 'verified'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');    
     //Tutor Request Routes
     Route::get('admin/tutor-requests', [TutorRequestController::class, 'index'])->name('admin.tutorRequests.index');
     Route::get('admin/tutor-requests/{id}', [TutorRequestController::class, 'show'])->name('admin.tutorRequests.show');

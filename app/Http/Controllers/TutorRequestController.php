@@ -30,7 +30,7 @@ class TutorRequestController extends Controller
                             ->get();
 
         $assignedRequests = TutorRequest::where('user_id', $userId)
-                            ->where('status', 'Cancelled')
+                            ->where('status', 'Assigned')
                             ->get();
         
         return view('client.tutorRequests.index', compact('pendingRequests','assignedRequests'));

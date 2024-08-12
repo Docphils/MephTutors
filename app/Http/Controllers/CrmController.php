@@ -19,12 +19,14 @@ class CrmController extends Controller
     }
 
     //client index
-    public function clientIndex()
+    public function clientIndex(Request $request)
     {
         Gate::allows('Client');
-            $crm = Auth::user()->crm;
+            $user = Auth::user();
+            $crms = Auth::user()->crms;
+            $userProfile = $user->userProfile;
 
-        return view('client.crm.index', compact('crm'));
+        return view('client.crm.index', compact('crms', 'userProfile', 'user'));
     }
 
     //admin show method
@@ -33,16 +35,18 @@ class CrmController extends Controller
         Gate::allows('Admin');
         $crm = Crm::findOrFail($id);
 
-        return view('admin.crm.show', compact('$crm'));
+        return view('admin.crm.show', compact('crm'));
     }
 
     //client show method
     public function clientshow($id)
     {
         Gate::allows('Client');
-        $crm = Crm::findOrFail($id);
+        $user = Auth::user();
+        $request = Crm::findOrFail($id);
+        $userProfile = $user->userProfile;
 
-        return view('client.crm.show', compact('$crm'));
+        return view('client.crm.show', compact('request', 'user', 'userProfile'));
     }
 
     //client create Method
@@ -61,18 +65,19 @@ class CrmController extends Controller
             'start_date' => 'required|date|after_or_equal:today',
             'state' => 'required|in:Abia,Adamawa,AkwaIbom,Anambra,Bauchi,Bayelsa,Benue,Borno,CrossRiver,Delta,Ebonyi,Edo,Enugu,Gombe,Jigawa,Ekiti,Imo,Kaduna,Kano,Katsina,Kebbi,Kogi,Kwara,Lagos,Nasarawa,Niger,Ogun,Ondo,Osun,Oyo,Plateau,Rivers,Sokoto,Taraba,Yobe,Zamfara,FCT',
             'full_address' => 'required|string',
-            'languages' => 'nullable|string',
             'learnersGrade' => 'required|in:under_12,teen,adult',
-            'class_type' => 'nullable|in:home_tutoring,online',
-            'status' => 'required|in:Pending,Cancelled,Ongoing,Closed',
-            'remarks' => 'nullable|string',
-            'request_type' =>'required|in:coding_tutor,club',
-            'school_name' => 'nullable|string',
-            'school_address' => 'nullable|string',
             'learnersNumber' => 'required|integer',
             'daysPerWeek' => 'required|integer|max:7',
             'days' => 'required|string',
             'duration' => 'required|string',
+            'status' => 'nullable|in:Pending,Cancelled,Ongoing,Closed',
+            'request_type' =>'required|in:coding_tutor,club',
+            'school_name' => 'nullable|string',
+            'school_address' => 'nullable|string',
+            'languages' => 'nullable|string',
+            'class_type' => 'nullable|in:home_tutoring,online',
+            'remarks' => 'nullable|string',
+
         ]);
 
         $crmData = $request->all();

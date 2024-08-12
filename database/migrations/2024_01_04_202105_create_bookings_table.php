@@ -29,7 +29,7 @@ return new class extends Migration
             $table->enum('curriculum', ['British', 'French', 'Nigerian', 'Blended']);
             $table->enum('status', ['Pending', 'Adjust', 'Accepted', 'Active', 'Completed', 'Declined','Closed']);
             $table->string('classes');
-            $table->string('amount');
+            $table->integer('amount');
             $table->enum('paymentStatus', ['Pending', 'Comfirmed', 'Paid'])->default('Pending');
             $table->string('paymentEvidence')->nullable();
             $table->string('tutorRemarks')->nullable(); 

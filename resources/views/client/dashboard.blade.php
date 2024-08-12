@@ -173,37 +173,37 @@
     <!--Modals-->
     <!-- Ongoing Lessons Modal -->
     <dialog id="ongoingLessons" class="modal modal-bottom sm:modal-middle p-6 w-1/2">
-    <div class="modal-box">
-        <div class="text-cyan-800 text-xl mb-4">Active/Assigned Lessons</div>
+        <div class="modal-box">
+            <div class="text-cyan-800 text-xl mb-4">Active/Assigned Lessons</div>
 
-        <div class="grid sm:grid-cols-2 gap-8 mx-auto sm:px-6 lg:px-8 ">
-            @foreach($ongoingBookings as $lesson)
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
-                        <div class="flex justify-between">
-                            <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
-                            <p><strong>End Date:</strong> {{ $lesson->end_date }}</p>
+            <div class="grid sm:grid-cols-2 gap-8 mx-auto sm:px-6 lg:px-8 ">
+                @foreach($ongoingBookings as $lesson)
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
+                            <div class="flex justify-between">
+                                <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
+                                <p><strong>End Date:</strong> {{ $lesson->end_date }}</p>
+                            </div>
+                            <a href="{{ route('bookings.show', $lesson->id) }}" class="text-blue-500">View Details</a>
+                            <a href="{{ route('bookings.edit', $lesson->id) }}" class="text-blue-500 ml-4">Edit</a>
+                            <form action="{{ route('bookings.destroy', $lesson->id) }}" method="POST" class="inline-block ml-4">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500">Delete</button>
+                            </form>
                         </div>
-                        <a href="{{ route('bookings.show', $lesson->id) }}" class="text-blue-500">View Details</a>
-                        <a href="{{ route('bookings.edit', $lesson->id) }}" class="text-blue-500 ml-4">Edit</a>
-                        <form action="{{ route('bookings.destroy', $lesson->id) }}" method="POST" class="inline-block ml-4">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500">Delete</button>
-                        </form>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
 
-        <div class="modal-action">
-        <form method="dialog">
-            <!-- if there is a button in form, it will close the modal -->
-            <button class="btn text-red-500">Close</button>
-        </form>
+            <div class="modal-action">
+            <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn text-red-500">Close</button>
+            </form>
+            </div>
         </div>
-    </div>
     </dialog>
     <!-- Completed Lessons Modal -->
     <dialog id="completedLessons" class="modal modal-bottom sm:modal-middle p-6 overflow-y-visible w-1/2">
