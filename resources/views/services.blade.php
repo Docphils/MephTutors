@@ -10,6 +10,7 @@
     
      <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 <body class="bg-cyan-300 font-sans leading-normal tracking-normal">
    @include('layouts.header')
@@ -43,7 +44,7 @@
                             </p>
                             <div class="mt-6">
                                 <a class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
-                                    href="{{ route('lessons.create') }}">
+                                    href="{{ route('client.tutorRequests.create') }}"  wire:navigate>
                                     Request Tutor
                                 </a>
                             </div>
@@ -140,7 +141,7 @@
             </div>
         </div>
     </div>
-@include('layouts.footer')
-    
+    @include('layouts.footer')
+    @livewireScripts
 </body>
 </html>

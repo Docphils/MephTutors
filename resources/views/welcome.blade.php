@@ -15,7 +15,7 @@
     </style>
       
       @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+      @livewireStyles
 </head>
 
 <body class="bg-cyan-300 font-sans leading-normal tracking-normal">
@@ -165,5 +165,6 @@
       setInterval(showNextSpan, 3000); // Change text every 3 seconds
       showNextSpan(); // Show the first span initially
   </script>
+   @livewireScripts
 </body>
 </html>

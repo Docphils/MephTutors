@@ -9,7 +9,8 @@
      <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
      <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])      
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles      
 </head>
 
     <body class="bg-cyan-800 font-sans leading-normal tracking-normal">
@@ -69,6 +70,6 @@
         </section>
 
         @include('layouts.footer')
-
+        @livewireScripts
     </body>
 </html>

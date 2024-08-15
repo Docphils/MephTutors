@@ -6,15 +6,15 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}">
+                        <a href="{{ route('admin.dashboard') }}"  wire:navigate>
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-100 dark:text-gray-200" />
                         </a>
                     @elseif(Auth::user()->role === 'client')
-                        <a href="{{ route('client.dashboard') }}">
+                        <a href="{{ route('client.dashboard') }}" wire:navigate>
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-100 dark:text-gray-200" />
                         </a>
                     @elseif(Auth::user()->role === 'tutor')
-                        <a href="{{ route('client.dashboard') }}">
+                        <a href="{{ route('client.dashboard') }}" wire:navigate>
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-100 dark:text-gray-200" />
                         </a>
                     @endif
@@ -23,28 +23,28 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @if(Auth::user()->role === 'admin')
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        <x-nav-link :href="route('admin.dashboard')" wire:navigate :active="request()->routeIs('admin.dashboard')">
                             {{ __('Admin Dashboard') }}
                         </x-nav-link>
                     @elseif(Auth::user()->role === 'client')
-                        <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
+                        <x-nav-link :href="route('client.dashboard')" wire:navigate :active="request()->routeIs('client.dashboard')">
                             {{ __('Client Dashboard') }}
                         </x-nav-link>
                     @elseif(Auth::user()->role === 'tutor')
-                        <x-nav-link :href="route('tutor.dashboard')" :active="request()->routeIs('tutor.dashboard')">
+                        <x-nav-link :href="route('tutor.dashboard')" wire:navigate :active="request()->routeIs('tutor.dashboard')">
                             {{ __('Tutor Dashboard') }}
                         </x-nav-link>
                     @endif
-                    <x-nav-link :href="url('/')" :active="request()->is('/')">
+                    <x-nav-link :href="url('/')" wire:navigate :active="request()->is('/')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="url('/services')" :active="request()->is('/services')">
+                    <x-nav-link :href="url('/services')" wire:navigate :active="request()->is('/services')">
                         {{ __('Services') }}
                     </x-nav-link>
-                    <x-nav-link :href="url('/about')" :active="request()->is('/about')">
+                    <x-nav-link :href="url('/about')" wire:navigate :active="request()->is('/about')">
                         {{ __('About') }}
                     </x-nav-link>
-                    <x-nav-link :href="url('/contact')" :active="request()->is('/contact')">
+                    <x-nav-link :href="url('/contact')" wire:navigate :active="request()->is('/contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>
@@ -66,15 +66,15 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')"  wire:navigate>
                             {{ __('Account') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('logout') }}" wire:navigate>
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
+                            <x-dropdown-link :href="route('logout')" wire:navigate
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
@@ -100,28 +100,28 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @if(Auth::user()->role === 'admin')
-                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                <x-responsive-nav-link :href="route('admin.dashboard')" wire:navigate :active="request()->routeIs('admin.dashboard')">
                     {{ __('Admin Dashboard') }}
                 </x-responsive-nav-link>
             @elseif(Auth::user()->role === 'client')
-                <x-responsive-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
+                <x-responsive-nav-link :href="route('client.dashboard')" wire:navigate :active="request()->routeIs('client.dashboard')">
                     {{ __('Client Dashboard') }}
                 </x-responsive-nav-link>
             @elseif(Auth::user()->role === 'tutor')
-                <x-responsive-nav-link :href="route('tutor.dashboard')" :active="request()->routeIs('tutor.dashboard')">
+                <x-responsive-nav-link :href="route('tutor.dashboard')" wire:navigate :active="request()->routeIs('tutor.dashboard')">
                     {{ __('Tutor Dashboard') }}
                 </x-responsive-nav-link>
             @endif
-            <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
+            <x-responsive-nav-link :href="url('/')" wire:navigate :active="request()->is('/')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="url('/services')" :active="request()->is('/services')">
+            <x-responsive-nav-link :href="url('/services')" wire:navigate :active="request()->is('/services')">
                 {{ __('Services') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="url('/about')" :active="request()->is('/about')">
+            <x-responsive-nav-link :href="url('/about')" wire:navigate :active="request()->is('/about')">
                 {{ __('About') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="url('/contact')" :active="request()->is('/contact')">
+            <x-responsive-nav-link :href="url('/contact')" wire:navigate :active="request()->is('/contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
         </div>
@@ -134,15 +134,15 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')" wire:navigate>
                     {{ __('Account') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" wire:navigate>
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
+                    <x-responsive-nav-link :href="route('logout')" wire:navigate
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}

@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
     </head>
     <body class="bg-cyan-300 font-sans leading-normal tracking-normal"> 
         @include('layouts.header')    
@@ -70,5 +71,6 @@
             </p>
         </div>
         @include('layouts.footer')
+        @livewireScripts
     </body>
 </html>

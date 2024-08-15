@@ -7,33 +7,33 @@
         <div class="hidden sm:flex justify-between col-span-2">
             <nav class="md:space-x-4 text-lg">
                 <a href="{{ url('/') }}" class="hover:text-gray-200 transition {{ request()->is('/') ? 'active' : '' }}">Home</a>
-                <a href="{{ url('/services') }}" class="hover:text-gray-200 transition {{ request()->is('services') ? 'active' : '' }}">Services</a>
-                <a href="{{ url('/about') }}" class="hover:text-gray-200 transition {{ request()->is('about') ? 'active' : '' }}">About</a>
-                <a href="{{ url('/contact') }}" class="hover:text-gray-200 transition {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
+                <a href="{{ url('/services') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('services') ? 'active' : '' }}">Services</a>
+                <a href="{{ url('/about') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('about') ? 'active' : '' }}">About</a>
+                <a href="{{ url('/contact') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
             </nav>
             <div class="text-right md:space-x-4 text-lg">
                 @if (Route::has('login'))
                 <div class="">
                     @auth
                     @if(Auth::user()->role === 'admin')
-                    <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-200 transition {{ request()->is('admin.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('admin.dashboard') ? 'active' : '' }}">
                         {{ __('Admin Dashboard') }}
                     </a>
                     @elseif(Auth::user()->role === 'client')
-                        <a href="{{ route('client.dashboard') }}" class="hover:text-gray-200 transition {{ request()->is('client.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('client.dashboard') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('client.dashboard') ? 'active' : '' }}">
                             {{ __('Client Dashboard') }}
                         </a>
                     @elseif(Auth::user()->role === 'tutor')
-                        <a href="{{ route('tutor.dashboard') }}" class="hover:text-gray-200 transition {{ request()->is('tutor.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('tutor.dashboard') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('tutor.dashboard') ? 'active' : '' }}">
                             {{ __('Tutor Dashboard') }}
                         </a>
                     @endif                    
                 
                 @else
-                        <a href="{{ route('login') }}" class="hover:text-gray-200">Login</a>
+                        <a href="{{ route('login') }}" wire:navigate class="hover:text-gray-200">Login</a>
     
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="bg-cyan-800 hover:bg-cyan-100 rounded-lg p-1 hover:text-gray-600 transition">Sign Up</a>
+                            <a href="{{ route('register') }}" wire:navigate class="bg-cyan-800 hover:bg-cyan-100 rounded-lg p-1 hover:text-gray-600 transition">Sign Up</a>
                         @endif
                     @endauth
                 </div>
@@ -46,35 +46,35 @@
         <!--Mobile Nav-->
         <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden">
             <nav class="grid text-lg">
-                <a href="{{ url('/') }}" class="hover:text-gray-200 transition {{ request()->is('/') ? 'active' : '' }}">Home</a>
-                <a href="{{ url('/services') }}" class="hover:text-gray-200 transition {{ request()->is('services') ? 'active' : '' }}">Services</a>
-                <a href="{{ url('/about') }}" class="hover:text-gray-200 transition {{ request()->is('about') ? 'active' : '' }}">About</a>
-                <a href="{{ url('/contact') }}" class="hover:text-gray-200 transition {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
+                <a href="{{ url('/') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('/') ? 'active' : '' }}">Home</a>
+                <a href="{{ url('/services') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('services') ? 'active' : '' }}">Services</a>
+                <a href="{{ url('/about') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('about') ? 'active' : '' }}">About</a>
+                <a href="{{ url('/contact') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
             </nav>
             <div class="text-right grid text-lg">
                 @if (Route::has('login'))
                 <div class="">
                     @auth
                     @if(Auth::user()->role === 'admin')
-                    <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-200 transition {{ request()->is('admin.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('admin.dashboard') ? 'active' : '' }}">
                         {{ __('Admin Dashboard') }}
                     </a>
                     @elseif(Auth::user()->role === 'client')
-                        <a href="{{ route('client.dashboard') }}" class="hover:text-gray-200 transition {{ request()->is('client.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('client.dashboard') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('client.dashboard') ? 'active' : '' }}">
                             {{ __('Client Dashboard') }}
                         </a>
                     @elseif(Auth::user()->role === 'tutor')
-                        <a href="{{ route('tutor.dashboard') }}" class="hover:text-gray-200 transition {{ request()->is('tutor.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('tutor.dashboard') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('tutor.dashboard') ? 'active' : '' }}">
                             {{ __('Tutor Dashboard') }}
                         </a>
                     @endif                    
                 
                 @else
                 <div class="grid text-start mx-0">
-                    <a href="{{ route('login') }}" class="hover:text-gray-200">Login</a>
+                    <a href="{{ route('login') }}" wire:navigate class="hover:text-gray-200">Login</a>
     
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="bg-cyan-800 hover:bg-cyan-100 rounded-lg p-1 hover:text-gray-600 transition">Sign Up</a>
+                        <a href="{{ route('register') }}" wire:navigate class="bg-cyan-800 hover:bg-cyan-100 rounded-lg p-1 hover:text-gray-600 transition">Sign Up</a>
                     @endif
                 </div>
                     @endauth
