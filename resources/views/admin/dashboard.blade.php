@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
                                         <h4 class="text-lg font-semibold">Active Bookings</h4>
-                                        <p class="text-3xl mt-2">{{ $activeBookings->count() }}</p>
+                                        <p class="text-3xl mt-2">{{ $bookings->count() }}</p>
                                     </div>
                                     <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
                                         <h4 class="text-lg font-semibold">Completed Bookings</h4>

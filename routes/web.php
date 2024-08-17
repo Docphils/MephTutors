@@ -118,7 +118,7 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     //Bookings
     Route::get('bookings/admin/create', [BookingController::class, 'create'])->name('bookings.create');
     Route::get('bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
-    Route::get('bookings/admin/all', [BookingController::class, 'allBookings'])->name('bookings.all');
+    Route::get('admin/lessons', [BookingController::class, 'index'])->name('lessons.index');
 
     //Crm Routes
     Route::get('admin/crm', [CrmController::class, 'index'])->name('admin.crm.index');

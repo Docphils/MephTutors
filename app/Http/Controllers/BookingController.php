@@ -16,19 +16,18 @@ class BookingController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        Gate::authorize('Admin');
+            
 
-        Gate::allows('Admin');
-            $bookings = Booking::all();
-
-        return view('bookings.index', compact('bookings'));
+        return view('admin.lessons.index');
     }
 
     public function show($id)
     {
+        Gate::authorize('Admin');
         $booking = Booking::findOrFail($id);
 
-        return view('bookings.show', compact('booking'));
+        return view('admin.bookings.show', compact('booking'));
     }
 
     public function create()
@@ -37,7 +36,7 @@ class BookingController extends Controller
         $clients = User::where('role', 'client')->get();
         $tutors = User::where('role', 'tutor')->get();
         $tutorRequests = TutorRequest::where('status', 'Pending')->get();
-        return view('bookings.create', compact('clients', 'tutors', 'tutorRequests'));
+        return view('admin.bookings.create', compact('clients', 'tutors', 'tutorRequests'));
     }
 
     public function edit($id)
@@ -49,7 +48,7 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
         $this->authorize('update', $booking);
 
-        return view('bookings.edit', compact('booking', 'clients', 'tutors', 'tutorRequests'));
+        return view('admin.bookings.edit', compact('booking', 'clients', 'tutors', 'tutorRequests'));
     }
 
     //Store  Method
@@ -97,7 +96,7 @@ class BookingController extends Controller
             'status' => 'Pending', // Default status
         ]);
 
-            return redirect()->route('bookings.index')->with('success', 'Booking created successfully');
+            return redirect()->route('admin.bookings.index')->with('success', 'Booking created successfully');
         }
 
     //Update Method
@@ -149,7 +148,7 @@ class BookingController extends Controller
             ]);
         }
 
-        return redirect()->route('bookings.index')->with('success', 'Booking updated successfully');
+        return redirect()->route('admin.bookings.index')->with('success', 'Booking updated successfully');
     }
 
     public function destroy($id)
@@ -159,8 +158,9 @@ class BookingController extends Controller
 
         $booking->delete();
 
-        return redirect()->route('bookings.index')->with('success', 'Booking deleted successfully');
+        return redirect()->route('admin.bookings.index')->with('success', 'Booking deleted successfully');
     }
+
 
     public function addTutorRemarks(Request $request, $id)
     {
@@ -256,18 +256,5 @@ class BookingController extends Controller
             ]);
 
             return redirect()->route('client.lessons')->with('success', 'Remarks added successfully');
-        }
-
-    public function allBookings()
-        {
-            Gate::authorize('Admin');
-
-            $clients = User::where('role', 'client')->get();
-            $tutors = User::where('role', 'tutor')->get();
-        
-            $clientsBookings = $clients->bookings;
-            $tutorsBookings = $tutors->bookings;
-
-            return view('bookings.all', compact('clientsBookings', 'tutorsBookings'));
         }
 }

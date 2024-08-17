@@ -6,7 +6,7 @@
         </div>
         <div class="hidden sm:flex justify-between col-span-2">
             <nav class="md:space-x-4 text-lg">
-                <a href="{{ url('/') }}" class="hover:text-gray-200 transition {{ request()->is('/') ? 'active' : '' }}">Home</a>
+                <a href="{{ url('/') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('/') ? 'active' : '' }}">Home</a>
                 <a href="{{ url('/services') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('services') ? 'active' : '' }}">Services</a>
                 <a href="{{ url('/about') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('about') ? 'active' : '' }}">About</a>
                 <a href="{{ url('/contact') }}" wire:navigate class="hover:text-gray-200 transition {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
