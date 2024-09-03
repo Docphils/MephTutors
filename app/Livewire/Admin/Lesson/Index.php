@@ -61,7 +61,7 @@ class Index extends Component
 
     public function render()
     {
-        $query = Booking::query();
+        $query = Booking::query(); 
 
 
         if ($this->search) {
