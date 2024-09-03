@@ -1,0 +1,15 @@
+0000000000000000000000000000000000000000 405dbb2e287272846291a6c978c338318f054373 Philip Nwachukwu <docphils64@gmail.com> 1721727884 +0100	clone: from https://github.com/Docphils/mephtutors.git
+405dbb2e287272846291a6c978c338318f054373 2017c2e30bc1c0b13fb09dd3a59027152e588d60 Philip Nwachukwu <docphils64@gmail.com> 1721809950 +0100	commit: Restructured registration system
+2017c2e30bc1c0b13fb09dd3a59027152e588d60 1f14c98a243e0c61e9ec7414dc1a59f3adc89975 Philip Nwachukwu <docphils64@gmail.com> 1721851242 +0100	commit: Lessons Controller routing and views completed
+1f14c98a243e0c61e9ec7414dc1a59f3adc89975 ba71c6f652b7e50d4038bf0a8a8fa21f5bf774bd Philip Nwachukwu <docphils64@gmail.com> 1721937888 +0100	commit: Home page created
+ba71c6f652b7e50d4038bf0a8a8fa21f5bf774bd 9421de1efde864d04a514d5e36257fba777c118b Philip Nwachukwu <docphils64@gmail.com> 1721961018 +0100	commit: Completed enhanced views for Home, Contact, Services and About
+9421de1efde864d04a514d5e36257fba777c118b 1d5a39bde848d391191dadc28cb0c0eeaa67244c Philip Nwachukwu <docphils64@gmail.com> 1722067254 +0100	commit: Client Dashboard work improvement
+1d5a39bde848d391191dadc28cb0c0eeaa67244c 8b0367bf6fc73dc1a670cc812cc061c03cae01db Philip Nwachukwu <docphils64@gmail.com> 1722119759 +0100	commit: Responsive NavBar
+8b0367bf6fc73dc1a670cc812cc061c03cae01db 561446e09cbd55d57bb020beaaae7bb5de7159b9 Philip Nwachukwu <docphils64@gmail.com> 1722647070 +0100	commit: Huge progress on clientDashboard with a new ClientDashboardController
+561446e09cbd55d57bb020beaaae7bb5de7159b9 73fe33176fd1a7177f62d5116f1f4e31a6d0c10e Philip Nwachukwu <docphils64@gmail.com> 1723009132 +0100	commit: New Migrations for CRM and Payment, added more columns to tutorProfile and Bookings. Also adjusted bookings store and update methods.
+73fe33176fd1a7177f62d5116f1f4e31a6d0c10e a16eb097cb3662dc82c2a7b84a1b9ccfcb67dd0f Philip Nwachukwu <docphils64@gmail.com> 1723048778 +0100	commit: Completed the Payment and Crm Controllers.
+a16eb097cb3662dc82c2a7b84a1b9ccfcb67dd0f 8ac6becce4380af8e76bdc0d87ee196cd0ef03c9 Philip Nwachukwu <docphils64@gmail.com> 1723105765 +0100	commit: Restructured the view completely. Grouped all views into different directories for admin, clients, and tutors
+8ac6becce4380af8e76bdc0d87ee196cd0ef03c9 219c0336cfe2e442069fe057973758417bbe3eca Philip Nwachukwu <docphils64@gmail.com> 1723199446 +0100	commit: TutorRequest Client view set up properly
+219c0336cfe2e442069fe057973758417bbe3eca b89fe92944c84e1d224db738b9b303a9d6f8d5e5 Philip Nwachukwu <docphils64@gmail.com> 1723475362 +0100	commit: Working on the CRM client and Admin pages
+b89fe92944c84e1d224db738b9b303a9d6f8d5e5 1666668671e6503119681d4c3ce7e44f440ae6d7 Philip Nwachukwu <docphils64@gmail.com> 1723728064 +0100	commit: Included Livewire in the project. Added wire:navigate to all navigation routes for seemless navigation experiences
+1666668671e6503119681d4c3ce7e44f440ae6d7 26e6eb5d5a15d90867cecadd2d475f704d8a612c Philip Nwachukwu <docphils64@gmail.com> 1723874514 +0100	commit: Admin Booking/Lessons view made interactive with livewire

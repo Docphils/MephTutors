@@ -11,6 +11,7 @@ use App\Models\TutorProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class BookingController extends Controller
 {
@@ -36,7 +37,7 @@ class BookingController extends Controller
         $clients = User::where('role', 'client')->get();
         $tutors = User::where('role', 'tutor')->get();
         $tutorRequests = TutorRequest::where('status', 'Pending')->get();
-        return view('admin.bookings.create', compact('clients', 'tutors', 'tutorRequests'));
+        return view('admin.lessons.create', compact('clients', 'tutors', 'tutorRequests'));
     }
 
     public function edit($id)
@@ -46,9 +47,8 @@ class BookingController extends Controller
         $tutors = User::where('role', 'tutor')->get();
         $tutorRequests = TutorRequest::whereIn('status', ['Pending', 'Accepted'])->get();
         $booking = Booking::findOrFail($id);
-        $this->authorize('update', $booking);
 
-        return view('admin.bookings.edit', compact('booking', 'clients', 'tutors', 'tutorRequests'));
+        return view('admin.lessons.edit', compact('booking', 'clients', 'tutors', 'tutorRequests'));
     }
 
     //Store  Method
@@ -57,7 +57,7 @@ class BookingController extends Controller
         Gate::authorize('Admin');
 
         $request->validate([
-            'tutorRequest_id' => 'required|exists:tutorRequest,id',
+            'tutorRequest_id' => 'required|exists:tutor_requests,id',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
             'location' => 'required|string',
@@ -93,20 +93,19 @@ class BookingController extends Controller
             'tutor_id' => $newBooking->tutor_id,
             'booking_id' => $newBooking->id,
             'amount' => $newBooking->amount * 0.7,
-            'status' => 'Pending', // Default status
+            'status' => 'Pending',
         ]);
 
-            return redirect()->route('admin.bookings.index')->with('success', 'Booking created successfully');
+            return redirect()->route('lessons.index')->with('success', 'Lesson created successfully');
         }
 
     //Update Method
     public function update(Request $request, $id)
-    {
+    { 
         $booking = Booking::findOrFail($id);
-        $this->authorize('update', $booking);
-
+        Gate::authorize('Admin');
         $request->validate([
-            'tutorRequest_id' => 'sometimes|exists:tutorRequest,id',
+            'tutorRequest_id' => 'sometimes|exists:tutor_requests,id',
             'start_date' => 'sometimes|date|after_or_equal:today',
             'end_date' => 'sometimes|date|after:start_date',
             'location' => 'sometimes|string',
@@ -128,13 +127,18 @@ class BookingController extends Controller
             'clientAcceptanceRemarks' => 'sometimes|string',
             'clientApprovalRemarks' => 'sometimes|string',
         ]);
-
+        
         $bookingData = $request->except('paymentEvidence');
 
         if ($request->hasFile('paymentEvidence')) {
             $file = $request->file('paymentEvidence');
-            $filePath = $file->store('payment_evidences', 'public'); // Store the file in the 'public/payment_evidences' directory
-            $bookingData['paymentEvidence'] = $filePath; // Save the file path to the database
+        
+            // Check if the file object is not null
+            if ($file) {
+                // Store the file using the Storage facade
+                $filePath = Storage::disk('public')->put('payment_evidences', $file);
+                $bookingData['paymentEvidence'] = $filePath;
+            }
         }
 
         $booking->update($bookingData);
@@ -148,7 +152,7 @@ class BookingController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.bookings.index')->with('success', 'Booking updated successfully');
+        return redirect()->route('lessons.index')->with('success', 'LEsson updated successfully');
     }
 
     public function destroy($id)
@@ -156,6 +160,7 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
         Gate::authorize('Admin');
 
+        $booking->payments()->delete();
         $booking->delete();
 
         return redirect()->route('admin.bookings.index')->with('success', 'Booking deleted successfully');

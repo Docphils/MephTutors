@@ -15,7 +15,7 @@ class TutorRequestSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        $recordCount = 100; // Adjust the number of records here
+        $recordCount = 10; // Adjust the number of records here
 
         // Get all users with the 'client' role
         $clients = User::where('role', 'client')->get();
@@ -32,7 +32,7 @@ class TutorRequestSeeder extends Seeder
                 'location' => $faker->city,
                 'days_times' => 'Monday, Wednesday, Friday: 3:00 PM - 4:00 PM', // Replace with desired format
                 'subjects' => 'Math, Science', // Replace with desired subjects
-                'learners' => $faker->numberBetween(1, 5),
+                'learners' => $faker->name,
                 'sessions' => $faker->numberBetween(10, 20),
                 'duration' => '60', // Minutes
                 'tutor_gender' => $faker->randomElement(['Male', 'Female', 'Any']),

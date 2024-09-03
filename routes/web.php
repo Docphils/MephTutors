@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\TutorDashboardController;
+use App\Livewire\Admin\Users\Index;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,14 +112,16 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     // Admin Dashboard
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');    
     //Tutor Request Routes
-    Route::get('admin/tutor-requests', [TutorRequestController::class, 'index'])->name('admin.tutorRequests.index');
+    Route::get('admin/tutor-requests', [TutorRequestController::class, 'index'])->name('tutorRequests.index');
     Route::get('admin/tutor-requests/{id}', [TutorRequestController::class, 'show'])->name('admin.tutorRequests.show');
     Route::get('admin/tutor-requests/{id}/edit', [TutorRequestController::class, 'edit'])->name('admin.tutorRequests.edit');
     Route::delete('admin/tutor-requests/{id}', [TutorRequestController::class, 'destroy'])->name('admin.tutorRequests.destroy');
     //Bookings
+    Route::post('admin/lessons', [BookingController::class, 'store'])->name('lessons.store');
     Route::get('bookings/admin/create', [BookingController::class, 'create'])->name('bookings.create');
     Route::get('bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
     Route::get('admin/lessons', [BookingController::class, 'index'])->name('lessons.index');
+    Route::post('admin/lessons/{id}', [BookingController::class, 'update'])->name('bookings.update');
 
     //Crm Routes
     Route::get('admin/crm', [CrmController::class, 'index'])->name('admin.crm.index');
@@ -137,11 +140,9 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
 
     //Users Management Routes
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users');
-    Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
-    Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
-    Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
-    Route::put('admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
-    Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    
+
+    //Route::get('admin/users', Index::class)->name('admin.users.index');
 
 });
 

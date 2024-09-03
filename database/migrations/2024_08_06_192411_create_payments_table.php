@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('booking_id');
             $table->string('amount');
-            $table->string('evidence');
+            $table->string('evidence')->nullable();
             $table->enum('status', ['Pending','Earned', 'Paid']);
             $table->unsignedBigInteger('tutor_id');
             $table->timestamps();
@@ -23,7 +23,7 @@ return new class extends Migration
 
             // Foreign key constraints linking to the users table
             $table->foreign('tutor_id')->references('id')->on('users');
-            $table->foreign('booking_id')->references('id')->on('bookings');
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
         });
     }
 

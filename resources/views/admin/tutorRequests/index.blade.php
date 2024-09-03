@@ -1,30 +1,22 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-cyan-200 dark:text-gray-200 leading-tight">
-            {{ __('All Lessons') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @foreach($lessons as $lesson)
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h3 class="text-lg font-semibold">{{ $lesson->subjects }}</h3>
-                        <p><strong>Boooked By:</strong> {{ $lesson->user->name }}</p>
-                        <p><strong>Status:</strong> {{ $lesson->status }}</p>
-                        <p><strong>Start Date:</strong> {{ $lesson->start_date }}</p>
-                        <p><strong>End Date:</strong> {{ $lesson->end_date }}</p>
-                        <a href="{{ route('lessons.show', $lesson->id) }}" class="text-blue-500">View Details</a>
-                        <a href="{{ route('lessons.edit', $lesson->id) }}" class="text-blue-500 ml-4">Edit</a>
-                        <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" class="inline-block ml-4">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500">Delete</button>
-                        </form>
+    <x-app-layout>
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-cyan-100leading-tight">
+                {{ __('Manage Requests') }}
+            </h2>
+        </x-slot>
+        <div class=" flex my-2 px-16 justify-between mx-auto ">
+            <a href="{{route('admin.dashboard')}}" wire:navigate class="bg-cyan-700 shadow-md hover:shadow-md shadow-cyan-500 p-2 rounded-sm">Back to Dashboard</a>
+            <!--<a href="{{route('bookings.create')}}" wire:navigate class="bg-cyan-100 shadow-sm hover:shadow-lg hover:underline shadow-cyan-50  text-cyan-800 p-2 rounded-sm">Assign New Request</a>-->        
+        </div>
+        <div class="py-8  bg-sky-100">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class=" bg-sky-50  overflow-hidden shadow-lg sm:rounded-lg">
+                    <div class="p-6 text-gray-900 ">
+                       @livewire('admin.tutorRequests.index')
                     </div>
                 </div>
-            @endforeach
+            </div>
         </div>
-    </div>
-</x-app-layout>
+    </x-app-layout>
+    
+       

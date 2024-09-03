@@ -9,11 +9,12 @@ class Booking extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'lesson_id',
+        'tutorRequest_id',
         'user_id',
         'client_id',
         'tutor_id',
         'start_date',
+        'end_date',
         'location',
         'sessions',
         'duration',
@@ -46,6 +47,10 @@ class Booking extends Model
         return $this->belongsTo(User::class, 'client_id');
     }
 
+    public function payments()
+    {
+        return $this->hasOne(Payment::class);
+    }
 
     public function tutorRequest()
     {
