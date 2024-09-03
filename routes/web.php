@@ -132,11 +132,7 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
 
     //Payments Routes
     Route::get('admin/payments', [PaymentController::class, 'index'])->name('admin.payments.index');
-    Route::get('admin/payments/create', [PaymentController::class, 'create'])->name('admin.payments.create');
-    Route::post('admin/payments', [PaymentController::class, 'store'])->name('admin.payments.store');
-    Route::get('admin/payments/{id}', [PaymentController::class, 'show'])->name('admin.payments.show');
-    Route::get('admin/payments/{id}/edit', [PaymentController::class, 'edit'])->name('admin.payments.edit');
-    Route::put('admin/payments/{id}', [PaymentController::class, 'update'])->name('admin.payments.update');
+
 
     //Users Management Routes
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users');

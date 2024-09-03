@@ -8,8 +8,8 @@
                 <button wire:click.prevent="$set('roleFilter', 'tutor')" :class="{ 'active': activeStatus === 'tutor' }" class="border-r w-full">Tutors</button>
                 <button wire:click.prevent="$set('roleFilter', 'admin')" :class="{ 'active': activeStatus === 'admin' }" class="border-r w-full">Admins</button>       
             </nav>
-            <div class="w-1/2 flex gap-4">
-                <input wire:click.prevent="$set('roleFilter', 'search')" type="text" wire:model.live="search" placeholder="Search users..." class="input input-bordered w-full max-w-xs rounded-md text-gray-900"/>
+            <div class="w-full sm:w-1/2 sm:flex gap-4 ">
+                <input wire:click.prevent="$set('roleFilter', 'search')" type="text" wire:model.live="search" placeholder="Search users..." class="input input-bordered w-full max-w-xs rounded-md mb-2 sm:mb-0 text-gray-900"/>
                 <button wire:click="create" class="w-full rounded-md shadow-md p-2 text-cyan-50 hover:underline hover:shadow-lg hover:bg-cyan-700">Create New User</button>
             </div> 
         </div>
@@ -23,73 +23,109 @@
                 <div class="w-full">Name</div>
                 <div class="w-full">Email</div>
                 <div class="w-full">Role</div>
-                <div class="w-full">Actions</div>
+                <div class="hidden sm:block w-full">Actions</div>
             </div>
         </div>
         <div>
             @if($roleFilter === ''||$roleFilter === null)
             @foreach ($users as $user)
-                <div class="w-full flex justify-between p-2 border-b ">
+                <div class="w-full flex justify-between p-2 sm:border-b gap-2">
                     <div class="w-full">{{ $user->name }}</div>
                     <div class="w-full">{{ $user->email }}</div>
-                    <div class="w-full">{{ ucfirst($user->role) }}</div>
+                    <div class="hidden sm:block w-full">{{ ucfirst($user->role) }}</div>
+                    <div class="w-full hidden sm:flex gap-4">
+                        <button wire:click="edit({{ $user->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                        <button wire:click="openDelete({{ $user->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
+                    </div>
+                </div>
+                <div class="w-full p-2 flex sm:hidden justify-between items-center border-b">
+                    <div class="w-full">Role: <span class="text-cyan-100">{{ ucfirst($user->role) }} </span></div>
                     <div class="w-full flex gap-4">
                         <button wire:click="edit({{ $user->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
                         <button wire:click="openDelete({{ $user->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
                     </div>
                 </div>
+                
             @endforeach
 
             @elseif ($roleFilter === 'client')
             @foreach ($clients as $client)
-                <div class="w-full flex justify-between p-2 border-b ">
-                    <div class="w-full">{{ $client->name }}</div>
-                    <div class="w-full">{{ $client->email }}</div>
-                    <div class="w-full">{{ ucfirst($client->role) }}</div>
-                    <div class="w-full flex gap-4">
-                        <button wire:click="edit({{ $client->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
-                        <button wire:click="openDelete({{ $client->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
-                    </div>
+            <div class="w-full flex justify-between p-2 sm:border-b gap-2">
+                <div class="w-full">{{ $client->name }}</div>
+                <div class="w-full">{{ $client->email }}</div>
+                <div class="hidden sm:block w-full">{{ ucfirst($client->role) }}</div>
+                <div class="w-full hidden sm:flex gap-4">
+                    <button wire:click="edit({{ $client->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $client->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
                 </div>
+            </div>
+            <div class="w-full p-2 flex sm:hidden justify-between items-center border-b">
+                <div class="w-full">Role: <span class="text-cyan-100">{{ ucfirst($client->role) }} </span></div>
+                <div class="w-full flex gap-4">
+                    <button wire:click="edit({{ $client->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $client->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
+                </div>
+            </div>
             @endforeach
 
             @elseif ($roleFilter === 'tutor')
             @foreach ($tutors as $tutor)
-                <div class="w-full flex justify-between p-2 border-b ">
-                    <div class="w-full">{{ $tutor->name }}</div>
-                    <div class="w-full">{{ $tutor->email }}</div>
-                    <div class="w-full">{{ ucfirst($tutor->role) }}</div>
-                    <div class="w-full flex gap-4">
-                        <button wire:click="edit({{ $tutor->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
-                        <button wire:click="openDelete({{ $tutor->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
-                    </div>
+            <div class="w-full flex justify-between p-2 sm:border-b gap-2">
+                <div class="w-full">{{ $tutor->name }}</div>
+                <div class="w-full">{{ $tutor->email }}</div>
+                <div class="hidden sm:block w-full">{{ ucfirst($tutor->role) }}</div>
+                <div class="w-full hidden sm:flex gap-4">
+                    <button wire:click="edit({{ $tutor->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $tutor->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
                 </div>
+            </div>
+            <div class="w-full p-2 flex sm:hidden justify-between items-center border-b">
+                <div class="w-full">Role: <span class="text-cyan-100">{{ ucfirst($tutor->role) }} </span></div>
+                <div class="w-full flex gap-4">
+                    <button wire:click="edit({{ $tutor->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $tutor->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
+                </div>
+            </div>
             @endforeach
 
             @elseif ($roleFilter === 'admin')
             @foreach ($admins as $admin)
-                <div class="w-full flex justify-between p-2 border-b ">
-                    <div class="w-full">{{ $admin->name }}</div>
-                    <div class="w-full">{{ $admin->email }}</div>
-                    <div class="w-full">{{ ucfirst($admin->role) }}</div>
-                    <div class="w-full flex gap-4">
-                        <button wire:click="edit({{ $admin->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
-                        <button wire:click="openDelete({{ $admin->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
-                    </div>
+            <div class="w-full flex justify-between p-2 sm:border-b gap-2">
+                <div class="w-full">{{ $admin->name }}</div>
+                <div class="w-full">{{ $admin->email }}</div>
+                <div class="hidden sm:block w-full">{{ ucfirst($admin->role) }}</div>
+                <div class="w-full hidden sm:flex gap-4">
+                    <button wire:click="edit({{ $admin->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $admin->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
                 </div>
+            </div>
+            <div class="w-full p-2 flex sm:hidden justify-between items-center border-b">
+                <div class="w-full">Role: <span class="text-cyan-100">{{ ucfirst($admin->role) }} </span></div>
+                <div class="w-full flex gap-4">
+                    <button wire:click="edit({{ $admin->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $admin->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
+                </div>
+            </div>
             @endforeach
 
             @elseif ($roleFilter === 'search')
             @foreach ($searchedUser as $user)
-                <div class="w-full flex justify-between p-2 border-b ">
-                    <div class="w-full">{{ $user->name }}</div>
-                    <div class="w-full">{{ $user->email }}</div>
-                    <div class="w-full">{{ ucfirst($user->role) }}</div>
-                    <div class="w-full flex gap-4">
-                        <button wire:click="edit({{ $user->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
-                        <button wire:click="openDelete({{ $user->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
-                    </div>
+            <div class="w-full flex justify-between p-2 sm:border-b gap-2">
+                <div class="w-full">{{ $user->name }}</div>
+                <div class="w-full">{{ $user->email }}</div>
+                <div class="hidden sm:block w-full">{{ ucfirst($user->role) }}</div>
+                <div class="w-full hidden sm:flex gap-4">
+                    <button wire:click="edit({{ $user->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $user->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
                 </div>
+            </div>
+            <div class="w-full p-2 flex sm:hidden justify-between items-center border-b">
+                <div class="w-full">Role: <span class="text-cyan-100">{{ ucfirst($user->role) }} </span></div>
+                <div class="w-full flex gap-4">
+                    <button wire:click="edit({{ $user->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                    <button wire:click="openDelete({{ $user->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
+                </div>
+            </div>
             @endforeach
             @endif
         </div>

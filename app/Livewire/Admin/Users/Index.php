@@ -4,7 +4,9 @@ namespace App\Livewire\Admin\Users;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Booking;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Gate;
 
 
 
@@ -41,6 +43,12 @@ class Index extends Component
         "confirmDelete" => "confirmDelete",
         "deleteUser" => "deleteUser",
     ];
+
+    public function mount()
+    {
+        Gate::authorize('Admin');
+        
+    }
 
     public function render()
     {
@@ -130,7 +138,10 @@ class Index extends Component
 
     public function deleteUser()
     {
+        $deletedUserId = 0;
+
         $user = User::findOrFail($this->selectedUser->id);
+        Booking::where('client_id', $user->id)->update(['client_id' => $deletedUserId]);
         $user->delete();
 
         $this->confirmDelete = false;
