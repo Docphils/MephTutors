@@ -21,23 +21,33 @@
             <div class="w-full flex justify-between p-2 text-cyan-100 font-bold text-lg">
                 <div class="w-full">Amount</div>
                 <div class="w-full">Tutor</div>
-                <div class="w-full">Booking</div>
-                <div class="w-full">Status</div>
+                <div class="w-full">Booking ID | Client</div>
+                <div class="hidden sm:block w-full">Status</div>
                 <div class="hidden sm:block w-full">Actions</div>
             </div>
         </div>
         <div>
             @foreach ($payments as $payment)
                 <div class="w-full flex justify-between p-2 sm:border-b gap-2">
-                    <div class="w-full">{{ $payment->amount }}</div>
+                    <div class="w-full">NGN{{ $payment->amount }}</div>
                     <div class="w-full">{{ $payment->tutor->name }}</div>
-                    <div class="w-full">{{ $payment->booking->reference }}</div>
-                    <div class="w-full">{{ $payment->status }}</div>
+                    <div class="w-full">{{ $payment->booking->id }} | {{ $payment->booking->client->name }}</div>
+                    <div class="hidden sm:block w-full">{{ $payment->status }}</div>
                     <div class="w-full hidden sm:flex gap-4">
+                        <button wire:click.prevent="showPayment({{ $payment->id }})" class="px-2 py-1 rounded-md bg-green-500">View</button>
                         <button wire:click="edit({{ $payment->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
                         <button wire:click="openDelete({{ $payment->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
                     </div>
                 </div>
+                <div class="p-2 sm:hidden flex border-b">
+                    <div class="w-full text-cyan-200">{{ $payment->status }}</div>
+                    <div class="w-full flex gap-4">
+                        <button wire:click.prevent="showPayment({{ $payment->id }})" class="px-2 py-1 rounded-md bg-green-500">View</button>
+                        <button wire:click="edit({{ $payment->id }})" class="px-2 py-1 rounded-md bg-blue-500">Edit</button>
+                        <button wire:click="openDelete({{ $payment->id }})" class="px-2 py-1 rounded-md bg-red-500">Delete</button>
+                    </div>
+                </div>
+                
             @endforeach
         </div>
     </div>
@@ -59,6 +69,14 @@
                             <input type="file" wire:model.defer="evidence" class="rounded-md w-full mb-2" />
                             @error('evidence') <span class="text-red-600">{{ $message }}</span> @enderror
 
+                            <select wire:model.defer="status" class="rounded-md w-full mb-2 text-gray-900">
+                                <option value="">Select Status</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Earned">Earned</option>
+                                    <option value="Paid">Paid</option>
+                            </select>
+                            @error('status') <span class="text-red-600">{{ $message }}</span> @enderror
+
                             <select wire:model.defer="tutor_id" class="rounded-md w-full mb-2 text-gray-900">
                                 <option value="">Select Tutor</option>
                                 @foreach ($tutors as $tutor)
@@ -70,7 +88,7 @@
                             <select wire:model.defer="booking_id" class="rounded-md w-full mb-2 text-gray-900">
                                 <option value="">Select Booking</option>
                                 @foreach ($bookings as $booking)
-                                    <option value="{{ $booking->id }}">{{ $booking->id }}</option>
+                                    <option value="{{ $booking->id }}">{{ $booking->id }} | {{ $booking->client->name }}</option>
                                 @endforeach
                             </select>
                             @error('booking_id') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -99,6 +117,14 @@
                             <input type="file" wire:model.defer="newEvidence" class="rounded-md w-full mb-2" />
                             @error('newEvidence') <span class="text-red-600">{{ $message }}</span> @enderror
 
+                            <select wire:model.defer="status" class="rounded-md w-full mb-2 text-gray-900">
+                                <option value="">Select Status</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Earned">Earned</option>
+                                    <option value="Paid">Paid</option>
+                            </select>
+                            @error('status') <span class="text-red-600">{{ $message }}</span> @enderror
+
                             <select wire:model.defer="tutor_id" class="rounded-md w-full mb-2 text-gray-900">
                                 <option value="">Select Tutor</option>
                                 @foreach ($tutors as $tutor)
@@ -110,7 +136,7 @@
                             <select wire:model.defer="booking_id" class="rounded-md w-full mb-2 text-gray-900">
                                 <option value="">Select Booking</option>
                                 @foreach ($bookings as $booking)
-                                    <option value="{{ $booking->id }}">{{ $booking->id }}</option>
+                                    <option value="{{ $booking->id }}">{{ $booking->id }} | {{ $booking->client->name }}</option>
                                 @endforeach
                             </select>
                             @error('booking_id') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -144,4 +170,48 @@
             </div>
         </div>
     @endif
+
+     <!-- Show Modal -->
+     @if($showModal)
+     <div class="absolute sm:fixed top-1 sm:inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 ">
+         <div class="bg-gradient-to-r from-cyan-100 to-cyan-400 p-4 sm:p-6 rounded-lg shadow-lg sm:mt-0 sm:top-0 w-full sm:w-auto max-w-lg overflow-y-auto">
+             <h2 class="text-xl sm:text-2xl font-bold text-cyan-700 my-4 text-center">Payment Details</h2>
+ 
+             <div class="sm:grid sm:grid-cols-2 sm:gap-4 text-gray-900">                 
+ 
+                 <div class="bg-white p-4 rounded-lg shadow">
+                     <p><strong class="text-gray-700">Payment Status:</strong> {{ $selectedPayment->status }}</p>
+                     <p><strong class="text-gray-700">Tutor Name:</strong> {{ $selectedPayment->tutor->name }}</p>
+                     <p><strong class="text-gray-700">Booking:</strong> ID {{ $selectedPayment->booking->id }}, {{ $selectedPayment->booking->learners }}, {{ $selectedPayment->booking->location }}</p>
+                     <p><strong class="text-gray-700">Amount:</strong> NGN {{ $selectedPayment->amount }}</p>
+                 </div>
+ 
+                 <div class="flex flex-col bg-white  p-4 rounded-lg shadow mt-2 sm:mt-0">
+                     <div>
+                         <p><strong class="text-gray-700">Payment Evidence:</strong></p>
+                         @if($selectedPayment->evidence)
+                             @if(Str::endsWith($selectedPayment->evidence, ['.jpg', '.jpeg', '.png', '.gif']))
+                                 <!-- Display image -->
+                                 <img src="{{ asset('storage/' . $selectedPayment->evidence) }}" alt="Payment Evidence" class="w-full h-auto rounded-lg">
+                             @elseif(Str::endsWith($selectedPayment->evidence, '.pdf'))
+                                 <!-- Display PDF with download link -->
+                                 <a href="{{ asset('storage/' . $selectedPayment->evidence) }}" class="text-blue-600 underline" target="_blank">View Payment Receipt</a>
+                                 <iframe src="{{ asset('storage/' . $selectedPayment->evidence) }} " alt="Payment Evidence" class="hidden sm:block w-full h-auto rounded-lg"> Payment Receipt</iframe>
+                             @endif
+                         @else
+                             <p>No payment evidence uploaded.</p>
+                         @endif
+                     </div>
+                    
+                 </div>
+             </div>
+ 
+             <div class="mt-6 flex justify-end">
+                 <button wire:click="$set('showModal', false)" class="px-6 py-2 bg-cyan-800 text-white rounded-lg hover:bg-cyan-600">Close</button>
+             </div>
+         </div>
+     </div>
+     @endif
+ 
+ 
 </div>
