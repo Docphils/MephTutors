@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="grid sm:grid-cols-5">
         <!-- Sidebar-->
-        <section class="bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 pl-16 pr-6 p-6 sm:py-16 border-l-4">
+        <section class="bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 pl-6 sm:pl-16 pr-6 p-6 sm:py-16 sm:border-l-4">
             <div class="hidden sm:block mb-6">
                 @if ($userProfile)
                 <div class="text-center mb-4">
@@ -50,7 +50,7 @@
                     <a href="{{route('admin.crm.index')}}"><li class="flex items-center hover:underline">
                         <svg class="w-3.5 h-3.5 me-2 text-cyan-300 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-                        </svg>CRM</li>
+                        </svg>Coding & Music</li>
                     </a>
                 </ul>
             </div>
@@ -62,10 +62,8 @@
                     {{ __('Admin Dashboard') }}
                 </h2>
             </x-slot>
-            <div class=" py-12 px-10 text-lg bg-cyan-500">
-                <div class="">Pending Tutor Requests </div>
-                <div class="">Requests for Adjustment</div>
-                <div class="">Accepted Tutor Requests</div>
+            <div class=" py-8 px-10 text-lg bg-cyan-500">
+                
             </div>
 
             <!-- Main-->
