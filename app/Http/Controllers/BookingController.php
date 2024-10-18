@@ -82,8 +82,8 @@ class BookingController extends Controller
 
         if ($request->hasFile('paymentEvidence')) {
             $file = $request->file('paymentEvidence');
-            $filePath = $file->store('payment_evidences', 'public'); // Store the file in the 'public/payment_evidences' directory
-            $bookingData['paymentEvidence'] = $filePath; // Save the file path to the database
+            $filePath = $file->store('payment_evidences', 'public'); 
+            $bookingData['paymentEvidence'] = $filePath; 
         }
 
         $newBooking = Booking::create($bookingData);

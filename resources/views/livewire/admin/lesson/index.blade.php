@@ -9,7 +9,7 @@
             <h2 class="text-2xl font-bold mb-2">Booked Lessons</h2>
 
         </div>
-        <nav class="sm:flex border mb-4 gap-4" x-data="{ activeStatus: @entangle('status') }">
+        <nav class="sm:flex bg-cyan-600 border mb-4 gap-4" x-data="{ activeStatus: @entangle('status') }">
             <button wire:click.prevent="$set('status', 'all')" :class="{ 'active': activeStatus === 'all'}" class="border-r w-full">All</button>
             <button wire:click.prevent="$set('status', 'pending')" :class="{ 'active': activeStatus === 'pending' }" class="border-r w-full" >Pending</button>
             <button wire:click.prevent="$set('status', 'adjust')" :class="{ 'active': activeStatus === 'adjust' }" class="border-r w-full">Adjust</button>
@@ -18,7 +18,7 @@
             <button wire:click.prevent="$set('status', 'completed')" :class="{ 'active': activeStatus === 'completed' }" class="border-r w-full">Completed</button>
             <button wire:click.prevent="$set('status', 'declined')" :class="{ 'active': activeStatus === 'declined' }" class="border-r w-full">Declined</button>
             <button wire:click.prevent="$set('status', 'closed')" :class="{ 'active': activeStatus === 'closed' }" class="border-r w-full" >Closed</button>        
-            <input wire:click.prevent="$set('status', 'search')" type="text" wire:model.live="search" placeholder="Search bookings..." class="rounded-md w-full p-1 border-red-400 text-sm">
+            <input wire:click.prevent="$set('status', 'search')" type="text" wire:model.live="search" placeholder="Search bookings..." class="rounded-md w-full p-1 border-cyan-500-400 text-sm">
         </nav>
         
 
@@ -37,10 +37,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
             @endforeach
@@ -51,10 +53,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -65,10 +69,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate  class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -79,10 +85,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -93,10 +101,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -107,10 +117,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -121,10 +133,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -135,10 +149,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -149,10 +165,12 @@
                     <div class="w-full">{{$booking->client->userProfile->fullname}}</div>
                     <div class="w-full">{{$booking->tutor->name}}</div>
                     <div class="w-full">{{$booking->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showBooking({{ $booking->id }})">View</button>
-                        <a href="{{route('bookings.edit', $booking->id)}}" wire:navigate class="text-blue-600">Edit</a>
-                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="text-red-600">Delete</button>
+                    <div class="flex justify-between w-full">
+                        <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                            <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
+                        </button>
+                        <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -166,11 +184,11 @@
 
     <!-- Show Modal -->
     @if($showModal)
-    <div class="absolute sm:fixed top-1 sm:inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 ">
-        <div class="bg-gradient-to-r from-cyan-100 to-cyan-400 p-4 sm:p-6 rounded-lg shadow-lg sm:mt-0 sm:top-0 w-full sm:w-auto max-w-lg sm:max-w-none overflow-y-auto">
+    <div class="absolute flex items-center justify-center bg-gray-900 bg-opacity-50 top-0 left-0 w-full">
+        <div class="bg-gradient-to-r from-cyan-100 to-cyan-400 p-4 sm:p-6 rounded-lg shadow-lg w-3/4 sm:w-2/3">
             <h2 class="text-xl sm:text-2xl font-bold text-cyan-700 my-4 text-center">Booking Details</h2>
 
-            <div class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-4">
+            <div class="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4">
                 <div class="bg-white p-4 rounded-lg shadow">
                     <p><strong class="text-gray-700">Client:</strong> {{ $selectedBooking->client->name }}</p>
                     <p><strong class="text-gray-700">Tutor:</strong> {{ $selectedBooking->tutor->name }}</p>
@@ -202,7 +220,7 @@
                 </div>
 
                 <div class="bg-white p-4 rounded-lg shadow">
-                    <p><strong class="text-gray-700">Payment Status:</strong> <span class="px-2 py-1 rounded-full text-white {{ $selectedBooking->paymentStatus === 'Paid' ? 'bg-green-500' : 'bg-red-500' }}">{{ $selectedBooking->paymentStatus }}</span></p>
+                    <p><strong class="text-gray-700">Payment Status:</strong> <span class="px-2 py-1 rounded-full text-white {{ $selectedBooking->paymentStatus === 'Confirmed' ? 'bg-green-500' : 'bg-cyan-600' }}">{{ $selectedBooking->paymentStatus }}</span></p>
                     <p><strong class="text-gray-700">Tutor Remarks:</strong> {{ $selectedBooking->tutorRemarks }}</p>
                     <p><strong class="text-gray-700">Client Remarks:</strong> {{ $selectedBooking->clientApprovalRemarks }}</p>
                 </div>
@@ -213,7 +231,7 @@
                         @if($selectedBooking->paymentEvidence)
                             @if(Str::endsWith($selectedBooking->paymentEvidence, ['.jpg', '.jpeg', '.png', '.gif']))
                                 <!-- Display image -->
-                                <img src="{{ asset('storage/' . $selectedBooking->paymentEvidence) }}" alt="Payment Evidence" class="max-w-full h-auto rounded-lg">
+                                <img src="{{ asset('storage/' . $selectedBooking->paymentEvidence) }}" alt="Payment Evidence" class="max-w-full h-auto max-h-48 rounded-lg">
                             @elseif(Str::endsWith($selectedBooking->paymentEvidence, '.pdf'))
                                 <!-- Display PDF with download link -->
                                 <a href="{{ asset('storage/' . $selectedBooking->paymentEvidence) }}" class="text-blue-600 underline" target="_blank">View Payment Evidence</a>
@@ -229,7 +247,7 @@
                 </div>
             </div>
 
-            <div class="mt-6 flex justify-end">
+            <div class="mt-6 flex justify-center">
                 <button wire:click="closeModal" class="px-6 py-2 bg-cyan-800 text-white rounded-lg hover:bg-cyan-600">Close</button>
             </div>
         </div>

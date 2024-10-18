@@ -30,7 +30,7 @@ return new class extends Migration
             $table->enum('status', ['Pending', 'Adjust', 'Accepted', 'Active', 'Completed', 'Declined','Closed']);
             $table->string('classes');
             $table->integer('amount');
-            $table->enum('paymentStatus', ['Pending', 'Comfirmed', 'Paid'])->default('Pending');
+            $table->enum('paymentStatus', ['Pending', 'Confirmed', 'Paid'])->default('Pending');
             $table->string('paymentEvidence')->nullable();
             $table->string('tutorRemarks')->nullable(); 
             $table->string('clientAcceptanceRemarks')->nullable();

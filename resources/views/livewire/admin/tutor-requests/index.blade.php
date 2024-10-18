@@ -32,10 +32,10 @@
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->location}}</div>
                     <div class="w-full">{{$request->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showRequest({{ $request->id }})">View</button>
-                        <button wire:click.prevent="openEditModal({{ $request->id }})">Update</button>
-                        <button wire:click.prevent="openDeleteModal({{ $request->id }})">Delete</button>
+                    <div class="w-full flex justify-between">
+                        <button wire:click.prevent="showRequest({{ $request->id }})"  class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openEditModal({{ $request->id }})"  class="w-full"><i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openDeleteModal({{ $request->id }})" class="w-full"><i class="fas fa-trash text-red-400 hover:text-red-600 hover:shadow-lg"></i></button>
                     </div>
                 </div>
             @endforeach
@@ -47,10 +47,10 @@
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->location}}</div>
                     <div class="w-full">{{$request->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showRequest({{ $request->id }})">View</button>
-                        <button wire:click.prevent="openEditModal({{ $request->id }})">Update</button>
-                        <button wire:click.prevent="openDeleteModal({{ $request->id }})">Delete</button>
+                    <div class="w-full flex justify-between">
+                        <button wire:click.prevent="showRequest({{ $request->id }})"  class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openEditModal({{ $request->id }})"  class="w-full"><i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openDeleteModal({{ $request->id }})" class="w-full"><i class="fas fa-trash text-red-400 hover:text-red-600 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -62,10 +62,10 @@
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->location}}</div>
                     <div class="w-full">{{$request->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showRequest({{ $request->id }})">View</button>
-                        <button wire:click.prevent="openEditModal({{ $request->id }})">Update</button>
-                        <button wire:click.prevent="openDeleteModal({{ $request->id }})">Delete</button>
+                    <div class="w-full flex justify-between">
+                        <button wire:click.prevent="showRequest({{ $request->id }})"  class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openEditModal({{ $request->id }})"  class="w-full"><i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openDeleteModal({{ $request->id }})" class="w-full"><i class="fas fa-trash text-red-400 hover:text-red-600 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -77,10 +77,10 @@
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->location}}</div>
                     <div class="w-full">{{$request->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showRequest({{ $request->id }})">View</button>
-                        <button wire:click.prevent="openEditModal({{ $request->id }})">Update</button>
-                        <button wire:click.prevent="openDeleteModal({{ $request->id }})">Delete</button>
+                    <div class="w-full flex justify-between">
+                        <button wire:click.prevent="showRequest({{ $request->id }})"  class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openEditModal({{ $request->id }})"  class="w-full"><i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openDeleteModal({{ $request->id }})" class="w-full"><i class="fas fa-trash text-red-400 hover:text-red-600 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -92,10 +92,10 @@
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->location}}</div>
                     <div class="w-full">{{$request->status}}</div>
-                    <div class="w-full  justify-between">
-                        <button wire:click.prevent="showRequest({{ $request->id }})">View</button>
-                        <button wire:click.prevent="openEditModal({{ $request->id }})">Update</button>
-                        <button wire:click.prevent="openDeleteModal({{ $request->id }})">Delete</button>
+                    <div class="w-full flex justify-between">
+                        <button wire:click.prevent="showRequest({{ $request->id }})"  class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openEditModal({{ $request->id }})"  class="w-full"><i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i></button>
+                        <button wire:click.prevent="openDeleteModal({{ $request->id }})" class="w-full"><i class="fas fa-trash text-red-400 hover:text-red-600 hover:shadow-lg"></i></button>
                     </div>
                 </div>
                 @endforeach
@@ -114,7 +114,7 @@
             <div class="mb-4">
                 <input wire:click.prevent="$set('status', 'search')" :class="{ 'active': activeStatus === 'search' }"  type="text" wire:model.live="search" placeholder="Search requests..." class="rounded-md w-full p-1 border border-red-400 text-sm">
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 text-sm">
                 <button wire:click.prevent="$set('status', 'all')" :class="{ 'active': activeStatus === 'all' }" class="flex-1 bg-gray-200 p-2 rounded text-center">All</button>
                 <button wire:click.prevent="$set('status', 'pending')" :class="{ 'active': activeStatus === 'pending' }" class="flex-1 bg-gray-200 p-2 rounded text-center">Pending</button>
                 <button wire:click.prevent="$set('status', 'assigned')" :class="{ 'active': activeStatus === 'assigned' }" class="flex-1 bg-gray-200 p-2 rounded text-center">Assigned</button>
@@ -211,7 +211,7 @@
         <div class="bg-gradient-to-r from-cyan-100 to-cyan-400 p-4 sm:p-6 rounded-lg shadow-lg mt-8 top-4 sm:mt-0 sm:top-0 w-full sm:w-auto max-w-lg sm:max-w-none">
             <div class="sm:hidden py-12"></div>
             <h2 class="block text-xl sm:text-2xl font-bold text-cyan-700 my-4">Tutor Request Details</h2>
-            <div class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-4">
+            <div class="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4">
                 <div class="bg-white p-4 rounded-lg shadow">
                     <p><strong class="text-gray-700">Start Date:</strong> {{ $selectedRequest->start_date }}</p>
                     <p><strong class="text-gray-700">End Date:</strong> {{ $selectedRequest->end_date }}</p>
