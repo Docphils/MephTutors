@@ -19,9 +19,9 @@ class ClientDashboardController extends Controller
         $bookings = Auth::user()->bookings;
         $user = Auth::user();
         $tutorRequests = $user->tutorRequests;
-        $ongoingBookings = Booking::where('client_id', $user->id)->where('status', 'Active')->with('tutor')->get();
-        $completedBookings = Booking::where('client_id', $user->id)->where('status', 'Completed')->with('tutor')->get();
-        $closedBookings = Booking::where('client_id', $user->id)->where('status', 'Closed')->with('tutor')->get();
+        $ongoingBookings = Booking::where('client_id', $user->id)->where('status', 'Active')->get();
+        $completedBookings = Booking::where('client_id', $user->id)->where('status', 'Completed')->get();
+        $closedBookings = Booking::where('client_id', $user->id)->where('status', 'Closed')->get();
         $newCRM = $user->crms->where('status', 'Pending');
         $ongoingCRM = $user->crms->where('status', 'Ongoing');
         $closedCRM = $user->crms->where('status', 'Closed');

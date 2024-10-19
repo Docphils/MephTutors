@@ -23,13 +23,6 @@ class BookingController extends Controller
         return view('admin.lessons.index');
     }
 
-    public function show($id)
-    {
-        Gate::authorize('Admin');
-        $booking = Booking::findOrFail($id);
-
-        return view('admin.bookings.show', compact('booking'));
-    }
 
     public function create()
     {
@@ -155,18 +148,6 @@ class BookingController extends Controller
         return redirect()->route('lessons.index')->with('success', 'LEsson updated successfully');
     }
 
-    public function destroy($id)
-    {
-        $booking = Booking::findOrFail($id);
-        Gate::authorize('Admin');
-
-        $booking->payments()->delete();
-        $booking->delete();
-
-        return redirect()->route('admin.bookings.index')->with('success', 'Booking deleted successfully');
-    }
-
-
     public function addTutorRemarks(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
@@ -189,77 +170,10 @@ class BookingController extends Controller
     //Client's Bookings
     public function clientBookings(Request $request)
         {
-            $user = Auth::user();
             Gate::authorize('Client');
 
-            // Retrieve bookings for the authenticated user
-            $closedBookings = Booking::where('client_id', $user->id)
-                                    ->where('status', 'Closed')
-                                    ->with('tutor')
-                                    ->get();
-
-            $completedBookings = Booking::where('client_id', $user->id)
-                                    ->where('status', 'Completed')
-                                    ->with('tutor')
-                                    ->get();
-
-            $activeBookings = Booking::where('client_id', $user->id)
-                                    ->where('status', 'Active')
-                                    ->with('tutor')
-                                    ->get();
-
-            $acceptedBookings = Booking::where('client_id', $user->id)
-                                    ->where('status', 'Accepted')
-                                    ->with('tutor')
-                                    ->get();
-            $pendingBookings = Booking::where('client_id', $user->id)
-                                    ->where('status', 'Pending')
-                                    ->with('tutor')
-                                    ->get();
-
-            return view('client.lessons', compact('closedBookings', 'completedBookings', 'activeBookings', 'acceptedBookings', 'pendingBookings'));
+            return view('client.lessons.index');
         }
 
-
-    public function clientAcceptanceRemarks(Request $request, $id)
-        {
-            $booking = Booking::findOrFail($id);
-            Gate::authorize('Client');
-
-            $request->validate([
-                'clientAcceptanceRemarks' => 'required|string',
-                'status' => 'required|in:Adjust,Accepted',
-                'paymentEvidence' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
-            ]);
-
-            $bookingData = $request->except('paymentEvidence');
-
-            if ($request->hasFile('paymentEvidence')) {
-                $file = $request->file('paymentEvidence');
-                $filePath = $file->store('payment_evidences', 'public'); // Store the file in the 'public/payment_evidences' directory
-                $bookingData['paymentEvidence'] = $filePath; // Save the file path to the database
-            }
-    
-            $booking->update($bookingData);
-
-            return redirect()->route('client.lessons')->with('success', 'Remarks updated successfully');
-        }
-
-    public function clientApprovalRemarks(Request $request, $id)
-        {
-            $booking = Booking::findOrFail($id);
-            Gate::authorize('Client');
-
-            $request->validate([
-                'clientApprovalRemarks' => 'required|string',
-                'status' => 'required|in:Declined,Closed',
-            ]);
-
-            $booking->update([
-                'clientApprovalRemarks' => $request->clientAppovalRemarks,
-                'status' => $request->status
-            ]);
-
-            return redirect()->route('client.lessons')->with('success', 'Remarks added successfully');
-        }
+        
 }

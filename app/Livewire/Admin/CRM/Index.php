@@ -80,7 +80,7 @@ class Index extends Component
         ]);
 
         $this->editModal = false;
-        $this->resetPage(); // Reset pagination
+        $this->resetPage(); 
         $this->selectedRequest = null;
     }
 
@@ -96,13 +96,13 @@ class Index extends Component
                   ->orWhere('class_type', 'like', '%' . $this->search . '%');
         }
 
-        $queryRequests = $query->latest()->paginate(50);
+        $queryRequests = $query->latest()->paginate(20);
 
-        $tutorRequests = crm::latest()->paginate(10);
-        $pending = crm::where('status', 'Pending')->paginate(10);
-        $ongoing = crm::where('status', 'Ongoing')->paginate(10);
-        $cancelled = crm::where('status', 'Cancelled')->paginate(10);
-        $closed = crm::where('status', 'Closed')->paginate(10);
+        $tutorRequests = crm::latest()->paginate(20);
+        $pending = crm::where('status', 'Pending')->paginate(20);
+        $ongoing = crm::where('status', 'Ongoing')->paginate(20);
+        $cancelled = crm::where('status', 'Cancelled')->paginate(20);
+        $closed = crm::where('status', 'Closed')->paginate(20);
 
 
         return view('livewire.admin.c-r-m.index', compact('queryRequests', 'tutorRequests', 'pending', 'ongoing', 'closed', 'cancelled'));

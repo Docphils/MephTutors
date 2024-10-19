@@ -1,5 +1,5 @@
 <!-- Footer Section -->
-<footer class="hidden sm:block bg-gradient-to-r from-cyan-900 to-cyan-500 text-white py-6">
+<footer class=" hidden sm:block bg-gradient-to-r from-cyan-900 to-cyan-500 text-white py-6">
     <div class="container sm:flex mx-auto text-center justify-between">
         <div class="border-r-white border-r-2 px-5 mb-4">
             <p>&copy; 2024 <span class="text-lg">Meph<span class="text-cyan-300">Ed</span> </span>All rights reserved.</p>

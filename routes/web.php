@@ -69,8 +69,6 @@ Route::middleware(['auth', 'can:AdminOrClient'])->group(function () {
 Route::middleware(['auth', 'can:Client'])->group(function () {
     // Client Dashboard
     Route::get('/client/dashboard', [ClientDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('client.dashboard');
-    Route::post('bookings/{booking}/client_approval', [BookingController::class, 'clientApprovalRemarks'])->name('bookings.clientApproval');
-    Route::post('bookings/{booking}/client_acceptance', [BookingController::class, 'clientAcceptanceRemarks'])->name('bookings.clientAcceptance');
     Route::get('/client/lessons', [BookingController::class, 'clientBookings'])->name('client.lessons');
 
     //Crm Routes

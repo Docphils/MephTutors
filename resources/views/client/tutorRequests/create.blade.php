@@ -88,8 +88,9 @@
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Remarks</label>
                             <textarea name="remarks" class="mt-1 block w-full" placeholder="Type additional remarks here"></textarea>
                         </div>
-                        <div class="flex items-center justify-end mt-4">
-                            <button type="submit" class="bg-cyan-800 text-white px-4 py-2 rounded-md">
+                        <div class="flex items-center justify-between mt-4">
+                            <button type="reset" onclick="window.location='{{ route('client.tutorRequests.index')}}'" class="bg-gray-400 hover:bg-gray-600 text-white px-4 py-2 rounded-md">Cancel</button>
+                            <button type="submit" class="bg-cyan-700 hover:bg-cyan-900 text-white px-4 py-2 rounded-md">
                                 Request Tutor
                             </button>
                         </div>
