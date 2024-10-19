@@ -1,27 +1,9 @@
 <x-app-layout>
     <div class="grid sm:grid-cols-5">
         <!-- Sidebar-->
-        <section class="bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 pl-6 sm:pl-16 pr-6 p-6 sm:py-16 sm:border-l-4">
-            <div class="hidden sm:block mb-6">
-                @if ($userProfile)
-                <div class="text-center mb-4">
-                    <div class="flex justify-center">
-                        <img src="{{ asset('storage/' . $userProfile->image) }}" alt="Profile image" class="h-14 w-14 rounded-full object-cover border-2 border-white shadow-sm shadow-white">
-                    </div>
-                    <p class="mt-1 font-semibold text-lg">{{ $userProfile->fullname}}</p>
-                    @php
-                        $role = strtoupper($user->role);
-                    @endphp
-                    <p class="mb-2 font-bold text-md">Role: {{$role}}</p>
-                </div>
-                <div class="">Gender: {{ $userProfile->gender }}</div>
-                <div class="">Address: {{ $userProfile->address }}</div>
-                <div class="flex items-center">
-                    <h4 class="text-md font-semibold px-2 py-1 rounded-lg bg-white">
-                        <a href="{{ route('userProfile.edit', ['id' => $userProfile->id]) }}" class="text-cyan-600 hover:underline">Edit Profile</a>
-                    </h4>                                                                        
-                </div>
-                @endif
+        <section class="flex justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-10 border-l-4">
+            <div class="block mb-6">
+                <livewire:user-profile lazy="on-load">
             </div>
             <hr class="hidden sm:block w-full mb-4">
             <div class="">

@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="grid sm:grid-cols-5">
         <!-- Sidebar-->
-        <section class="flex justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-16 border-l-4">
+        <section class="flex justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-10 border-l-4">
             <div class="block mb-6">
                 <livewire:user-profile lazy="on-load">
             </div>

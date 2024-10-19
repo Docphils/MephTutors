@@ -55,15 +55,8 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['auth', 'can:AdminOrClient'])->group(function () {
-    // User profile
-    Route::get('/user-profile/create', [UserProfileController::class, 'create'])->name('userProfile.create');
-    Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('userProfile.show');
-    Route::get('/user-profile/{id}/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
-    Route::post('/user-profile', [UserProfileController::class, 'store'])->name('userProfile.store');
-    Route::put('/user-profile/{id}', [UserProfileController::class, 'store'])->name('userProfile.update');
     //Tutor Request Route
     Route::put('tutor-requests/{id}', [TutorRequestController::class, 'update'])->name('tutorRequests.update');
-
 });
 
 Route::middleware(['auth', 'can:Client'])->group(function () {

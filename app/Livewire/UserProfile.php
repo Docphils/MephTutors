@@ -7,7 +7,6 @@ use Livewire\Component;
 use App\Models\UserProfile as Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Carbon\Carbon;
 use Livewire\WithFileUploads;
 
 class UserProfile extends Component
@@ -66,7 +65,7 @@ class UserProfile extends Component
         if ($this->userProfile) {
             // Update profile
             $this->userProfile->update($data);
-            session()->flash('success', 'Profile updated successfully.');
+            session()->flash('success', 'Profile update successful.');
         } else {
             // Create profile
             $data['user_id'] = Auth::id();
