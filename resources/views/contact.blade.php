@@ -23,28 +23,10 @@
                 <h3 class="text-3xl font-semibold text-gray-100 text-center">Contact Us</h3>
                 <h6 class="text-xl my-4 text-gray-50 text-center">Send us a message and a member of our team will reach out to you within the shortest possible time. </h6>
                 <div class="relative grid mx-auto sm:grid-cols-3 gap-8">
-                    <form action="#" method="POST" class="relative mt-12 sm:col-span-2 w-full mx-auto bg-white p-8 rounded-lg shadow-lg">
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-semibold">Name</label>
-                            <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
-                        </div>
-                        <div class="mb-4 flex gap-4">
-                            <div class="w-full">
-                                <label for="email" class="block text-gray-700 font-semibold">Email</label>
-                                <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
-                            </div>
-                            <div class="w-full">
-                                <label for="phone" class="block text-gray-700 font-semibold">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="message" class="block text-gray-700 font-semibold">Message</label>
-                            <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-cyan-800 text-white px-4 py-2 rounded-lg hover:text-cyan-100 hover:bg-cyan-900 transition">Send Message</button>
-                    </form>
+                    <div class="relative mt-12 sm:col-span-2 w-full mx-auto bg-white p-8 rounded-lg shadow-lg">
+                        <livewire:contact-form>
+                    </div>
+                   
                     <div class="mt-12 md:ml-6 border-l-8 p-6 shadow-lg shadow-cyan-300 w-full rounded-lg text-cyan-300">
                         <div class="mb-10">
                             <h4 class="text-white text-xl font-bold">Contact Address:</h4>

@@ -76,6 +76,7 @@ class CrmController extends Controller
             'school_address' => 'nullable|string',
             'languages' => 'nullable|string',
             'class_type' => 'nullable|in:home_tutoring,online',
+            'club_type' => 'nullable|in:Coding,Music,Chess,STEM,Taekwando,Others',
             'remarks' => 'nullable|string',
 
         ]);

@@ -62,8 +62,8 @@
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <img src="/images/robotics.jpg" alt="Robotics" class="w-full h-48 object-cover rounded-t-lg">
-                    <h4 class="text-xl font-bold text-gray-800 mt-4">Robotics</h4>
-                    <p class="mt-4 text-gray-600">Explore the world of robotics with hands-on projects and classes.</p>
+                    <h4 class="text-xl font-bold text-gray-800 mt-4">School Clubs</h4>
+                    <p class="mt-4 text-gray-600">Get expert club instructors for your school and other organizations. We offer coding, music, chess, etc.</p>
                 </div>
             </div>
         </section>
@@ -92,7 +92,7 @@
                     <p class="mt-4 text-gray-800 font-bold">- Jane Smith</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <p class="text-gray-600 italic">"The robotics classes are so much fun and educational. Highly recommend!"</p>
+                    <p class="text-gray-600 italic">"Their club instructors are topnotch and professional. I recommend!"</p>
                     <p class="mt-4 text-gray-800 font-bold">- Sam Wilson</p>
                 </div>
             </div>
@@ -120,35 +120,15 @@
                 </div>
             </div>
         </section>
-
         <!-- Contact Form Section -->
-        <section class="py-20 bg-gradient-to-r from-cyan-100 to-cyan-200">
-            <div class="container mx-auto">
-                <h3 class="text-3xl font-semibold text-gray-800 text-center">Contact Us</h3>
-                <form action="#" method="POST" class="mt-12 max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-700 font-semibold">Name</label>
-                        <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
-                    </div>
-                    <div class="mb-4 flex gap-4">
-                        <div class="w-full">
-                            <label for="email" class="block text-gray-700 font-semibold">Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
-                        </div>
-                        <div class="w-full">
-                            <label for="phone" class="block text-gray-700 font-semibold">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label for="message" class="block text-gray-700 font-semibold">Message</label>
-                        <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" required></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-lg hover:text-cyan-100 transition">Send Message</button>
-                </form>
+    <section class="py-20 bg-gradient-to-r from-cyan-100 to-cyan-200">
+        <div class="container mx-auto">
+            <h3 class="text-3xl font-semibold text-gray-800 text-center">Contact Us</h3>
+            <div class="mt-12 max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <livewire:contact-form lazy='on-load'>
             </div>
-        </section>
-
+        </div>
+    </section>
     <!-- Footer Section -->
     @include('layouts.footer')
 

@@ -23,6 +23,7 @@ class Crm extends Model
         'status',
         'remarks',
         'request_type',
+        'club_type',
         'school_name',
         'school_address',
         'languages',

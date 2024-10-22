@@ -27,6 +27,7 @@ return new class extends Migration
             $table->enum('status', ['Pending', 'Cancelled', 'Ongoing', 'Closed'])->default('Pending');
             $table->string('remarks')->nullable();
             $table->enum('request_type', ['coding_tutor', 'club']);
+            $table->enum('club_type', ['Coding', 'Music', 'STEM', 'Chess', 'Taekwando', 'Others'])->nullable();
             $table->string('school_name')->nullable();
             $table->string('school_address')->nullable();
             $table->integer('learnersNumber');

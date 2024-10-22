@@ -116,10 +116,10 @@
                         </div>
                         <div class="mt-6">
                             <h2 class="text-3xl font-bold tracking-tight text-white">
-                                Robotics:
+                                Co-curricular Clubs:
                             </h2>
                             <p class="mt-4 text-lg text-gray-300">
-                                Explore robotics through hands-on projects and interactive classes. Our expert instructors will guide you in building and programming robots, making learning both engaging and practical.
+                                Whether you want to render an impactful community service for shaping the future, or you want your school to stand out through co-curricular activities, MephEd is here for you.
                             </p>
                             <div class="mt-6">
                                 <a class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
