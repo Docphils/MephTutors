@@ -8,10 +8,10 @@
         <div class="">
             <div class="text-lg text-cyan-200 font-semibold underline">Coding And Clubs</div>
             <div class="">
-                <button wire:click="$set('main', 'CRMS')">Get Coding Tutor</button>
+                <button type="button" wire:click.prevent="$set('mainPage', 'clubs')">Get Club Instructor</button>
             </div>
             <div class="">
-                <button>Get Club Instructor</button>
+                <button type="button" wire:click.prevent="$set('mainPage', 'coding')">Get Coding Tutor</button>
             </div>
         </div>
 
@@ -37,9 +37,10 @@
                             </div>
                         @endif
     
-                        @if ($main === 'CRMS')
-                            <livewire:client.coding-and-clubs>
-                                                            
+                        @if ($mainPage === 'clubs')
+                            <livewire:client.coding-and-clubs />
+                        @elseif ($mainPage === 'coding') 
+                            <livewire:client.coding-and-clubs-index />                                   
                         @else
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">

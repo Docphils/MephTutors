@@ -1,80 +1,81 @@
-<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mb-4">
+<div class="container mx-auto py-8">
     <div class="flex flex-col space-y-12">
-            <!-- Club Requests Section -->
-            <div class="bg-white shadow rounded-lg p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Club Requests</h2>
-    
-                @if($clubRequests->isNotEmpty())
-                    <div class="overflow-x-auto">
-                        <div class="w-full bg-gray-100 p-4">
-                            <!-- Header for larger screens -->
-                            <div class="hidden md:grid grid-cols-6 gap-4 bg-gray-300 py-3 px-4 rounded-md font-semibold text-gray-700">
-                                <div>Start Date</div>
-                                <div>State</div>
-                                <div>Club Type</div>
-                                <div>Learners</div>
-                                <div>Status</div>
-                                <div>Action</div>
-                            </div>
-                            
-                            @foreach($clubRequests as $request)
-                            <div class="bg-white shadow-md rounded-md p-4 mb-4 md:grid md:grid-cols-6 md:gap-4 items-center border">
-                                <!-- For mobile, show each field in rows -->
-                                <div class="md:hidden mb-2">
-                                    <span class="block font-semibold text-gray-700">Start Date:</span>
-                                    <span class="text-gray-600">{{ $request->start_date }}</span>
-                                </div>
-                                <div class="hidden md:block">{{ $request->start_date }}</div>
-                                
-                                <div class="md:hidden mb-2">
-                                    <span class="block font-semibold text-gray-700">State:</span>
-                                    <span class="text-gray-600">{{ $request->state }}</span>
-                                </div>
-                                <div class="hidden md:block">{{ $request->state }}</div>
-                        
-                                <div class="md:hidden mb-2">
-                                    <span class="block font-semibold text-gray-700">Club Type:</span>
-                                    <span class="text-gray-600">{{ $request->club_type }}</span>
-                                </div>
-                                <div class="hidden md:block">{{ $request->club_type }}</div>
-                        
-                                <div class="md:hidden mb-2">
-                                    <span class="block font-semibold text-gray-700">Learners:</span>
-                                    <span class="text-gray-600">{{ $request->learnersNumber }}</span>
-                                </div>
-                                <div class="hidden md:block">{{ $request->learnersNumber }}</div>
-                        
-                                <!-- Status with badge styling -->
-                                <div class="md:hidden mb-2">
-                                    <span class="block font-semibold text-gray-700">Status:</span>
-                                    <span class="inline-block px-3 py-1 text-xs rounded-full {{ $request->status == 'Ongoing' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white' }}">
-                                        {{ $request->status }}
-                                    </span>
-                                </div>
-                                <div class="hidden md:block">
-                                    <span class="inline-block px-3 py-1 text-xs rounded-full {{ $request->status == 'Ongoing' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white' }}">
-                                        {{ $request->status }}
-                                    </span>
-                                </div>
-                        
-                                <!-- Action button -->
-                                <div class="md:text-right">
-                                    <button wire:click="show({{ $request->id }})" class="text-blue-500 hover:text-blue-700 underline">Details</button>
-                                </div>
-                            </div>
-                            @endforeach
+        
+        <!-- Coding Tutor Requests Section -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Coding Tutor Requests</h2>
+
+            @if($codingRequests->isNotEmpty())
+                <div class="overflow-x-auto">
+                    <div class="w-full bg-gray-100 p-4">
+                        <!-- Header for larger screens -->
+                        <div class="hidden md:grid grid-cols-6 gap-4 bg-gray-300 py-3 px-4 rounded-md font-semibold text-gray-700">
+                            <div>Start Date</div>
+                            <div>State</div>
+                            <div>Languages</div>
+                            <div>Class Type</div>
+                            <div>Status</div>
+                            <div>Action</div>
                         </div>
                         
+                        @foreach($codingRequests as $request)
+                        <div class="bg-white shadow-md rounded-md p-4 mb-4 md:grid md:grid-cols-6 md:gap-4 items-center border">
+                            <!-- For mobile, show each field in rows -->
+                            <div class="md:hidden mb-2">
+                                <span class="block font-semibold text-gray-700">Start Date:</span>
+                                <span class="text-gray-600">{{ $request->start_date }}</span>
+                            </div>
+                            <div class="hidden md:block">{{ $request->start_date }}</div>
+                            
+                            <div class="md:hidden mb-2">
+                                <span class="block font-semibold text-gray-700">State:</span>
+                                <span class="text-gray-600">{{ $request->state }}</span>
+                            </div>
+                            <div class="hidden md:block">{{ $request->state }}</div>
+                    
+                            <div class="md:hidden mb-2">
+                                <span class="block font-semibold text-gray-700">Languages:</span>
+                                <span class="text-gray-600">{{ $request->languages }}</span>
+                            </div>
+                            <div class="hidden md:block">{{ $request->languages }}</div>
+                    
+                            <div class="md:hidden mb-2">
+                                <span class="block font-semibold text-gray-700">Class Type:</span>
+                                <span class="text-gray-600">{{ ucfirst(str_replace('_', ' ', $request->class_type)) }}</span>
+                            </div>
+                            <div class="hidden md:block">{{ ucfirst(str_replace('_', ' ', $request->class_type)) }}</div>
+                    
+                            <!-- Status with badge styling -->
+                            <div class="md:hidden mb-2">
+                                <span class="block font-semibold text-gray-700">Status:</span>
+                                <span class="inline-block px-3 py-1 text-xs rounded-full {{ $request->status == 'Ongoing' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white' }}">
+                                    {{ $request->status }}
+                                </span>
+                            </div>
+                            <div class="hidden md:block">
+                                <span class="inline-block px-3 py-1 text-xs rounded-full {{ $request->status == 'Ongoing' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white' }}">
+                                    {{ $request->status }}
+                                </span>
+                            </div>
+                    
+                            <!-- Action button -->
+                            <div class="md:text-right">
+                                <button wire:click="show({{ $request->id }})" class="text-blue-500 hover:text-blue-700 underline">Details</button>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
-                    <div class="mt-4">
-                        {{ $clubRequests->links() }}
-                    </div>
-                @else
-                    <p class="text-gray-600">No club requests found.</p>
-                @endif
-            </div>
-        
-            @if($selectedRequest)
+                    
+                </div>
+                <div class="mt-4">
+                    {{ $codingRequests->links() }}
+                </div>
+            @else
+                <p class="text-gray-600">No coding tutor requests found.</p>
+            @endif
+        </div>
+
+        @if($selectedRequest)
             <div class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                 <div class="reltive w-full max-w-3xl max-h-[80vh] bg-white rounded-lg shadow-lg overflow-x-hidden">
                     <!-- Modal Header -->
@@ -101,18 +102,16 @@
                             </div>
                         </div>
         
-                       
-                            <!-- Club Specific Card -->
-                            <div class="bg-purple-100 border-l-4 border-purple-500 p-4 rounded-md shadow">
-                                <h4 class="font-semibold text-purple-700 mb-2">Club Details</h4>
+                            <!-- Coding Tutor Specific Card -->
+                            <div class="bg-blue-100 border-l-4 border-blue-500 p-4 rounded-md shadow">
+                                <h4 class="font-semibold text-blue-700 mb-2">Coding Tutor Details</h4>
                                 <div class="grid grid-cols-2 gap-4">
-                                    <div><strong>Club Type:</strong> {{ $selectedRequest->club_type ?? 'N/A' }}</div>
+                                    <div><strong>Languages:</strong> {{ $selectedRequest->languages ?? 'N/A' }}</div>
+                                    <div><strong>Class Type:</strong> {{ ucfirst(str_replace('_', ' ', $selectedRequest->class_type)) }}</div>
                                     <div><strong>Learners:</strong> {{ $selectedRequest->learnersNumber }}</div>
                                 </div>
-                                <div><strong>School Name:</strong> {{  $selectedRequest->school_name }}</div>
-                                <div><strong>School Address:</strong> {{  $selectedRequest->school_address }}</div>
                             </div>
-        
+                       
                         <!-- Remarks Card -->
                         <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-md shadow">
                             <h4 class="font-semibold text-yellow-700 mb-2">Remarks</h4>
@@ -123,9 +122,8 @@
                 </div>
             </div>
         @endif
-        
+    
         <form wire:submit.prevent="submit" class="space-y-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Request New Club Instructor or Set up</h2>
             <!-- Common Fields -->
             <div class="grid grid-cols-1 gap-4">
                 
@@ -137,7 +135,7 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                         @error('start_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
-
+    
                     <!-- State -->
                     <div class="w-full">
                         <label for="state" class="block text-sm font-medium text-gray-700">State</label>
@@ -184,9 +182,9 @@
                         </select>
                         @error('state') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
-
+    
                 </div>
-            
+              
                 <!-- Full Address -->
                 <div>
                     <label for="full_address" class="block text-sm font-medium text-gray-700">Full Address</label>
@@ -194,7 +192,7 @@
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                     @error('full_address') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
-
+    
                 <div class="sm:flex sm:gap-4">
                     <!-- Learner's Grade -->
                     <div class="w-full">
@@ -208,7 +206,7 @@
                         </select>
                         @error('learnersGrade') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
-                    <!-- Learner's Number -->
+                     <!-- Learner's Number -->
                     <div class="w-full">
                         <label for="learnersNumber" class="block text-sm font-medium text-gray-700">Number of Learners</label>
                         <input type="number" id="learnersNumber" wire:model="learnersNumber" required min="1"
@@ -216,7 +214,7 @@
                         @error('learnersNumber') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                 </div>
-            
+               
                 <div class="sm:flex sm:gap-4">
                     <!-- Days Per Week -->
                     <div class="w-full">
@@ -235,61 +233,49 @@
                 </div>
                 
                 <div class="sm:flex sm:gap-4">
-                    <!-- Days -->
+                     <!-- Days -->
                     <div class="w-full">
                         <label for="days" class="block text-sm font-medium text-gray-700">Days of the Week</label>
                         <input type="text" id="days" wire:model="days" required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                         @error('days') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
-
+    
                     <!-- Request Type -->
                     <div class="w-full">
                         <label for="request_type" class="block text-sm font-medium text-gray-700">Request Type</label>
-                        <select id="request_type" wire:model="request_type"
+                        <select id="request_type" wire:model.live="request_type"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             <option value="">Select Request Type</option>
-                            <option value="club">School Club Instructor</option>
+                            <option value="coding_tutor">Private Coding Tutor</option>
                         </select>
                         @error('request_type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                 </div>
-            
+               
             </div>
-
-            
-            <!-- Conditional Fields for Club -->
+    
+            <!-- Conditional Fields for Coding Tutor -->
             <div class="grid grid-cols-1 gap-4">
                 <div>
-                    <label for="club_type" class="block text-sm font-medium text-gray-700">Club Type</label>
-                    <select id="club_type" wire:model="club_type" required
+                    <label for="languages" class="block text-sm font-medium text-gray-700">Programming Languages</label>
+                    <input type="text" id="languages" wire:model="languages" required
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <option value="Coding">Coding</option>
-                        <option value="Music">Music</option>
-                        <option value="Chess">Chess</option>
-                        <option value="STEM">STEM</option>
-                        <option value="Taekwando">Taekwando</option>
-                        <option value="Others">Others</option>
+                    @error('languages') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+    
+                <div>
+                    <label for="class_type" class="block text-sm font-medium text-gray-700">Class Type</label>
+                    <select id="class_type" wire:model="class_type" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <option value="home_tutoring">Home Tutoring</option>
+                        <option value="online">Online</option>
                     </select>
-                    @error('club_type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('class_type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
-
-                <div>
-                    <label for="school_name" class="block text-sm font-medium text-gray-700">School Name</label>
-                    <input type="text" id="school_name" wire:model="school_name" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                    @error('school_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                </div>
-
-                <div>
-                    <label for="school_address" class="block text-sm font-medium text-gray-700">School Address</label>
-                    <input type="text" id="school_address" wire:model="school_address" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                    @error('school_address') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                </div>
-
             </div>
-
+    
+    
             <!-- Remarks -->
             <div>
                 <label for="remarks" class="block text-sm font-medium text-gray-700">Remarks</label>
@@ -297,7 +283,7 @@
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
                 @error('remarks') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
-
+    
             <!-- Submit Button -->
             <div>
                 <button type="submit"
@@ -308,3 +294,4 @@
         </form>
     </div>
 </div>
+

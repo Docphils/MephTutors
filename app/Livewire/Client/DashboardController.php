@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Component
 {
-    public $main = '';
+    public $mainPage = '';
     public function render()
     {
         $userProfile = Auth::user()->userProfile;
