@@ -1,4 +1,4 @@
-<div class="grid sm:grid-cols-5">
+<div class="grid sm:grid-cols-5 min-h-full">
     <!-- Sidebar-->
     <section class="flex justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-10 border-l-4 min-h-full">
         <div class="block mb-6">
@@ -17,7 +17,7 @@
         </div>
         <hr class="hidden sm:block w-full mb-6">
         <!--Menu Buttons-->
-        <div class="">
+        <div class="text-xs md:text-base">
             <div class="sm:mb-4">
                 <button type="button" wire:click.prevent="$set('mainPage', 'lessons')" class="flex gap-2 items-center">
                     <i class="fas fa-book text-cyan-100 w-6"></i><span>Lessons</span>
@@ -39,7 +39,7 @@
                 </button>
             </div>
             <div class="sm:mb-4">
-                <button type="button" wire:click.prevent="$set('mainPage', 'profile')" class="flex gap-2 items-center">
+                <button type="button" wire:click.prevent="$set('createProfile', true)" class="flex gap-2 items-center">
                     <i class="fas fa-user text-cyan-100 w-6"></i><span>Profile</span>
                 </button>
             </div>
@@ -54,6 +54,13 @@
     </section>
     
     <div class="sm:col-span-4 ">
+        @if ($uploadVideo)
+            <livewire:tutor.professional-video />
+        @endif
+
+        @if ($createProfile)
+            <livewire:tutor.tutor-profiles @saved="close" />
+        @endif
         
         <!-- Main-->
         <div class="relative w-full">
@@ -65,15 +72,15 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-cyan-200 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h3 class="text-2xl mb-4">Welcome, {{ $user->name }}!</h3>    
+                        <h3 class="text-2xl mb-4">Hello, {{ $user->name }}!</h3>    
                         @if (!$tutorProfile)
                             <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
                                 <strong>Profile Incomplete!</strong> Please complete your profile to enjoy seemless services.
                             </div>
                         @endif
     
-                        @if ($mainPage === 'clubs')
-                            <livewire:client.coding-and-clubs />
+                        @if ($mainPage === 'lessons')
+                            <livewire:tutor.lessons />
                         @elseif ($mainPage === 'coding') 
                             <livewire:client.coding-and-clubs-index />                                   
                         @else
@@ -83,41 +90,20 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                 <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
-                                    <h4 class="text-lg font-semibold">Earned Payments </h4>
-                                    <h4 class="text-sm">Please review and approve within 24hrs</h4>
-                                    <p class="text-3xl mt-2">{{ $earnedPayments }}</p>
+                                    <h4 class="text-lg font-semibold">Pending Payments</h4>
+                                    <h4 class="text-sm">Payment will be due once lesson is completed</h4>
+                                    <p class="text-3xl mt-2 text-right">{{ $pendingPayments }}</p>
                                 </div>
                                 <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
-                                    <h4 class="text-lg font-semibold">Pending Payments</h4>
-                                    <p class="text-3xl mt-2">{{ $pendingPayments }}</p>
+                                    <h4 class="text-lg font-semibold">Earned Payments </h4>
+                                    <h4 class="text-sm">Earned payments will be disbursed within 24hrs on business days</h4>
+                                    <p class="text-3xl mt-2 text-right">{{ $earnedPayments }}</p>
                                 </div>
                                 <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
                                     <h4 class="text-lg font-semibold">Completed Payments </h4>
-                                    <h4 class="text-sm">Please review and approve within 24hrs</h4>
-                                    <p class="text-3xl mt-2">{{ $completedPayments }}</p>
+                                    <p class="text-3xl mt-2 text-right">{{ $completedPayments }}</p>
                                 </div>
-                                <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
-                                    <h4 class="text-lg font-semibold">Closed Lessons</h4>
-                                    <p class="text-3xl mt-2">{{ $closedBookings->count() }}</p>
-                                </div>
-                                <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
-                                    <h4 class="text-lg font-semibold">Completed Lessons </h4>
-                                    <h4 class="text-sm">Please review and approve within 24hrs</h4>
-                                    <p class="text-3xl mt-2">{{ $completedBookings->count() }}</p>
-                                </div>
-                                <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
-                                    <h4 class="text-lg font-semibold">Closed Lessons</h4>
-                                    <p class="text-3xl mt-2">{{ $closedBookings->count() }}</p>
-                                </div>
-                                <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
-                                    <h4 class="text-lg font-semibold">Completed Lessons </h4>
-                                    <h4 class="text-sm">Please review and approve within 24hrs</h4>
-                                    <p class="text-3xl mt-2">{{ $completedBookings->count() }}</p>
-                                </div>
-                                <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
-                                    <h4 class="text-lg font-semibold">Closed Lessons</h4>
-                                    <p class="text-3xl mt-2">{{ $closedBookings->count() }}</p>
-                                </div>
+                                
                             </div>
                         </div>
      

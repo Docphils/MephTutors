@@ -26,8 +26,11 @@ return new class extends Migration
             $table->string('CV');
             $table->text('careerProfile');
             $table->string('bankName');
-            $table->string('accountName');
+            $table->bigInteger('accountNumber');
             $table->integer('accountNumber');
+            $table->boolean('approval')->default(false);
+            $table->text('approvalRemark')->nullable();
+            $table->string('video')->nullable();
             $table->timestamps();
 
             // Foreign key constraint linking to the users table

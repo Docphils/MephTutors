@@ -29,7 +29,7 @@
             <div class="text-container flex text-2xl bg-cyan-800 rounded-lg p-1 text-cyan-200">
                 <span> Home Tutoring</span>
                 <span> Coding</span>
-                <span> Robotics</span>
+                <span> Clubs</span>
             </div>
         </div>
 

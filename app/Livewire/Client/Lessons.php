@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\Booking;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -121,6 +122,11 @@ class Lessons extends Component
         $this->selectedLesson->update([
             'clientApprovalRemarks' => $this->clientApprovalRemarks,
             'status' => $this->status
+        ]);
+
+        $payment = Payment::where('booking_id', $this->selectedLesson->id);
+        $payment->update([
+            'status' => 'Earned'
         ]);
 
         $this->resetFields();

@@ -24,6 +24,9 @@ class TutorProfile extends Model
         'bankName',
         'accountName',
         'accountNumber',
+        'approval',
+        'approvalRemark',
+        'video',
     ];
 
     public function user(){

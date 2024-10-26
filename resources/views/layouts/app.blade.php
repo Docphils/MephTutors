@@ -17,7 +17,7 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-cyan-800 text-white dark:bg-gray-900">
+        <div class="min-h-full bg-cyan-800 text-white dark:bg-gray-900">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

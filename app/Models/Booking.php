@@ -13,6 +13,7 @@ class Booking extends Model
         'user_id',
         'client_id',
         'tutor_id',
+        'payment_id',
         'start_date',
         'end_date',
         'location',

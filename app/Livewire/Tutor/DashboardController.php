@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Component
 {
     public $mainPage = '';
+    public $uploadVideo;
+    public $createProfile;
+
+    public function close(){
+        $this->createProfile = false;
+    }
+    
     public function render()
     {
         $user = Auth::user();

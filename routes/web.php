@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TutorProfileController;
 use App\Http\Controllers\TutorRequestController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientDashboardController;
@@ -12,7 +10,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\TutorDashboardController;
-use App\Livewire\Admin\Users\Index;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,12 +80,7 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
 Route::middleware(['auth', 'can:Tutor'])->group(function () {
     // Tutor Dashboard
     Route::get('/tutor/dashboard', [TutorDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('tutor.dashboard');
-    //Tutor Profile Routes
-    Route::get('/tutor-profile/{id}', [TutorProfileController::class, 'show'])->name('tutorProfile.show');
-    Route::get('/tutor-profile/create', [TutorProfileController::class, 'create'])->name('tutorProfile.create');
-    Route::get('/tutor-profile/{id}/edit', [TutorProfileController::class, 'edit'])->name('tutorProfile.edit');
-    Route::post('/tutor-profile', [TutorProfileController::class, 'store'])->name('tutorProfile.store');
-    Route::put('/tutor-profile/{id}', [TutorProfileController::class, 'store'])->name('tutorProfile.update');
+   
     //Bookings
     Route::post('bookings/{booking}/tutorRemarks', [BookingController::class, 'addTutorRemarks'])->name('bookings.addTutorRemarks');
 
