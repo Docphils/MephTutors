@@ -44,9 +44,9 @@
                 </button>
             </div>
             <div class="sm:mb-4">
-                <button type="button" wire:click.prevent="$set('mainPage', 'community')" class="flex gap-2 items-center">
+                <a href="https://chat.whatsapp.com/Gum1YqOp0G31WlyyokKxE0" target="_blank" class="flex gap-2 items-center">
                     <i class="fab fa-whatsapp text-green-300 w-6"></i><span>Tutor community</span>
-                </button>
+                </a>
             </div>
             
         </div>
@@ -81,8 +81,8 @@
     
                         @if ($mainPage === 'lessons')
                             <livewire:tutor.lessons />
-                        @elseif ($mainPage === 'coding') 
-                            <livewire:client.coding-and-clubs-index />                                   
+                        @elseif ($mainPage === 'payments') 
+                            <livewire:tutor.payments />                                   
                         @else
                         
     

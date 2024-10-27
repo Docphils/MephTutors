@@ -17,14 +17,5 @@ class PaymentController extends Controller
         return view('admin.payments.index');
     }
 
-    // Tutor Index Method
-    public function tutorIndex()
-    {
-        Gate::allows('Tutor');
-    
-            $payments = Payment::where('tutor_id', Auth::id())->get();
-    
-        return view('tutor.payments.index', compact('payments'));
-    }
 
    }

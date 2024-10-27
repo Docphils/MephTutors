@@ -6,7 +6,7 @@
     @endif
     <div class="hidden sm:block border p-2 mb-1">
         <div class="flex justify-between"> 
-            <h2 class="text-2xl font-bold mb-2">Tutor Requests</h2>
+            <h2 class="text-2xl font-bold mb-2">Coding / Club Requests</h2>
         </div>
         <nav class="sm:flex border mb-4 gap-4" x-data="{ activeStatus: @entangle('status') }">
             <button wire:click.prevent="$set('status', 'all')" :class="{ 'active': activeStatus === 'all'}" class="border-r w-full">All</button>
@@ -122,7 +122,7 @@
 
     <!-- New Mobile View -->
     <div class="block sm:hidden border p-2 mb-1">
-        <h2 class="text-xl font-bold mb-2">Tutor Requests</h2>
+        <h2 class="text-xl font-bold mb-2">Club / Coding Tutor Requests</h2>
 
         <!-- Filter Buttons -->
         <div class="mb-4" x-data="{ activeStatus: @entangle('status') }">
@@ -242,7 +242,7 @@
     <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 overflow-y-auto">
         <div class="bg-gradient-to-r from-cyan-100 to-cyan-400 p-4 sm:p-6 rounded-lg shadow-lg mt-8 top-4 sm:mt-0 sm:top-0 w-full sm:w-auto max-w-lg sm:max-w-none">
             <div class="sm:hidden py-12"></div>
-            <h2 class="block text-xl sm:text-2xl font-bold text-cyan-700 my-4">Tutor Request Details</h2>
+            <h2 class="block text-xl sm:text-2xl font-bold text-cyan-700 my-4">{{$selectedRequest->request_type}} details</h2>
             <div class="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4 mb-2 text-gray-900">
                 <div class="bg-white p-4 rounded-lg shadow">
                     <p><strong class="text-gray-700">Start Date:</strong> {{ $selectedRequest->start_date }}</p>
@@ -274,8 +274,9 @@
                 </div>
                 @else
                 <div class="bg-white p-4 rounded-lg shadow mb-4 text-gray-900">
-                    <p><strong class="text-gray-700">School's Address:</strong> {{ $selectedRequest->laguages }}</p>
-                    <p><strong class="text-gray-700">School Name</strong> {{ $selectedRequest->class_type }}</p>
+                    <p><strong class="text-gray-700">School's Address:</strong> {{ $selectedRequest->school_address }}</p>
+                    <p><strong class="text-gray-700">School Name:</strong> {{ $selectedRequest->school_name }}</p>
+                    <p><strong class="text-gray-700">Club Type: </strong> {{ $selectedRequest->club_type }}</p>
                 </div>
                 @endif
 

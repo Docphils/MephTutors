@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('bankName');
             $table->bigInteger('accountNumber');
             $table->integer('accountNumber');
-            $table->boolean('approval')->default(false);
+            $table->boolean('Approved')->default(false);
             $table->text('approvalRemark')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();
