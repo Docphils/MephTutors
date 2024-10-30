@@ -3,15 +3,19 @@
     <div class="absolute inset-0 bg-black opacity-50"></div>
 
     @if ($tutorProfile && !$show)
-        <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg max-h-[80vh] overflow-y-auto relative text-black">
-            <button type="button" wire:click.prevent="loadProfile({{$tutorProfile->id}})">Click to edit profile</button>
+        <div class="max-w-3xl mx-auto px-10 py-6 bg-white shadow-md rounded-lg max-h-[80vh] overflow-y-auto relative text-black grid">
+            <button type="button" class="text-right text-red-400 hover:text-red-600 text-sm font-semibold mb-2" wire:click.prevent="close"> Close </button>
+            <button type="button" wire:click.prevent="loadProfile({{$tutorProfile->id}})" class="text-lg font-semibold text-cyan-600 hover:underline hover:text-cyan-700">Edit Profile</button>
         </div>
 
     @endif
 
     @if ($show)
     <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg max-h-[80vh] overflow-y-auto relative text-black">
-        <h2 class="text-2xl font-semibold mb-6 text-gray-700">Tutor Profile</h2>
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-700">Tutor Profile</h2>
+            <button type="button" wire:click.prevent="close" class="text-right text-red-400 hover:text-red-600 text-sm font-semibold mb-2">x</button>
+        </div>
 
         <form wire:submit.prevent="store" class="space-y-4">
         

@@ -1,9 +1,15 @@
 <div class="p-6 bg-gray-100 min-h-screen">
+     <!-- Success message -->
+     @if (session()->has('message'))
+        <div class="mb-4 p-4 bg-green-100 text-green-800 rounded-md">
+            {{ session('message') }}
+        </div>
+    @endif
     <!-- Tabs for Qualification and Discipline Filtering -->
     <div class="mb-6">
         <h2 class="text-2xl font-semibold mb-4 text-black">Tutor Profiles</h2>
 
-        <input type="text" wire:model.debounce.300ms="search" placeholder="Search by name..." class="px-4 py-2 border rounded-lg w-1/3 mb-4">
+        <input type="text" wire:model.live="search" placeholder="Search by name or address..." class="text-black px-4 py-2 border rounded-lg w-1/3 mb-4">
 
         <div class="lg:flex gap-2 mb-6 space-y-2 lg:space-y-0">
             <!-- Qualification Tabs -->
@@ -78,23 +84,116 @@
         </div>
     </div>
 
-     <!-- Detail Modal -->
-     @if($showDetailModal)
-     <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 text-black">
-         <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-             <h3 class="text-lg font-semibold mb-4">Tutor Profile Details</h3>
-             <p><strong>Full Name:</strong> {{ $selectedProfile->fullName }}</p>
-             <p><strong>Qualification:</strong> {{ $selectedProfile->qualification }}</p>
-             <p><strong>Discipline:</strong> {{ $selectedProfile->discipline }}</p>
-             <p><strong>Experience:</strong> {{ $selectedProfile->experience }}</p>
-             <p><strong>Status:</strong> {{ $selectedProfile->status }}</p>
-             <div class="mt-4 flex justify-end">
-                 <button wire:click="$set('showDetailModal', false)" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Close</button>
-             </div>
-         </div>
-     </div>
-     @endif
+    <!-- Modal for viewing tutor profile details -->
+    @if($showDetailModal)
+    <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 text-black">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative max-h-[80vh] overflow-y-auto">
+            <button wire:click="$set('showDetailModal', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                &times;
+            </button>
+            <h3 class="text-2xl font-semibold text-cyan-700 mb-4 text-center">Tutor Profile Details</h3>
 
+            <div class="p-4 bg-cyan-50 rounded-md mb-4">
+                <div class="flex gap-4">
+                    <!-- Full Name -->
+                    <div class="w-full">
+                        <p class="font-semibold text-gray-700">Full Name:</p>
+                        <p class="text-gray-900">{{ $selectedProfile->fullName }}</p>
+                    </div>
+                    <!-- Discipline -->
+                    <div class="w-2/3">
+                        <p class="font-semibold text-gray-700">Discipline:</p>
+                        <p class="text-gray-900">{{ $selectedProfile->discipline }}</p>
+                    </div>
+                </div>
+
+                
+                <div class="flex gap-4 ">
+                    <!-- Experience -->
+                    <div class="w-full">
+                        <p class="font-semibold text-gray-700">Experience:</p>
+                        <p class="text-gray-900">{{ $selectedProfile->experience }}</p>
+                    </div>
+
+                    <!-- Qualification -->
+                    <div class="w-2/3">
+                        <p class="font-semibold text-gray-700">Qualification:</p>
+                        <p class="text-gray-900">{{ $selectedProfile->qualification }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Contact Details Section -->
+            <div class="p-4 bg-blue-50 rounded-md mb-4">
+                <h4 class="font-semibold text-blue-700 mb-2">Contact Details</h4>
+                <p><strong>Phone:</strong> {{ $selectedProfile->phone }}</p>
+                <p><strong>Email:</strong> {{ $selectedProfile->user->email }}</p>
+                <p><strong>Address:</strong> {{ $selectedProfile->address }}</p>
+            </div>
+
+            <!-- Bank Details Section -->
+            <div class="p-4 bg-green-50 rounded-md mb-4">
+                <h4 class="font-semibold text-green-700 mb-2">Bank Details</h4>
+                <p><strong>Bank Name:</strong> {{ $selectedProfile->bankName }}</p>
+                <p><strong>Account Name:</strong> {{ $selectedProfile->accountName }}</p>
+                <p><strong>Account Number:</strong> {{ $selectedProfile->accountNumber }}</p>
+            </div>
+
+            <!-- Professional Information Section -->
+            <div class="p-4 bg-purple-50 rounded-md mb-4">
+                <h4 class="font-semibold text-purple-700 mb-2">Professional Information</h4>
+                <p><strong>Career Profile:</strong> {{ $selectedProfile->careerProfile }}</p>
+                <p><strong>Status:</strong> <span class="{{ $selectedProfile->status == 'Approved' ? 'text-green-600' : 'text-yellow-600' }}">{{ $selectedProfile->status }}</span></p>
+            </div>
+
+            <!-- Additional Info Section -->
+            <div class="p-4 bg-yellow-50 rounded-md mb-4">
+                <h4 class="font-semibold text-yellow-700 mb-2">Additional Information</h4>
+                <p><strong>Date of Birth:</strong> {{ $selectedProfile->DOB }}</p>
+                <p><strong>Gender:</strong> {{ $selectedProfile->gender }}</p>
+            </div>
+
+           <!-- CV Preview Section -->
+            <div class="p-4 bg-gray-100 rounded-md mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2">CV</h4>
+                @if($selectedProfile->CV)
+                    <div class="bg-white border rounded-md overflow-hidden">
+                        <iframe src="{{ asset('storage/' . $selectedProfile->CV) }}" 
+                                width="100%" 
+                                height="500px" 
+                                class="rounded-md">
+                        </iframe>
+                    </div>
+                @else
+                    <p class="text-gray-500">No CV uploaded</p>
+                @endif
+            </div>
+
+
+            <!-- Video Preview Section -->
+            <div class="p-4 bg-pink-50 rounded-md mb-4">
+                <h4 class="font-semibold text-pink-700 mb-2">Professional Video</h4>
+                @if($selectedProfile->video)
+                    <video controls autoplay muted loop preload="auto" playsinline class="w-full rounded-lg max-h-48">
+                        <source src="{{ asset('storage/' . $selectedProfile->video) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                
+                @else
+                    <p class="text-gray-500">No video uploaded</p>
+                @endif
+            </div>
+
+            <!-- Close Button -->
+            <div class="mt-6 flex justify-center">
+                <button wire:click="$set('showDetailModal', false)" class="px-6 py-2 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 focus:outline-none">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
+
+     
     <!-- Modal for Editing Status and Approval Remark -->
     @if($showModal)
     <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">

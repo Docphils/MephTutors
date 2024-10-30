@@ -6,15 +6,23 @@ use Livewire\Component;
 use App\Models\Booking;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On; 
 
 class DashboardController extends Component
 {
     public $mainPage = '';
     public $uploadVideo;
+    public $tutorVideo;
     public $createProfile;
 
+    #[On('close')]
     public function close(){
         $this->createProfile = false;
+    }
+
+    #[On('closeModal')]
+    public function closeVideo(){
+        $this->tutorVideo = false;
     }
     
     public function render()

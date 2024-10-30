@@ -122,6 +122,10 @@ class TutorProfiles extends Component
         $this->reset();
     }
 
+    public function close(){
+        $this->dispatch('close');
+    }
+
     public function render()
     {
         $tutorProfile = Auth::user()->tutorProfile;

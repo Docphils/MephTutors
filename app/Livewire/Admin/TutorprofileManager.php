@@ -71,12 +71,16 @@ class TutorprofileManager extends Component
     {
         $query = TutorProfile::query();
 
-        if ($this->activeTab !== 'All') {
-            $query->where('qualification', $this->activeTab)->orWhere('discipline', $this->activeTab);
-        }
-
         if ($this->search) {
-            $query->where('fullName', 'like', '%' . $this->search . '%');
+            // Filter only by fullName if search is set
+            $query->where('fullName', 'like', '%' . $this->search . '%')
+                ->orWhere('address', 'like', '%' . $this->search . '%');
+        } elseif ($this->activeTab !== 'All') {
+            // Filter by qualification or discipline if activeTab is set and not 'All'
+            $query->where(function ($q) {
+                $q->where('qualification', $this->activeTab)
+                ->orWhere('discipline', $this->activeTab);
+            });
         }
 
         return $query->paginate(10);

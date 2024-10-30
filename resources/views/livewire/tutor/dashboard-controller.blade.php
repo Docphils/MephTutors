@@ -43,6 +43,13 @@
                     <i class="fas fa-user text-cyan-100 w-6"></i><span>Profile</span>
                 </button>
             </div>
+            @if ($tutorProfile)
+            <div class="sm:mb-4">
+                <button type="button" wire:click.prevent="$set('tutorVideo', true)" class="flex gap-2 items-center">
+                    <i class="fas fa-video text-cyan-100 w-6"></i><span>Upload Video</span>
+                </button>
+            </div> 
+            @endif
             <div class="sm:mb-4">
                 <a href="https://chat.whatsapp.com/Gum1YqOp0G31WlyyokKxE0" target="_blank" class="flex gap-2 items-center">
                     <i class="fab fa-whatsapp text-green-300 w-6"></i><span>Tutor community</span>
@@ -79,6 +86,9 @@
                             </div>
                         @endif
     
+                        @if ($tutorVideo)
+                            <livewire:tutor.video />
+                        @endif
                         @if ($mainPage === 'lessons')
                             <livewire:tutor.lessons />
                         @elseif ($mainPage === 'payments') 
