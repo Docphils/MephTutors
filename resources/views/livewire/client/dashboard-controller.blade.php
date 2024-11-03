@@ -24,7 +24,11 @@
             </h2>
         </x-slot>
         <!-- Main-->
+        <div wire:offline class="text-center text-red-600 bg-red-100 px-5 py-1 rounded w-full">
+            This device is currently offline.
+        </div>
         <div class="py-12">
+           
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-cyan-200 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">

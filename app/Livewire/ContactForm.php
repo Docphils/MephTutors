@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Contact;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactSubmissionNotification;
 
 class ContactForm extends Component
 {
@@ -27,6 +30,14 @@ class ContactForm extends Component
         ];
 
         Contact::create($contact);
+
+        // Get all users with the 'admin' role
+        $admins = User::where('role', 'admin')->get();
+
+        // Send email to each admin
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new ContactSubmissionNotification($contact));
+        }
         session()->flash('success', 'Thank you for contacting MephEd. Our support team will be in touch with you shortly');
 
         $this->reset(['name', 'email', 'phone', 'message']);

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('tutor_id');
-            $table->unsignedBigInteger('payment_id');
             $table->unsignedBigInteger('tutorRequest_id');
             $table->date('start_date');
             $table->date('end_date');
@@ -42,7 +41,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('tutor_id')->references('id')->on('users');
-            $table->foreign('payment_id')->references('id')->on('payments');
             $table->foreign('tutorRequest_id')->references('id')->on('tutor_requests');
 
         });

@@ -1,4 +1,7 @@
 <div>
+    <div wire:offline class="text-center text-red-600 bg-red-100 px-5 py-1 rounded">
+        This device is currently offline.
+    </div>
     <div class="grid sm:grid-cols-5">
         <!-- Sidebar-->
         <section class="flex justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-10 border-l-4">
@@ -39,6 +42,16 @@
                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
                         </svg>Tutor Profiles</li>
                     </button>
+                    <button type="button" wire:click.prevent="$set('Main', 'Clients')"><li class="flex items-center hover:underline hover:text-cyan-100 mb-4">
+                        <svg class="w-3.5 h-3.5 me-2 text-cyan-300 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                        </svg>All Clients</li>
+                    </button>
+                    <button type="button" wire:click.prevent="$set('Main', 'ContactMessages')"><li class="flex items-center hover:underline hover:text-cyan-100 mb-4">
+                        <svg class="w-3.5 h-3.5 me-2 text-cyan-300 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                        </svg>Messages</li>
+                    </button>
                 </ul>
             </div>
         </section>
@@ -59,7 +72,12 @@
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     @if ($Main === 'tutorDetails')
                         <livewire:admin.tutorprofile-manager />
+                    @elseif ($Main === 'Clients')
+                        <livewire:admin.client-manager />
+                    @elseif ($Main === 'ContactMessages')
+                        <livewire:admin.contact-messages />
                     @else
+                    
                         <div class="bg-cyan-200 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 text-gray-900 dark:text-gray-100">
                                 <h3 class="text-2xl mb-4">Welcome, {{ $user->name }}!</h3>

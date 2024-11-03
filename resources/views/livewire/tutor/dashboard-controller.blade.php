@@ -71,6 +71,9 @@
         
         <!-- Main-->
         <div class="relative w-full">
+            <div wire:offline class="text-center text-red-600 bg-red-100 px-5 py-1 rounded">
+                This device is currently offline.
+            </div>
             <img src="/images/banner2.jpg" alt="Banner image" class="object-cover w-full max-h-24">
             <div class="absolute inset-0 items-center text-center py-6 text-lg sm:text-xl md:text-3xl font-semibold"><span class="bg-cyan-500 p-1 rounded-sm">Teach for Excellence with MephEd</span> </div>
         </div>

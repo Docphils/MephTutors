@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('booking_id');
-            $table->string('amount');
+            $table->decimal('amount');
             $table->string('evidence')->nullable();
             $table->enum('status', ['Pending','Earned', 'Paid']);
             $table->unsignedBigInteger('tutor_id');
