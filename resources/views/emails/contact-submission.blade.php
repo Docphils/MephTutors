@@ -1,35 +1,122 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MephEd - Contact Notification</title>
+    <style>
+        /* Reset and font styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #180404;
+        }
 
-<div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg overflow-hidden my-8">
-    <div class="bg-indigo-600 px-6 py-4 text-white text-center">
-        <h1 class="text-2xl font-semibold">You've Received a New Contact Form Submission</h1>
-    </div>
+        /* Main container */
+        .email-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    <div class="p-6">
-        <p class="text-gray-700 text-lg mb-4">
-            Hello Admin,
-        </p>
-        <p class="text-gray-600 mb-6">
-            A new message has been submitted through the contact form. Here are the details:
-        </p>
+        /* Header */
+        .email-header {
+            background-color: darkcyan;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
 
-        <div class="border-t border-gray-200 pt-4">
-            <p class="text-gray-800 text-sm mb-1"><strong>Name:</strong> {{ $contact['name'] }}</p>
-            <p class="text-gray-800 text-sm mb-1"><strong>Email:</strong> {{ $contact['email'] }}</p>
-            <p class="text-gray-800 text-sm mb-1"><strong>Phone:</strong> {{ $contact['phone'] }}</p>
-            <p class="text-gray-800 text-sm mb-4"><strong>Message:</strong></p>
-            <p class="text-gray-600 p-4 bg-gray-50 rounded-md">{{ $contact['message'] }}</p>
+        .email-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .email-header h1 {
+            margin: 10px 0 0;
+            font-size: 24px;
+        }
+
+        /* Content */
+        .email-body {
+            padding: 20px;
+            background-color: #ffffff;
+            color: black;
+        }
+
+        .email-body p {
+            font-size: 16px;
+            margin-bottom: 1em;
+            line-height: 1.5;
+        }
+
+        .details-section {
+            background-color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .details-section p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .message-box {
+            background-color: #f0f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Footer */
+        .email-footer {
+            background-color: darkcyan;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <!-- Header Section with Logo -->
+        <div class="email-header">
+            <img src="/images/MephEd.png" alt="Logo Image" class="object-cover h-6 sm:h-8 w-24 sm:w-32">
+            <h1>New Contact Form Submission</h1>
         </div>
 
-        <p class="text-gray-500 text-sm mt-6">
-            Thank you for responding promptly to this request. <br> – MephEd Support Team
-        </p>
+        <!-- Main Content -->
+        <div class="email-body">
+            <p>Hello Admin,</p>
+            <p>A new message has been submitted through the contact form. Here are the details:</p>
+
+            <div class="details-section">
+                <p><strong>Name:</strong> {{ $contact['name'] }}</p>
+                <p><strong>Email:</strong> {{ $contact['email'] }}</p>
+                <p><strong>Phone:</strong> {{ $contact['phone'] }}</p>
+                <p><strong>Message:</strong></p>
+                <div class="message-box">{{ $contact['message'] }}</div>
+            </div>
+
+            <p>Please respond promptly to this request.</p>
+            <p>Best regards,<br>– The MephEd Support Team</p>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="email-footer">
+            &copy; {{ date('Y') }} MephEd. All rights reserved.
+        </div>
     </div>
-
-    <div class="bg-gray-100 px-6 py-4 text-center text-gray-600 text-xs">
-        <p>&copy; {{ date('Y') }} MephEd. All rights reserved.</p>
-    </div>
-</div>
-
-
-</x-guest-layout>
+</body>
+</html>

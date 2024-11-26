@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\TutorRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Mail\TutorRequestNotification;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 class TutorRequestController extends Controller
 {
@@ -81,7 +84,14 @@ class TutorRequestController extends Controller
         $tutorRequestData = $request->all();
         $tutorRequestData['user_id'] = Auth::user()->id;
 
-        TutorRequest::create($tutorRequestData);
+        
+        $tutorRequest = TutorRequest::create($tutorRequestData);
+
+        // Notify Admins
+        $admins = User::where('role', 'admin')->get();
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->queue(new TutorRequestNotification($tutorRequest));
+        }
 
         return redirect()->route('client.tutorRequests.index')->with('success', 'Request submitted successfully');
     }

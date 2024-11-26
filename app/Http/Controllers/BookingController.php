@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\LessonAssigned;
+use Illuminate\Support\Facades\Mail;
+
 
 class BookingController extends Controller
 {
@@ -89,8 +92,15 @@ class BookingController extends Controller
             'status' => 'Pending',
         ]);
 
-            return redirect()->route('lessons.index')->with('success', 'Lesson created successfully');
+        if ($newBooking->client) {
+            Mail::to($newBooking->client->email)->queue(new LessonAssigned($newBooking));
+        } else {
+            // Handle the case where the client is not found 
+            return redirect()->route('lessons.index')->with('error', 'Client email not found for this booking');
         }
+
+        return redirect()->route('lessons.index')->with('success', 'Lesson created successfully');
+    }
 
     //Update Method
     public function update(Request $request, $id)

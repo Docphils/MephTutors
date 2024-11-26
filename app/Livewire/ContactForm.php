@@ -35,9 +35,8 @@ class ContactForm extends Component
         $admins = User::where('role', 'admin')->get();
 
         // Send email to each admin
-        foreach ($admins as $admin) {
-            Mail::to($admin->email)->send(new ContactSubmissionNotification($contact));
-        }
+        Mail::to('docphils47@gmail.com')->queue(new ContactSubmissionNotification($contact));
+
         session()->flash('success', 'Thank you for contacting MephEd. Our support team will be in touch with you shortly');
 
         $this->reset(['name', 'email', 'phone', 'message']);
