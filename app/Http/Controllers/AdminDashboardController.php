@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactSubmissionNotification;
+use App\Mail\LessonAssigned;
+use App\Mail\TutorRequestNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Booking;

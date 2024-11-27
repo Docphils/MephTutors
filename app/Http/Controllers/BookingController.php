@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\LessonAssigned;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -27,80 +28,7 @@ class BookingController extends Controller
     }
 
 
-    public function create()
-    {
-        Gate::authorize('Admin');
-        $clients = User::where('role', 'client')->get();
-        $tutors = User::where('role', 'tutor')->get();
-        $tutorRequests = TutorRequest::where('status', 'Pending')->get();
-        return view('admin.lessons.create', compact('clients', 'tutors', 'tutorRequests'));
-    }
-
-    public function edit($id)
-    {
-        Gate::authorize('Admin');
-        $clients = User::where('role', 'client')->get();
-        $tutors = User::where('role', 'tutor')->get();
-        $tutorRequests = TutorRequest::whereIn('status', ['Pending', 'Accepted'])->get();
-        $booking = Booking::findOrFail($id);
-
-        return view('admin.lessons.edit', compact('booking', 'clients', 'tutors', 'tutorRequests'));
-    }
-
-    //Store  Method
-    public function store(Request $request)
-    {
-        Gate::authorize('Admin');
-
-        $request->validate([
-            'tutorRequest_id' => 'required|exists:tutor_requests,id',
-            'start_date' => 'required|date|after_or_equal:today',
-            'end_date' => 'required|date|after:start_date',
-            'location' => 'required|string',
-            'days_times' => 'required|string',
-            'subjects' => 'required|string',
-            'learners' => 'required|string',
-            'sessions' => 'required|numeric',
-            'duration' => 'required|string',
-            'tutorGender' => 'required|in:Male,Female,Any',
-            'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'required|in:Pending,Adjust,Accepted,Active,Completed,Decline,Closed',
-            'paymentStatus' => 'required|in:Pending,Paid,Confirmed',
-            'paymentEvidence' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
-            'amount' => 'required|numeric',
-            'classes' => 'required|string',
-            'client_id' => 'required|exists:users,id',
-            'tutor_id' => 'required|exists:users,id',
-        ]);
-
-        $bookingData = $request->all();
-        $bookingData['user_id'] = Auth::user()->id;
-
-        if ($request->hasFile('paymentEvidence')) {
-            $file = $request->file('paymentEvidence');
-            $filePath = $file->store('payment_evidences', 'public'); 
-            $bookingData['paymentEvidence'] = $filePath; 
-        }
-
-        $newBooking = Booking::create($bookingData);
-
-        // Create payment with 70% of the booking amount
-        Payment::create([
-            'tutor_id' => $newBooking->tutor_id,
-            'booking_id' => $newBooking->id,
-            'amount' => $newBooking->amount * 0.7,
-            'status' => 'Pending',
-        ]);
-
-        if ($newBooking->client) {
-            Mail::to($newBooking->client->email)->queue(new LessonAssigned($newBooking));
-        } else {
-            // Handle the case where the client is not found 
-            return redirect()->route('lessons.index')->with('error', 'Client email not found for this booking');
-        }
-
-        return redirect()->route('lessons.index')->with('success', 'Lesson created successfully');
-    }
+  
 
     //Update Method
     public function update(Request $request, $id)

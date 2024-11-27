@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutor Request Notification</title>
-    <style>
-        /* Tailwind Preload */
-        @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-    </style>
+    
+     @vite(['resources/css/app.css', 'resources/js/app.js'])
+     @livewireStyles
 </head>
 <body class="bg-gray-100 text-gray-800">
     <div class="max-w-2xl mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
         <!-- Header Section -->
-        <div class="bg-teal-600 p-6 text-white">
+        <div class="bg-cyan-800 p-6 text-white">
             <div class="flex items-center">
-                <img src="{{ asset('images/MephEd.png') }}" alt="MephEd Logo" class="w-16 h-16 rounded-full mr-4">
+                <img src="{{ asset('images/MephEd.png') }}" alt="MephEd Logo" class="w-8 h-6 rounded-full mr-4">
                 <h1 class="text-2xl font-bold">New Tutor Request Submitted</h1>
             </div>
         </div>
@@ -22,7 +21,7 @@
         <!-- Body Section -->
         <div class="p-6">
             <p class="text-lg font-medium mb-4">Hello Admin,</p>
-            <p>A new tutor request has been submitted by a client. Here are the details:</p>
+            <p>A new tutor request has been submitted by <strong> {{ $client->userProfile->fullname }}</strong>. Here are the details:</p>
 
             <!-- Request Details -->
             <div class="mt-6 bg-gray-50 p-4 rounded-lg shadow">
@@ -47,7 +46,7 @@
         </div>
 
         <!-- Footer Section -->
-        <div class="bg-teal-600 p-4 text-center text-white text-sm">
+        <div class="bg-cyan-800 p-4 text-center text-white text-sm">
             &copy; {{ date('Y') }} MephEd. All rights reserved.
         </div>
     </div>

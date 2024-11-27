@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactSubmissionNotification;
+use Illuminate\Support\Facades\Log;
 
 class ContactForm extends Component
 {
@@ -35,7 +36,12 @@ class ContactForm extends Component
         $admins = User::where('role', 'admin')->get();
 
         // Send email to each admin
-        Mail::to('docphils47@gmail.com')->queue(new ContactSubmissionNotification($contact));
+        try {
+        Mail::to('support@mephed.ng')->send(new ContactSubmissionNotification($contact));
+        } catch (\Exception $e) {
+            Log::error('Mail sending failed: ' . $e->getMessage());
+            return session()->flash('success', 'Thank you for contacting MephEd. Our support team will be in touch with you shortly');
+        }
 
         session()->flash('success', 'Thank you for contacting MephEd. Our support team will be in touch with you shortly');
 

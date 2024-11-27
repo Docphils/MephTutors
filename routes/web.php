@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\TutorDashboardController;
+use App\Livewire\Admin\Lesson\Create;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,7 +102,7 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     Route::delete('admin/tutor-requests/{id}', [TutorRequestController::class, 'destroy'])->name('admin.tutorRequests.destroy');
     //Bookings
     Route::post('admin/lessons', [BookingController::class, 'store'])->name('lessons.store');
-    Route::get('bookings/admin/create', [BookingController::class, 'create'])->name('bookings.create');
+    Route::get('/lessons/create', Create::class)->name('bookings.create');
     Route::get('bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
     Route::get('admin/lessons', [BookingController::class, 'index'])->name('lessons.index');
     Route::post('admin/lessons/{id}', [BookingController::class, 'update'])->name('bookings.update');

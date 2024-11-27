@@ -31,7 +31,8 @@ class ContactSubmissionNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Contact Form Submission'
+            subject: 'New Contact Form Submission',
+            from: 'no-reply@mephed.ng'
         );
     }
 

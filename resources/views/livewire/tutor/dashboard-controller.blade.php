@@ -85,7 +85,7 @@
                         <h3 class="text-2xl mb-4">Hello, {{ $user->name }}!</h3>    
                         @if (!$tutorProfile)
                             <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
-                                <strong>Profile Incomplete!</strong> Please complete your profile to enjoy seemless services.
+                                <strong>Profile Incomplete!</strong> Please complete your profile to enjoy seemless services <button type="button" wire:click="$set('createProfile', true)">here</button>
                             </div>
                         @endif
     

@@ -19,6 +19,11 @@ class TutorProfiles extends Component
     public $tutorProfileId;
     public $show;
 
+    public function mount()
+    {
+        $this->show = true;
+    }
+
     protected function rules()
     {
         return [
@@ -41,12 +46,13 @@ class TutorProfiles extends Component
 
     public function loadProfile($tutorProfileId)
     {
+        $this->reset(); // Reset the form to ensure it starts clean.
         $this->tutorProfileId = $tutorProfileId;
         $this->show = true;
-        
+    
         if ($this->tutorProfileId) {
             $tutorProfile = TutorProfile::findOrFail($this->tutorProfileId);
-
+    
             // Populate form fields with existing profile data
             $this->phone = $tutorProfile->phone;
             $this->address = $tutorProfile->address;
@@ -60,9 +66,9 @@ class TutorProfiles extends Component
             $this->accountName = $tutorProfile->accountName;
             $this->accountNumber = $tutorProfile->accountNumber;
             $this->DOB = $tutorProfile->DOB;
-
         }
     }
+    
 
     
     public function store()

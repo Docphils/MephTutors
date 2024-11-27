@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Mail\TutorRequestNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class TutorRequestController extends Controller
 {
@@ -87,10 +88,11 @@ class TutorRequestController extends Controller
         
         $tutorRequest = TutorRequest::create($tutorRequestData);
 
-        // Notify Admins
-        $admins = User::where('role', 'admin')->get();
-        foreach ($admins as $admin) {
-            Mail::to($admin->email)->queue(new TutorRequestNotification($tutorRequest));
+        try {
+            Mail::to('admin@mephed.ng')->send(new TutorRequestNotification($tutorRequest));
+        } catch (\Exception $e) {
+            Log::error('Mail sending failed: ' . $e->getMessage());
+            return redirect()->route('client.tutorRequests.index')->with('error', 'Request submitted, but notification failed. Please contact our support team');
         }
 
         return redirect()->route('client.tutorRequests.index')->with('success', 'Request submitted successfully');

@@ -14,12 +14,14 @@ class TutorRequestNotification extends Mailable
     use Queueable, SerializesModels;
 
     public $tutorRequest;
+    private $client;
     /**
      * Create a new message instance.
      */
     public function __construct($tutorRequest)
     {
         $this->tutorRequest = $tutorRequest;
+        $this->client = $tutorRequest->user;
     }
 
     /**
@@ -39,7 +41,8 @@ class TutorRequestNotification extends Mailable
     {
         return new Content(
             view: 'emails.tutor-request-notification',
-            with: ['tutorRequest' => $this->tutorRequest]
+            with: ['tutorRequest' => $this->tutorRequest,
+                    'client' => $this->client]
         );
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Booking;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,14 +14,18 @@ class LessonAssigned extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $newBooking;
+    private $newBooking;
+    private $tutor;
+    private $client;
     /**
      * Create a new message instance.
      */
-    public function __construct($newBooking)
+    public function __construct(Booking $newBooking)
     {
         //
         $this->newBooking = $newBooking;
+        $this->tutor = $newBooking->tutor;
+        $this->client = $newBooking->client;
     }
 
     /**
@@ -40,7 +45,9 @@ class LessonAssigned extends Mailable
     {
         return new Content(
             view: 'emails.lesson-assigned',
-            with: ['newBooking' => $this->newBooking]
+            with: ['newBooking' => $this->newBooking,
+                    'tutor' => $this->tutor,
+                    'client' => $this->client]
         );
     }
 

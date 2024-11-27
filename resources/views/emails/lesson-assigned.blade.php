@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MephEd - Contact Notification</title>
-    <style>
-        /* Tailwind Preload */
-        @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-    </style>
+    <title>MephEd - Lesson Notification</title>
     <style>
         
         /* Reset and font styling */
@@ -106,20 +102,20 @@
         <!-- Header Section with Logo -->
         <div class="email-header">
             <img src="{{ asset('images/MephEd.png') }}" alt="Logo Image" class="logo-image">
-            <h1>New Contact Form Submission</h1>
+            <h1>Lesson Assigned</h1>
         </div>
 
         <!-- Main Content -->
         <div class="email-body">
-            <p>Hello Admin,</p>
-            <p>A new message has been submitted through the contact form. Here are the details:</p>
+            <p>Hello {{ $client->userProfile->fullname }},</p>
+            <p>Your requested lesson has been booked. Kindly visit your dashboard to accept and upload payment evidence or request for adjustment. Find the lesson details below:</p>
 
             <div class="details-section">
-                <p><strong>Name:</strong> {{ $contact['name'] }}</p>
-                <p><strong>Email:</strong> {{ $contact['email'] }}</p>
-                <p><strong>Phone:</strong> {{ $contact['phone'] }}</p>
-                <p><strong>Message:</strong></p>
-                <div class="message-box">{{ $contact['message'] }}</div>
+                <p><strong>Start Date:</strong> {{ $newBooking['start_date'] }}</p>
+                <p><strong>Amount:</strong> {{ $newBooking['amount'] }}</p>
+                <p><strong>Tutor:</strong> {{ $tutor->tutorProfile->fullName }}</p>
+                <p><strong>Status:</strong></p>
+                <div class="message-box">{{ $newBooking['status'] }}</div>
             </div>
 
             <p>Please respond promptly to this request.</p>
