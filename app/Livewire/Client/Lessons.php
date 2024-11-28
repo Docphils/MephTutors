@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Client;
 
+use App\Mail\DeclinedLessonEmail;
+use App\Mail\LessonReviewedEmail;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -9,6 +11,8 @@ use App\Models\Booking;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class Lessons extends Component
 {
@@ -96,11 +100,20 @@ class Lessons extends Component
         }
 
         $this->selectedLesson->update($lessonData);
+        $reviewedLesson = $this->selectedLesson->refresh()->load('client.userProfile');
 
+        try {
+            Mail::to('admin@mephed.ng')->send(new LessonReviewedEmail($reviewedLesson));
+            session()->flash('success', 'Status updated successfully');
+        } catch (\Exception $e) {
+            Log::error('Mail sending failed: ' . $e->getMessage());
+
+            session()->flash('success', 'Status updated successfully (but email was not sent).');
+        }
         $this->resetFields();
         $this->showAcceptanceModal = false;
-
-        session()->flash('success', 'Remarks updated successfully');
+        
+       
     }
 
     // Client Approval Remarks
@@ -124,10 +137,27 @@ class Lessons extends Component
             'status' => $this->status
         ]);
 
-        $payment = Payment::where('booking_id', $this->selectedLesson->id);
-        $payment->update([
-            'status' => 'Earned'
-        ]);
+       
+        $declinedLesson = $this->selectedLesson->refresh()->load('client.userProfile');
+
+        if($declinedLesson->status == 'Closed'){
+            $payment = Payment::where('booking_id', $this->selectedLesson->id);
+            $payment->update([
+                'status' => 'Earned'
+            ]);
+        }
+
+        if($declinedLesson->status == 'Declined'){
+            try {
+                Mail::to($declinedLesson->tutor->email)->cc('admin@mephed.ng')->send(new DeclinedLessonEmail($declinedLesson));
+                session()->flash('success', 'Status updated successfully');
+            } catch (\Exception $e) {
+                Log::error('Mail sending failed: ' . $e->getMessage());
+    
+                session()->flash('success', 'Status updated successfully (email not sent). Please contact support');
+            }
+        }
+      
 
         $this->resetFields();
         $this->showApprovalModal = false;

@@ -2,20 +2,26 @@
 
 namespace App\Livewire\Admin\Lesson;
 
+use App\Mail\ActiveLessonEmail;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class Index extends Component
 {
     use WithPagination;
 
-    public $status = null;
+    public $status;
     public $selectedBooking = null;
     public $showModal = false;
     public $deleteModal = false;
     public $search = '';
+    public $lessonStatus;
+
+    public $showActivationModal = false;
 
     protected $listeners = [
         'closeModal' => 'closeModal',
@@ -40,6 +46,56 @@ class Index extends Component
         $this->showModal = false;
         $this->deleteModal = false;
     }
+
+    
+    // Open Activation Modal
+    public function editActivation($id)
+    {
+        $this->selectedBooking = Booking::findOrFail($id);
+
+        // Ensure the booking status is 'Accepted' before showing the acceptance modal
+        if ($this->selectedBooking->status !== 'Accepted') {
+            session()->flash('error', 'You can only activate accepted lessons.');
+            return;
+        }
+
+        $this->showActivationModal = true;
+        
+    }
+
+     // Client Acceptance Remarks
+     public function submitActivation()
+     { 
+         // Ensure the status of the booking is still 'Pending' before updating
+         if ($this->selectedBooking->status !== 'Accepted') {
+             session()->flash('error', 'You cannot activate lessons that have not been accepted.');
+             return;
+         }
+         
+         $this->validate([
+             'lessonStatus' => 'required|in:Active',
+         ]);
+ 
+         $lessonData = [
+             'status' => $this->lessonStatus
+         ];
+         
+         $this->selectedBooking->update($lessonData);
+         $activeLesson = $this->selectedBooking->refresh()->load('tutor');
+ 
+         try {
+             Mail::to($activeLesson->tutor->email)->send(new ActiveLessonEmail($activeLesson));
+             session()->flash('success', 'Lesson activated successfully');
+         } catch (\Exception $e) {
+             Log::error('Mail sending failed: ' . $e->getMessage());
+ 
+             session()->flash('success', 'Lesson activated successfully (but email was not sent to tutor).');
+         }
+         $this->selectedBooking = null;
+         $this->showActivationModal = false;
+         
+        
+     }
 
     public function openDeleteModal($id)
     {

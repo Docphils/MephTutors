@@ -39,9 +39,11 @@
                     <div class="w-full">{{$booking->status}}</div>
                     <div class="flex justify-between w-full">
                         <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
-                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                        @if ($booking->status === 'Accepted')
+                        <button wire:click="editActivation({{ $booking->id }})" class="w-full">
                             <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
                         </button>
+                        @endif
                         <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
@@ -71,9 +73,11 @@
                     <div class="w-full">{{$booking->status}}</div>
                     <div class="flex justify-between w-full">
                         <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
-                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
+                        @if ($booking->status === 'Accepted')
+                        <button wire:click="editActivation({{ $booking->id }})" class="w-full">
                             <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
                         </button>
+                        @endif
                         <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>
@@ -254,7 +258,21 @@
     </div>
     @endif
 
-
+    <!-- Modal for Activation Remarks -->
+    @if ($showActivationModal)
+    <div class="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-6 rounded-md w-96 text-gray-900">
+            <h2 class="text-lg font-bold mb-4">Activate Lesson</h2>
+            <select wire:model="lessonStatus" class="w-full mb-4 p-2 border">
+                <option value="">Select Status</option>
+                <option value="Active">Activate lesson</option>
+            </select>
+            <button wire:click="submitActivation" class="bg-cyan-700 text-white py-2 px-4 rounded">Submit</button>
+            <button wire:click="$set('showActivationModal', false)" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Cancel</button>
+            <div wire:loading class="text-green-600 bg-green-50 p-1" wire:target="submitActivation"> Saving ...</div>
+        </div>
+    </div>
+    @endif
     <!-- Delete Modal -->
     @if($deleteModal)
     <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">

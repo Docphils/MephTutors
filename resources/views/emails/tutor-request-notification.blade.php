@@ -13,7 +13,7 @@
         <!-- Header Section -->
         <div class="bg-cyan-800 p-6 text-white">
             <div class="flex items-center">
-                <img src="{{ asset('images/MephEd.png') }}" alt="MephEd Logo" class="w-8 h-6 rounded-full mr-4">
+                <img src="{{ asset('images/MephEd.png') }}" alt="MephEd Logo" class="w-12 h-6 mr-4">
                 <h1 class="text-2xl font-bold">New Tutor Request Submitted</h1>
             </div>
         </div>

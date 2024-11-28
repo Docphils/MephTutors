@@ -2,13 +2,15 @@
 
 namespace App\Livewire\Tutor;
 
-
+use App\Mail\LessonCompleteEmail;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class Lessons extends Component
 {
@@ -74,10 +76,20 @@ class Lessons extends Component
             'status' => $this->status
         ]);
 
+        $completedLesson = $this->selectedLesson->refresh()->load('client');
+
+        try {
+            Mail::to($completedLesson->client->email)->send(new LessonCompleteEmail($completedLesson));
+            session()->flash('success', 'Lesson updated successfully');
+        } catch (\Exception $e) {
+            Log::error('Mail sending failed: ' . $e->getMessage());
+
+            session()->flash('success', 'Lesson updated successfully (but email was not sent to client). Please contact our support team');
+        }
+
         $this->resetFields();
         $this->showCompletedModal = false;
 
-        session()->flash('success', 'Remarks added successfully');
     }
 
     // Reset fields

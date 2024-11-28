@@ -168,7 +168,18 @@
     <!-- Modal for Acceptance Remarks -->
     @if ($showAcceptanceModal)
         <div class="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
-            <div class="bg-white p-6 rounded-md w-96">
+            <div class="bg-white p-6 rounded-md w-96 text-gray-900">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <h2 class="text-lg font-bold mb-4">Accept lesson schedule for commencement</h2>
                 <textarea wire:model="clientAcceptanceRemarks" class="w-full mb-4 p-2 border" placeholder="Enter remarks"></textarea>
                 <select wire:model="status" class="w-full mb-4 p-2 border">
@@ -179,6 +190,8 @@
                 <input type="file" wire:model="paymentEvidence" class="w-full mb-4 p-2 border">
                 <button wire:click="submitAcceptance" class="bg-cyan-700 text-white py-2 px-4 rounded">Submit</button>
                 <button wire:click="$set('showAcceptanceModal', false)" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Cancel</button>
+                <div wire:loading class="text-green-600 bg-green-50 p-1" wire:target="submitAcceptance"> Saving ...</div>
+                <div wire:loading class="text-green-600 bg-green-50 p-1" wire:target="paymentEvidence"> Uploading ...</div>
             </div>
         </div>
     @endif

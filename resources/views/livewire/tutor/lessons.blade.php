@@ -1,9 +1,9 @@
 <div class="bg-white">
     <!-- Tabs for Filtering Bookings by Status -->
     <div class="flex justify-around mb-6 border-b text-sm sm:text-base">
-        <button wire:click="setTab('Closed Lessons')" class="{{ $activeTab == 'Closed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Closed</button>
-        <button wire:click="setTab('Completed Lessons')" class="{{ $activeTab == 'Completed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Completed</button>
-        <button wire:click="setTab('Active Lessons')" class="{{ $activeTab == 'Active Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Active</button>
+        <button wire:click="setTab('Closed Lessons')" class="{{ $activeTab == 'Closed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950 text-cyan-50' : '' }} px-1 sm:px-4 py-2">Closed</button>
+        <button wire:click="setTab('Completed Lessons')" class="{{ $activeTab == 'Completed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950 text-cyan-50' : '' }} px-1 sm:px-4 py-2">Completed</button>
+        <button wire:click="setTab('Active Lessons')" class="{{ $activeTab == 'Active Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950 text-cyan-50' : '' }} px-1 sm:px-4 py-2">Active</button>
     </div>
 
     <!-- Bookings Display -->
