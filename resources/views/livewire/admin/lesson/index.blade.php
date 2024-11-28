@@ -39,11 +39,9 @@
                     <div class="w-full">{{$booking->status}}</div>
                     <div class="flex justify-between w-full">
                         <button wire:click.prevent="showBooking({{ $booking->id }})" class="w-full"><i class="fas fa-eye text-cyan-600 hover:text-cyan-800 hover:shadow-lg"></i></button>
-                        @if ($booking->status === 'Accepted')
-                        <button wire:click="editActivation({{ $booking->id }})" class="w-full">
+                        <button wire:navigate onclick="window.location='{{ route('bookings.edit', $booking->id) }}'" class="w-full">
                             <i class="fas fa-edit text-yellow-400 hover:text-yellow-600 hover:shadow-lg"></i>
                         </button>
-                        @endif
                         <button wire:click.prevent="openDeleteModal({{ $booking->id }})" class="w-full"><i class="fas fa-trash text-red-500 hover:text-red-700 hover:shadow-lg"></i></button>
                     </div>
                 </div>

@@ -27,6 +27,10 @@ class Lessons extends Component
     public $showAcceptanceModal = false;
     public $showApprovalModal = false;
    
+    public function mount(){
+        Gate::authorize('Client');
+        $this->activeTab = 'Active Lessons';
+    }
     // Set the active tab
     public function setTab($tab)
     {
@@ -60,7 +64,7 @@ class Lessons extends Component
     public function editApproval($id)
     {
         $this->selectedLesson = Booking::findOrFail($id);
-        Gate::authorize('Client');
+        
 
         // Ensure the booking status is 'Completed' before showing the approval modal
         if ($this->selectedLesson->status !== 'Completed') {
@@ -119,7 +123,6 @@ class Lessons extends Component
     // Client Approval Remarks
     public function submitApproval()
     {
-        Gate::authorize('Client');
 
         // Ensure the status of the booking is still 'Completed' before updating
         if ($this->selectedLesson->status !== 'Completed') {
@@ -178,7 +181,6 @@ class Lessons extends Component
     public function getLessons()
     {
         $user = Auth::user();
-        Gate::authorize('Client');
 
         // Retrieve bookings for the authenticated user based on the active tab
         switch ($this->activeTab) {

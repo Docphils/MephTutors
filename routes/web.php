@@ -11,6 +11,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\TutorDashboardController;
 use App\Livewire\Admin\Lesson\Create;
+use App\Livewire\Admin\Lesson\EditLesson;
+use App\Livewire\Client\CodingAndClubs;
+use App\Livewire\Client\CodingAndClubsIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +66,8 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
     Route::get('/client/lessons', [BookingController::class, 'clientBookings'])->name('client.lessons');
 
     //Crm Routes
-    Route::get('client/crm', [CrmController::class, 'clientIndex'])->name('client.crm.index');
-    Route::get('client/crm/create', [CrmController::class, 'create'])->name('client.crm.create');
-    Route::post('client/crm', [CrmController::class, 'store'])->name('client.crm.store');
-    Route::get('client/crm/{id}', [CrmController::class, 'clientshow'])->name('client.crm.show');
+    Route::get('client/coding-tutor-requests', CodingAndClubsIndex::class)->name('codingRequest.index');
+    Route::get('client/club-requests', CodingAndClubs::class)->name('clubRequest.index');
     Route::get('client/crm/{id}/edit', [CrmController::class, 'clientedit'])->name('client.crm.edit');
     Route::put('client/crm/{id}', [CrmController::class, 'update'])->name('client.crm.update');
     Route::delete('client/crm/{id}', [CrmController::class, 'clientDestroy'])->name('client.crm.destroy');
@@ -101,11 +102,9 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     Route::get('admin/tutor-requests/{id}/edit', [TutorRequestController::class, 'edit'])->name('admin.tutorRequests.edit');
     Route::delete('admin/tutor-requests/{id}', [TutorRequestController::class, 'destroy'])->name('admin.tutorRequests.destroy');
     //Bookings
-    Route::post('admin/lessons', [BookingController::class, 'store'])->name('lessons.store');
     Route::get('/lessons/create', Create::class)->name('bookings.create');
-    Route::get('bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
+    Route::get('/lessons/{id}/edit', EditLesson::class)->name('bookings.edit');
     Route::get('admin/lessons', [BookingController::class, 'index'])->name('lessons.index');
-    Route::post('admin/lessons/{id}', [BookingController::class, 'update'])->name('bookings.update');
 
     //Crm Routes
     Route::get('admin/crm', [CrmController::class, 'index'])->name('admin.crm.index');

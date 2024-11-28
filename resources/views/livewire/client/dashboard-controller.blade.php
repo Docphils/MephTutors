@@ -5,13 +5,27 @@
             <livewire:user-profile lazy="on-load">
         </div>
         <hr class="hidden sm:block w-full mb-4">
-        <div class="">
-            <div class="text-lg text-cyan-200 font-semibold underline">Coding And Clubs</div>
-            <div class="">
-                <button type="button" wire:click.prevent="$set('mainPage', 'clubs')">Get Club Instructor</button>
+        <div class="space-y-4">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <i class="fas fa-book-open text-cyan-300 w-4"></i>
+                <a wire:navigate href="{{ route('client.tutorRequests.create') }}" class="p-1 hover:border hover:border-cyan-300">Get a Tutor</a>
             </div>
-            <div class="">
-                <button type="button" wire:click.prevent="$set('mainPage', 'coding')">Get Coding Tutor</button>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <i class="fas fa-paper-plane text-cyan-300 w-4"></i>
+                <a wire:navigate href="{{ route('client.tutorRequests.index') }}" class="p-1 hover:border hover:border-cyan-300">Your Requests</a>
+            </div>
+            
+            <div class="flex items-center gap-2 sm:gap-4">
+                <i class="fas fa-music text-cyan-300 w-4"></i>
+                <a wire:navigate href="{{ route('clubRequest.index') }}" class="p-1 hover:border hover:border-cyan-300">Get Club Instructor</a>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <i class="fas fa-code text-cyan-300 w-4"></i>
+                <a wire:navigate href="{{ route('codingRequest.index') }}" class="p-1 hover:border hover:border-cyan-300">Get Coding Tutor</a>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <i class="fas fa-chalkboard-teacher text-cyan-300 w-4"></i>
+                <a wire:navigate href="{{ route('client.lessons') }}" class="p-1 hover:border hover:border-cyan-300">Manage Lessons</a>
             </div>
         </div>
 
@@ -40,12 +54,7 @@
                                 <strong>Profile Incomplete!</strong> Please complete your profile to enjoy seemless services.
                             </div>
                         @endif
-    
-                        @if ($mainPage === 'clubs')
-                            <livewire:client.coding-and-clubs />
-                        @elseif ($mainPage === 'coding') 
-                            <livewire:client.coding-and-clubs-index />                                   
-                        @else
+         
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div class="bg-white dark:bg-gray-900 p-6 rounded shadow">
                                 <div class="flex items-center">
@@ -103,8 +112,6 @@
                                 </div>
                             </div>
                         </div>
-     
-                        @endif
 
                     </div>
                 </div>

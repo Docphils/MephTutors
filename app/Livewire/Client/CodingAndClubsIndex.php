@@ -7,6 +7,7 @@ use App\Models\Crm;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Layout;
 
 class CodingAndClubsIndex extends Component
 {
@@ -15,6 +16,7 @@ class CodingAndClubsIndex extends Component
     public $selectedRequest;
     public $start_date, $state, $full_address, $learnersGrade, $learnersNumber, $daysPerWeek, $days, $duration;
     public $status, $request_type, $class_type, $languages, $remarks;
+    public $makeRequest;
 
     protected  $rules = [
         'start_date' => 'required|date|after_or_equal:today',
@@ -65,8 +67,10 @@ class CodingAndClubsIndex extends Component
         session()->flash('success', 'Request Submitted Successfully');
 
         $this->resetForm();
+        $this->makeRequest = null;
     }
 
+    #[Layout('layouts.app')]
     public function render()
     {
         $codingRequests = Crm::where('request_type', 'coding_tutor')->where('user_id', Auth::id())->latest()->paginate(5);

@@ -17,7 +17,7 @@
     <!-- Bookings Display -->
     <div>
         <h2 class="font-bold text-lg mb-4">{{ ucfirst($activeTab) }}</h2>
-        <div class="font-bold grid grid-cols-5 gap-4 p-4 bg-white shadow-md rounded-md text-gray-900 text-sm sm:text-base">
+        <div class="font-bold grid grid-cols-5 gap-4 p-4 bg-cyan-100 shadow-md rounded-sm text-gray-900 text-sm sm:text-base border-b-4">
             <div>Tutor</div>
             <div>Start Date</div>
             <div>Subjects</div>
@@ -25,7 +25,7 @@
             <div>Actions</div>
         </div>
         @forelse($lessons as $booking)
-        <div class="grid grid-cols-5 gap-4 p-4 bg-white shadow-md text-gray-900 border-b border-cyan-800 text-sm sm:text-base items-center">
+        <div class="grid grid-cols-5 gap-4 py-2 px-4 bg-white shadow-md text-gray-900 border-b border-cyan-800 text-sm sm:text-base items-center">
             <div>{{ $booking->tutor->name }}</div>
             <div>{{ $booking->start_date}}</div>
             <div>{{ $booking->subjects }}</div>
