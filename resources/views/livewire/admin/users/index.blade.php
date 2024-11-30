@@ -16,6 +16,12 @@
         
     </div>
 
+    @if(session('success'))
+        <div class="bg-green-50 text-green-600 mb-2">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Users Table -->
     <div class="w-full rounded-sm shadow-lg p-4 mb-4">
         <div class="rounded-lg shadow-lg shadow-cyan-700 mb-4" >

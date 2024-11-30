@@ -37,7 +37,7 @@
                             <div class="flex flex-wrap md:flex-row sm:text-sm justify-between text-between">
                               <p>07062599737</p>
                               <p>08062869170</p>
-                              <p class="mt-2 sm:mt-0">Email: info@meph<wbr>consults.com.ng</p>
+                              <p class="mt-2 sm:mt-0">Email: info@mephed<wbr>.ng</p>
                             </div>
                           </div>
                           

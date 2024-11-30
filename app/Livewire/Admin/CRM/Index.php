@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Admin\CRM;
 
+use App\Mail\UpdatedCodingOrClubEmail;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Crm;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class Index extends Component
 {
@@ -64,7 +67,7 @@ class Index extends Component
     public function openEditModal($id)
     {
         $this->selectedRequest = Crm::findOrFail($id);
-        $this->status = $this->selectedRequest->status; // Initialize the status for editing
+        $this->status = $this->selectedRequest->status; 
         $this->editModal = true;
     }
 
@@ -78,6 +81,17 @@ class Index extends Component
         $tutorRequest->update([
             'status' => $this->status,
         ]);
+
+        $updatedRequest = $tutorRequest->refresh()->load('user.userProfile');
+
+        try{
+            Mail::to($updatedRequest->user->email)->send(new UpdatedCodingOrClubEmail($updatedRequest));
+            session()->flash('success', 'Request status changed successfully');
+        } catch (\Exception $e) {;
+            Log::error('Mail sending failed: ' . $e->getMessage());
+
+            session()->flash('success', 'Request submitted successfully (but notification was not sent). Please contact our support team');
+        }
 
         $this->editModal = false;
         $this->resetPage(); 

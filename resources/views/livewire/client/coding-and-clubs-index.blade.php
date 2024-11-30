@@ -4,6 +4,11 @@
         <!-- Coding Tutor Requests Section -->
         @if (!$makeRequest)
             <div class="bg-white shadow rounded-lg p-6 text-gray-900">
+                @if (session('success'))
+                    <div class="bg-green-50 p-1 my-1 text-green-600 ">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <button type="button" wire:click="$set('makeRequest', true)" class="p-2 rounded-sm mb-2 bg-cyan-900 hover:bg-cyan-700 text-white shadow-sm hover:shadow-lg">Get Coding Tutor</button>
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Coding Tutor Requests</h2>
 
@@ -272,6 +277,7 @@
                         <label for="class_type" class="block text-sm font-medium text-gray-700">Class Type</label>
                         <select id="class_type" wire:model="class_type" required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <option value="">Select Type</option>
                             <option value="home_tutoring">Home Tutoring</option>
                             <option value="online">Online</option>
                         </select>

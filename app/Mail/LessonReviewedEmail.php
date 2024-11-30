@@ -30,6 +30,7 @@ class LessonReviewedEmail extends Mailable
     {
         return new Envelope(
             subject: 'A lesson has been reviewed by client',
+            from: 'support@mephed.ng'
         );
     }
 

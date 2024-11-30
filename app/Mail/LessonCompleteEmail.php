@@ -30,6 +30,7 @@ class LessonCompleteEmail extends Mailable
     {
         return new Envelope(
             subject: 'Your lesson has been marked as completed by the tutor',
+            from: 'admin@mephed.ng'
         );
     }
 

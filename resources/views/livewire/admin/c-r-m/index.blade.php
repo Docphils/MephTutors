@@ -28,7 +28,7 @@
             </div>
             @if($status === 'all'||$status === null)
             @foreach($tutorRequests as $request)
-                <div wire:key="$request->id" class="flex justify-between mx-auto w-full">
+                <div wire:key="$request->id" class="flex justify-between mx-auto w-full border-b py-1">
                     <div class="w-full">{{$request->request_type}}</div>
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->state}}</div>
@@ -43,7 +43,7 @@
             <div class="border rounded-sm pl-2 mt-2">{{ $tutorRequests->links() }}</div>
             @elseif($status === 'pending')
                 @foreach($pending as $request)
-                <div wire:key="$request->id" class="flex justify-between mx-auto w-full">
+                <div wire:key="$request->id" class="flex justify-between mx-auto w-full border-b">
                     <div class="w-full">{{$request->request_type}}</div>
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->state}}</div>
@@ -58,7 +58,7 @@
                 <div class="border rounded-sm pl-2 mt-2">{{ $pending->links() }}</div>
             @elseif($status === 'ongoing')
                 @foreach($ongoing as $request)
-                <div wire:key="$request->id" class="flex justify-between mx-auto w-full">
+                <div wire:key="$request->id" class="flex justify-between mx-auto w-full border-b">
                     <div class="w-full">{{$request->request_type}}</div>
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->state}}</div>
@@ -73,7 +73,7 @@
                 <div class="border rounded-sm pl-2 mt-2">{{ $ongoing->links() }}</div>
             @elseif($status === 'cancelled')
                 @foreach($cancelled as $request)
-                <div wire:key="$request->id" class="flex justify-between mx-auto w-full">
+                <div wire:key="$request->id" class="flex justify-between mx-auto w-full border-b">
                     <div class="w-full">{{$request->request_type}}</div>
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->state}}</div>
@@ -88,7 +88,7 @@
                 <div class="border rounded-sm pl-2 mt-2">{{ $cancelled->links() }}</div>
                 @elseif($status === 'closed')
                 @foreach($closed as $request)
-                <div wire:key="$request->id" class="flex justify-between mx-auto w-full">
+                <div wire:key="$request->id" class="flex justify-between mx-auto w-full border-b">
                     <div class="w-full">{{$request->request_type}}</div>
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->state}}</div>
@@ -103,7 +103,7 @@
                 <div class="border rounded-sm pl-2 mt-2">{{ $closed->links() }}</div>
             @elseif($status === 'search')
                 @foreach($queryRequests as $request)
-                <div wire:key="$request->id" class="flex justify-between mx-auto w-full">
+                <div wire:key="$request->id" class="flex justify-between mx-auto w-full border-b">
                     <div class="w-full">{{$request->request_type}}</div>
                     <div class="w-full">{{$request->start_date}}</div>
                     <div class="w-full">{{$request->state}}</div>
@@ -315,7 +315,8 @@
                 <select wire:model="status" id="status" class="block text-gray-900 w-full mt-1 border-gray-300 rounded-md shadow-sm">
                     <option value="">Select Status</option>
                     <option value="Pending">Pending</option>
-                    <option value="Assigned">Assigned</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Closed">Closed</option>
                     <option value="Cancelled">Cancelled</option>
                 </select>
                 @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror

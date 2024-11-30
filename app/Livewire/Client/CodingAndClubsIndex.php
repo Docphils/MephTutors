@@ -2,11 +2,14 @@
 
 namespace App\Livewire\Client;
 
+use App\Mail\CodingRequestEmail;
 use Livewire\Component;
 use App\Models\Crm;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 
 class CodingAndClubsIndex extends Component
@@ -15,8 +18,9 @@ class CodingAndClubsIndex extends Component
 
     public $selectedRequest;
     public $start_date, $state, $full_address, $learnersGrade, $learnersNumber, $daysPerWeek, $days, $duration;
-    public $status, $request_type, $class_type, $languages, $remarks;
+    public $status, $class_type, $languages, $remarks;
     public $makeRequest;
+    public $request_type = "coding_tutor";
 
     protected  $rules = [
         'start_date' => 'required|date|after_or_equal:today',
@@ -43,6 +47,7 @@ class CodingAndClubsIndex extends Component
         Gate::authorize('Client');
 
         $this->validate();
+        Log::info('Validation passed', $this->validate());
 
         // Prepare data for saving
         $crmData = [
@@ -62,12 +67,22 @@ class CodingAndClubsIndex extends Component
         ];
 
         // Save CRM request
-        Crm::create($crmData);
+        $codingRequest = Crm::create($crmData);
 
-        session()->flash('success', 'Request Submitted Successfully');
+        $codingRequest = $codingRequest->refresh()->load('user');
+
+        
+        try{
+            Mail::to('admin@mephed.ng')->send(new CodingRequestEmail($codingRequest));
+        } catch (\Exception $e) {
+            Log::error('Mail sending failed: ' . $e->getMessage());
+
+            session()->flash('success', 'Request submitted successfully (but notification was not sent). Please contact our support team');
+        }
 
         $this->resetForm();
         $this->makeRequest = null;
+        session()->flash('success', 'Request Submitted Successfully');
     }
 
     #[Layout('layouts.app')]

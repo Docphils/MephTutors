@@ -29,6 +29,7 @@ class DeclinedLessonEmail extends Mailable
     {
         return new Envelope(
             subject: 'Declined Lesson Notification',
+            from: 'admin@mephed.ng'
         );
     }
 

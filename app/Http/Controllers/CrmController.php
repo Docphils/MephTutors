@@ -18,17 +18,6 @@ class CrmController extends Controller
         return view('admin.crm.index', compact('crm'));
     }
 
-    //client index
-    public function clientIndex(Request $request)
-    {
-        Gate::allows('Client');
-            $user = Auth::user();
-            $crms = Auth::user()->crms;
-            $userProfile = $user->userProfile;
-
-        return view('client.crm.index', compact('crms', 'userProfile', 'user'));
-    }
-
     //admin show method
     public function show($id)
     {
@@ -38,56 +27,6 @@ class CrmController extends Controller
         return view('admin.crm.show', compact('crm'));
     }
 
-    //client show method
-    public function clientshow($id)
-    {
-        Gate::allows('Client');
-        $user = Auth::user();
-        $request = Crm::findOrFail($id);
-        $userProfile = $user->userProfile;
-
-        return view('client.crm.show', compact('request', 'user', 'userProfile'));
-    }
-
-    //client create Method
-    public function create()
-    {
-        Gate::allows('Client');
-
-        return view('client.crm.create');
-    }
-
-    public function store(Request $request)
-    {
-        Gate::authorize('Client');
-
-        $request->validate([
-            'start_date' => 'required|date|after_or_equal:today',
-            'state' => 'required|in:Abia,Adamawa,AkwaIbom,Anambra,Bauchi,Bayelsa,Benue,Borno,CrossRiver,Delta,Ebonyi,Edo,Enugu,Gombe,Jigawa,Ekiti,Imo,Kaduna,Kano,Katsina,Kebbi,Kogi,Kwara,Lagos,Nasarawa,Niger,Ogun,Ondo,Osun,Oyo,Plateau,Rivers,Sokoto,Taraba,Yobe,Zamfara,FCT',
-            'full_address' => 'required|string',
-            'learnersGrade' => 'required|in:under_12,teen,adult',
-            'learnersNumber' => 'required|integer',
-            'daysPerWeek' => 'required|integer|max:7',
-            'days' => 'required|string',
-            'duration' => 'required|string',
-            'status' => 'nullable|in:Pending,Cancelled,Ongoing,Closed',
-            'request_type' =>'required|in:coding_tutor,club',
-            'school_name' => 'nullable|string',
-            'school_address' => 'nullable|string',
-            'languages' => 'nullable|string',
-            'class_type' => 'nullable|in:home_tutoring,online',
-            'club_type' => 'nullable|in:Coding,Music,Chess,STEM,Taekwando,Others',
-            'remarks' => 'nullable|string',
-
-        ]);
-
-        $crmData = $request->all();
-        $crmData['user_id'] = Auth::user()->id;
-
-        Crm::create($crmData);
-
-        return redirect()->route('client.crm.index')->with('success', 'Request Submitted Successfully');
-    }
 
     //Admin Edit Method
     public function edit($id)
@@ -158,7 +97,7 @@ class CrmController extends Controller
     }
 
     //Change Status
-    public function updateStauts(Request $request, $id)
+    public function updateStatus(Request $request, $id)
     {
         Gate::authorize('Admin');
         $crm = Crm::findOrFail($id);

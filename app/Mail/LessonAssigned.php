@@ -35,6 +35,7 @@ class LessonAssigned extends Mailable
     {
         return new Envelope(
             subject: 'Your Requested Lesson Has Been Assigned',
+            from: 'admin@mephed.ng'
         );
     }
 

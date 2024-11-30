@@ -9,18 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ActiveLessonEmail extends Mailable
+class CodingRequestEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $activeLesson;
+    private $codingRequest;
     /**
      * Create a new message instance.
      */
-    public function __construct($activeLesson)
+    public function __construct($codingRequest)
     {
         //
-        $this->activeLesson = $activeLesson;
+        $this->codingRequest = $codingRequest;
     }
 
     /**
@@ -29,8 +29,8 @@ class ActiveLessonEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'You just got a new booked lesson',
-            from: 'admin@mephed.ng'
+            subject: 'Coding Tutor Request Received',
+            from: 'support@meph.ng',
         );
     }
 
@@ -40,8 +40,8 @@ class ActiveLessonEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.active-lesson',
-            with: ['activeLesson' => $this->activeLesson]
+            view: 'emails.coding-request',
+            with: ['codingRequest' => $this->codingRequest]
         );
     }
 

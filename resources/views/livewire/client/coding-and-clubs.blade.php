@@ -3,6 +3,11 @@
             <!-- Club Requests Section -->
         @if (!$makeRequest)
             <div class="bg-white shadow rounded-lg p-6 text-gray-900">
+                @if (session('success'))
+                    <div class="bg-green-50 p-1 my-1 text-green-600 ">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <button type="button" wire:click="$set('makeRequest', true)" class="p-2 rounded-sm mb-2 bg-cyan-900 hover:bg-cyan-700 text-white shadow-sm hover:shadow-lg">Get Club Instructor</button>
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Club Requests</h2>
                 @if($clubRequests->isNotEmpty())

@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Client;
 
+use App\Mail\ClubRequestEmail;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Crm;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
 
@@ -15,8 +18,9 @@ class CodingAndClubs extends Component
 
     public $selectedRequest;
     public $start_date, $state, $full_address, $learnersGrade, $learnersNumber, $daysPerWeek, $days, $duration;
-    public $status, $request_type, $school_name, $school_address, $club_type, $remarks;
+    public $status, $school_name, $school_address, $club_type, $remarks;
     public $makeRequest;
+    public $request_type = "club";
 
       protected  $rules = [
             'start_date' => 'required|date|after_or_equal:today',
@@ -64,8 +68,18 @@ class CodingAndClubs extends Component
         ];
 
         // Save CRM request
-        Crm::create($crmData);
+        $clubRequest = Crm::create($crmData);
 
+        $clubRequest = $clubRequest->refresh()->load('user.userProfile');
+
+        
+        try{
+            Mail::to('admin@mephed.ng')->send(new ClubRequestEmail($clubRequest));
+        } catch (\Exception $e) {
+            Log::error('Mail sending failed: ' . $e->getMessage());
+
+            session()->flash('success', 'Request submitted successfully (but notification was not sent). Please contact our support team');
+        }
         session()->flash('success', 'Request Submitted Successfully');
 
         $this->resetForm();
