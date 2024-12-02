@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Tutor;
 
+use App\Mail\TutorProfileCreatedEmail;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Gate;
@@ -9,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\TutorProfile;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class TutorProfiles extends Component
 {
@@ -21,6 +23,7 @@ class TutorProfiles extends Component
 
     public function mount()
     {
+        Gate::authorize('Tutor');
         $this->show = true;
     }
 
@@ -73,7 +76,7 @@ class TutorProfiles extends Component
     
     public function store()
     {
-        Gate::authorize('Tutor');
+        
         $this->validate();
 
         // Validate input fields
@@ -115,13 +118,23 @@ class TutorProfiles extends Component
         if ($this->tutorProfileId) {
             // Update existing profile
             $tutorProfile->update($tutorProfileData);
-            session()->flash('message', 'Tutor profile updated successfully');
+            session()->flash('success', 'Tutor profile updated successfully');
             $this->dispatch('saved');
         } else {
             // Create new profile
             $tutorProfileData['user_id'] = Auth::id();
-            TutorProfile::create($tutorProfileData);
-            session()->flash('message', 'Tutor profile created successfully');
+            $tutorProfile = TutorProfile::create($tutorProfileData);
+
+            try{
+                Mail::to('admin@mephed.ng')->send(new TutorProfileCreatedEmail($tutorProfile));
+                session()->flash('success', 'Tutor profile created successfully');
+            } catch (\Exception $e) {;
+                Log::error('Mail sending failed: ' . $e->getMessage());
+    
+                session()->flash('success', 'Tutor profile created successfully (but notification was not sent). Please contact support team');
+            }
+
+            session()->flash('success', 'Tutor profile created successfully');
             $this->dispatch('saved');
         }
 

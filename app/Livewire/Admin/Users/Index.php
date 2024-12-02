@@ -2,13 +2,15 @@
 
 namespace App\Livewire\Admin\Users;
 
+use App\Mail\UserCreatedEmail;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Booking;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Gate;
-
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Registered;
 
 class Index extends Component
 {
@@ -119,15 +121,25 @@ class Index extends Component
             'password' => 'required|min:8',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'role' => $this->role,
             'password' => bcrypt($this->password),
         ]);
 
+        try{
+            Mail::to($user->email)->send(new UserCreatedEmail($user));
+            session()->flash('success', 'User created successfully');
+        } catch (\Exception $e) {;
+            Log::error('Mail sending failed: ' . $e->getMessage());
+
+            session()->flash('success', 'User created successfully (but notification was not sent). Please contact support team');
+        }
+
         $this->showCreateModal = false;
-        session()->flash('message', 'User created successfully.');
+        event(new Registered($user));
+        session()->flash('success', 'User created successfully.');
     }
 
     public function openDelete($id)

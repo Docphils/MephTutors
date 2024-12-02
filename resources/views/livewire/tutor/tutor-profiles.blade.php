@@ -152,9 +152,9 @@
             </div>
 
             <!-- Success Message -->
-            @if (session()->has('message'))
+            @if (session()->has('success'))
                 <div class="mt-4 text-green-600 text-sm">
-                    {{ session('message') }}
+                    {{ session('success') }}
                 </div>
             @endif
         </form>

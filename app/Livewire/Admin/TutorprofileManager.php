@@ -2,11 +2,15 @@
 
 namespace App\Livewire\Admin;
 
+use App\Mail\TutorProfileApprovalEmail;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\TutorProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Livewire\Attributes\Layout;
 
 class TutorprofileManager extends Component
 {
@@ -19,6 +23,10 @@ class TutorprofileManager extends Component
     public $search = '';
     public $showDetailModal = false;
     public $selectedProfile;
+
+    public function mount(){
+        $this->getTutorProfiles();
+    }
 
     // Filter tabs for qualification and discipline
     public function setTab($tab)
@@ -62,6 +70,17 @@ class TutorprofileManager extends Component
             'approvalRemark' => $this->approvalRemark,
         ]);
 
+        $tutorProfile = $profile->refresh()->load('user');
+
+        try{
+            Mail::to($tutorProfile->user->email)->send(new TutorProfileApprovalEmail($tutorProfile));
+            session()->flash('success', 'Tutor profile updated successfully');
+        } catch (\Exception $e) {;
+            Log::error('Mail sending failed: ' . $e->getMessage());
+
+            session()->flash('success', 'Tutor profile updated successfully (but notification was not sent). Please contact support team');
+        }
+
         $this->showModal = false;
         session()->flash('success', 'Tutor profile updated successfully');
     }
@@ -86,6 +105,7 @@ class TutorprofileManager extends Component
         return $query->paginate(10);
     }
 
+    #[Layout('layouts.app')]
     public function render()
     {
         return view('livewire.admin.tutorprofile-manager', [

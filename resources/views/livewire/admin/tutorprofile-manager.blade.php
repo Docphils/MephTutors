@@ -1,10 +1,15 @@
-<div class="p-6 bg-gray-100 min-h-screen">
+<div class="max-w-7xl m-10 mx-auto p-8 bg-cyan-100 min-h-screen">
      <!-- Success message -->
-     @if (session()->has('message'))
+     @if (session()->has('success'))
         <div class="mb-4 p-4 bg-green-100 text-green-800 rounded-md">
-            {{ session('message') }}
+            {{ session('success') }}
         </div>
     @endif
+    <div class="mb-4">
+        <a wire:navigate href="{{ route('admin.dashboard') }}" class="px-4 py-2 rounded-lg text-white bg-cyan-700 hover:bg-cyan-900 hover:shadow-xl shadow-md">
+            Dashboard
+        </a>
+    </div>
     <!-- Tabs for Qualification and Discipline Filtering -->
     <div class="mb-6">
         <h2 class="text-2xl font-semibold mb-4 text-black">Tutor Profiles</h2>
@@ -51,13 +56,13 @@
     <!-- Display Tutor Profiles -->
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
         <div class="min-w-full divide-y divide-gray-200">
-            <div class="bg-gray-50">
+            <div class="bg-cyan-50">
                 <div class="grid grid-cols-5">
-                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase divacking-wider">Full Name</div>
-                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qual.</div>
-                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exp.</div>
-                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</div>
-                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</div>
+                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase divacking-wider">Full Name</div>
+                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Qual.</div>
+                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Exp.</div>
+                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Status</div>
+                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</div>
                 </div>
             </div>
             <div class="bg-white divide-y divide-gray-200">
