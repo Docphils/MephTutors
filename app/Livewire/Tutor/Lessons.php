@@ -44,8 +44,8 @@ class Lessons extends Component
         Gate::authorize('Tutor');
 
         // Ensure the booking status is 'Completed' before showing the approval modal
-        if ($this->selectedLesson->status !== 'Active') {
-            session()->flash('error', 'You can only edit completion remarks for active lessons.');
+        if ($this->selectedLesson->status !== 'Active' && $this->selectedLesson->status !== 'Declined') {
+            session()->flash('error', 'You can only edit completion remarks for active or declined lessons.');
             return;
         }
 
@@ -61,8 +61,8 @@ class Lessons extends Component
         Gate::authorize('Tutor');
 
         // Ensure the status of the booking is still 'Active' before updating
-        if ($this->selectedLesson->status !== 'Active') {
-            session()->flash('error', 'You cannot submit approval remarks for lessons that are not active.');
+        if ($this->selectedLesson->status !== 'Active' && $this->selectedLesson->status !== 'Declined') {
+            session()->flash('error', 'You cannot submit approval remarks for lessons that are not active or declined.');
             return;
         }
 
@@ -113,6 +113,8 @@ class Lessons extends Component
                 return Booking::where('tutor_id', $user->id)->where('status', 'Completed')->paginate(10);
             case 'Active Lessons':
                 return Booking::where('tutor_id', $user->id)->where('status', 'Active')->paginate(10);
+            case 'Declined Lessons':
+                return Booking::where('tutor_id', $user->id)->where('status', 'Declined')->paginate(10);
             case 'Accepted Lessons':
             default:
                 return Booking::where('tutor_id', $user->id)->paginate(10); 

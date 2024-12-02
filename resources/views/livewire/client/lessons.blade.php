@@ -1,8 +1,13 @@
 <div>
-     <!-- Success Message -->
-     @if (session()->has('message'))
-        <div class="mt-4 text-green-600 bg-green-100 p-1">
-            {{ session('message') }}
+    <!-- Session Message -->
+    @if (session()->has('error'))
+        <div class="my-4 text-red-600 w-full p-2 bg-red-100">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if (session()->has('success'))
+        <div class="my-4 text-green-600 w-full p-2 bg-green-100">
+            {{ session('success') }}
         </div>
     @endif
     <!-- Tabs for Filtering Bookings by Status -->
@@ -169,19 +174,10 @@
     @if ($showAcceptanceModal)
         <div class="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white p-6 rounded-md w-96 text-gray-900">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
                 <h2 class="text-lg font-bold mb-4">Accept lesson schedule for commencement</h2>
+                @error('clientAcceptanceRemarks')<span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 <textarea wire:model="clientAcceptanceRemarks" class="w-full mb-4 p-2 border" placeholder="Enter remarks"></textarea>
+                @error('status')<span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 <select wire:model="status" class="w-full mb-4 p-2 border">
                     <option value="">Select Status</option>
                     <option value="Adjust">Request Adjustment</option>
@@ -201,7 +197,9 @@
         <div class="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white p-6 rounded-md w-96">
                 <h2 class="text-lg font-bold mb-4">Approve Completed Lesson</h2>
+                @error('clientApprovalRemarks')<span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 <textarea wire:model="clientApprovalRemarks" class="w-full mb-4 p-2 border text-gray-900" placeholder="Enter remarks"></textarea>
+                @error('status')<span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 <select wire:model="status" class="w-full mb-4 p-2 border text-gray-900">
                     <option value="">Select Status</option>
                     <option value="Declined">Decline Approval</option>
@@ -209,6 +207,7 @@
                 </select>
                 <button wire:click="submitApproval" class="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
                 <button wire:click="$set('showApprovalModal', false)" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Cancel</button>
+                <div wire:loading wire:target="submitApproval" class="text-cyan-600">Submitting....</div>
             </div>
         </div>
     @endif

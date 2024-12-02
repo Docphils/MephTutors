@@ -3,6 +3,7 @@
 namespace App\Livewire\Client;
 
 use App\Mail\DeclinedLessonEmail;
+use App\Mail\EarnedPaymentEmail;
 use App\Mail\LessonReviewedEmail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -153,6 +154,17 @@ class Lessons extends Component
         if($declinedLesson->status == 'Declined'){
             try {
                 Mail::to($declinedLesson->tutor->email)->cc('admin@mephed.ng')->send(new DeclinedLessonEmail($declinedLesson));
+                session()->flash('success', 'Status updated successfully');
+            } catch (\Exception $e) {
+                Log::error('Mail sending failed: ' . $e->getMessage());
+    
+                session()->flash('success', 'Status updated successfully (email not sent). Please contact support');
+            }
+        }
+
+        if($declinedLesson->status == 'Closed'){
+            try {
+                Mail::to('admin@mephed.ng')->send(new EarnedPaymentEmail($declinedLesson));
                 session()->flash('success', 'Status updated successfully');
             } catch (\Exception $e) {
                 Log::error('Mail sending failed: ' . $e->getMessage());

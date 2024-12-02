@@ -1,9 +1,21 @@
 <div class="bg-white">
+    <!-- Session Message -->
+    @if (session()->has('error'))
+        <div class="my-4 text-red-600 w-full p-2 bg-red-100">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if (session()->has('success'))
+        <div class="my-4 text-green-600 w-full p-2 bg-green-100">
+            {{ session('success') }}
+        </div>
+    @endif
     <!-- Tabs for Filtering Bookings by Status -->
     <div class="flex justify-around mb-6 border-b text-sm sm:text-base">
         <button wire:click="setTab('Closed Lessons')" class="{{ $activeTab == 'Closed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950 text-cyan-50' : '' }} px-1 sm:px-4 py-2">Closed</button>
         <button wire:click="setTab('Completed Lessons')" class="{{ $activeTab == 'Completed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950 text-cyan-50' : '' }} px-1 sm:px-4 py-2">Completed</button>
         <button wire:click="setTab('Active Lessons')" class="{{ $activeTab == 'Active Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950 text-cyan-50' : '' }} px-1 sm:px-4 py-2">Active</button>
+        <button wire:click="setTab('Declined Lessons')" class="{{ $activeTab == 'Declined Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950 text-cyan-50' : '' }} px-1 sm:px-4 py-2">Declined</button>
     </div>
 
     <!-- Bookings Display -->
@@ -26,7 +38,7 @@
                 <button class="bg-blue-500 text-white p-1 px-2 rounded-md" wire:click="showLesson({{ $booking->id }})">
                     <i class="fas fa-eye text-xs sm:text-base"></i>
                 </button>
-                @if ($booking->status === 'Active')
+                @if ($booking->status === 'Active' || $booking->status === 'Declined')
                 <button class="bg-yellow-500 text-white p-1 px-2 rounded-md" wire:click="editCompleted({{ $booking->id }})">
                     <i class="fas fa-edit text-xs sm:text-base"></i>
                 </button>
@@ -143,13 +155,16 @@
         <div class="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white p-6 rounded-md w-96">
                 <h2 class="text-lg font-bold mb-4">Mark lesson as completed</h2>
+                @error('tutorRemarks')<span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 <textarea wire:model="tutorRemarks" class="w-full mb-4 p-2 border" placeholder="Enter remarks"></textarea>
+                @error('status')<span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 <select wire:model="status" class="w-full mb-4 p-2 border">
                     <option value="">Select Status</option>
                     <option value="Completed">Lesson completed</option>
                 </select>
                 <button wire:click="submitCompleted" class="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
                 <button wire:click="$set('showCompletedModal', false)" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Cancel</button>
+                <div wire:loading wire:target="submitCompleted" class="text-cyan-600">Submitting ....</div>
             </div>
         </div>
     @endif
