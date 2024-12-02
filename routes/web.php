@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\TutorDashboardController;
 use App\Livewire\Admin\Lesson\Create;
 use App\Livewire\Admin\Lesson\EditLesson;
+use App\Livewire\Admin\Newsletter;
 use App\Livewire\Admin\TutorprofileManager;
 use App\Livewire\Client\CodingAndClubs;
 use App\Livewire\Client\CodingAndClubsIndex;
@@ -121,6 +122,7 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     //Users Management Routes
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::get('admin/tutor-profile-management', TutorprofileManager::class)->name('admin.tutorProfile');
+    Route::get('admin/newsletter', Newsletter::class)->name('admin.newsletter');
   
 
 });

@@ -29,6 +29,9 @@
             </div>
         </div>
 
+        <div class="self-end">
+            @livewire('newsletter-subscription')
+        </div>
     </section>
     
     <div class="sm:col-span-4 ">
