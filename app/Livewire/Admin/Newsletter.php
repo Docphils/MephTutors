@@ -12,6 +12,7 @@ class Newsletter extends Component
 {
     public $title;
     public $body;
+    public $body2;
     public $subject;
 
     public function sendNewsletter()
@@ -20,6 +21,7 @@ class Newsletter extends Component
             'subject' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'body' => 'required|string',
+            'body2' => 'nullable|string',
         ]);
 
         // Retrieve all subscribed users
@@ -36,7 +38,7 @@ class Newsletter extends Component
         }
 
         // Clear fields and show success message
-        $this->reset(['title', 'body', 'subject']);
+        $this->reset(['title', 'body', 'subject', 'body2']);
         session()->flash('success', 'Newsletter sent successfully!');
     }
 

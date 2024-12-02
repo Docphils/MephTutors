@@ -25,6 +25,7 @@
             
 
             <p class="mt-6 text-gray-600">{{ $content['body'] }}</p>
+            <p class="mt-4 text-gray-600">{{ $content['body2'] }}</p>
             <p class="mt-4 text-gray-600">Best regards,<br><strong>MephEd Support Team</strong></p>
         </div>
 

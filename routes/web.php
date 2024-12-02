@@ -48,6 +48,10 @@ Route::get('/privacy-policy', function () {
     return view('privacy-policy');
 });
 
+Route::get('/terms-of-service', function () {
+    return view('terms-of-service');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

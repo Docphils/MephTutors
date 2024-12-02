@@ -8,7 +8,7 @@
         </div>
         <div class="grid px-5 sm:px-2 mb-4">
             <a href="{{url('/privacy-policy')}}" class="hover:underline">Privacy Policy</a>
-            <a href="#" class="hover:underline">Terms of Service</a>
+            <a href="{{ url('/terms-of-service')}}" class="hover:underline">Terms of Service</a>
         </div>
         <div class="grid px-5 sm:px-2">
             <a href="https://www.facebook.com/mephconsults" class="hover:underline">Facebook</a>
@@ -25,7 +25,7 @@
         <div class="flex text-start justify-between mb-8">
             <div class="grid px-5 sm:px-2 mb-4">
                 <a href="{{url('/privacy-policy')}}" class="hover:underline">Privacy Policy</a>
-                <a href="#" class="hover:underline">Terms of Service</a>
+                <a href="{{ url('/terms-of-service')}}" class="hover:underline">Terms of Service</a>
             </div>
             <div class="grid px-5 sm:px-2">
                 <a href="https://www.facebook.com/mephconsults" class="hover:underline">Facebook</a>
