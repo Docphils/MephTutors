@@ -89,7 +89,7 @@
             
                                 @if (!$userProfile)
                                     <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
-                                        <strong>Profile Incomplete!</strong> Please <a href="{{ route('userProfile.create') }}" class="text-blue-500 hover:underline">update your profile</a> to enjoy full features.
+                                        <strong>Profile Incomplete!</strong> Please complete your profile to enjoy seemless services.
                                     </div>
                                 @endif
             

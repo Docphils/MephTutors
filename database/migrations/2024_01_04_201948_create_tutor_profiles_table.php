@@ -26,8 +26,7 @@ return new class extends Migration
             $table->string('CV');
             $table->text('careerProfile');
             $table->string('bankName');
-            $table->bigInteger('accountNumber');
-            $table->integer('accountNumber');
+            $table->string('accountNumber');
             $table->boolean('Approved')->default(false);
             $table->text('approvalRemark')->nullable();
             $table->string('video')->nullable();

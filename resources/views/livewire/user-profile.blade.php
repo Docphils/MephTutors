@@ -38,6 +38,7 @@
                     <div class="mb-4">
                         <label for="gender" class="block text-md font-medium text-gray-900">Gender</label>
                         <select wire:model="gender" class="mt-1 block w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                            <option value="">Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
