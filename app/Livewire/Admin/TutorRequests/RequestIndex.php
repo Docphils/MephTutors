@@ -6,8 +6,12 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\TutorRequest;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
-class Index extends Component
+
+#[Title('Tutor Requests|MephEd')] 
+class RequestIndex extends Component
 {
     use WithPagination;
 
@@ -63,7 +67,7 @@ class Index extends Component
     public function openEditModal($id)
     {
         $this->selectedRequest = TutorRequest::findOrFail($id);
-        $this->status = $this->selectedRequest->status; // Initialize the status for editing
+        $this->status = $this->selectedRequest->status; 
         $this->editModal = true;
     }
 
@@ -83,6 +87,8 @@ class Index extends Component
         $this->selectedRequest = null;
     }
 
+
+    #[Layout('layouts.apps')]
     public function render()
     {
         $query = TutorRequest::query();
@@ -103,7 +109,7 @@ class Index extends Component
         $cancelled = TutorRequest::where('status', 'Cancelled')->paginate(10);
 
 
-        return view('livewire.admin.tutor-requests.index', compact('queryRequests', 'tutorRequests', 'pending', 'assigned', 'cancelled'));
+        return view('livewire.admin.tutor-requests.request-index', compact('queryRequests', 'tutorRequests', 'pending', 'assigned', 'cancelled'));
     }
 }
 

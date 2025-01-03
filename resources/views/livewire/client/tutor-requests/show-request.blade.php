@@ -1,14 +1,11 @@
-<x-app-layout>
+<div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-cyan-200 dark:text-gray-200 leading-tight">
-            {{ __('Lesson Details') }}
+            {{ __('Request Details') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="mx-auto mb-4  mx-8">
-            <a href="{{ route('client.tutorRequests.index') }}" class="mx-8 text-cyan-900 bg-cyan-300 p-1 rounded-lg font-semibold shadow-lg shadow-cyan-600">Back to all requests</a>
-        </div>
         <div class="w-2/3 mx-auto sm:px-6 lg:px-8">
             @if (session('success'))
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
@@ -18,6 +15,17 @@
                     <span class="block sm:inline">{{ session('success') }}</span>
                 </div>
             @endif
+            @if (session('error'))
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
+                    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" 
+                    role="alert">
+                    <strong class="font-bold">Success!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                </div>
+            @endif
+            <div class="mx-auto mb-4  mx-8">
+                <a wire:navigate href="{{ route('client.tutorRequests.index') }}" class="text-cyan-100 bg-cyan-800 border p-1 rounded-sm font-semibold shadow-sm hover:shadow-lg hover:shadow-cyan-600">Back to all requests</a>
+            </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class=" flex border-b-4 border-b-cyan-600 justify-between mb-4">
@@ -71,18 +79,14 @@
                     </div>
                 </div>
 
-                @if ($tutorRequest->status === 'Pending')
-                    <div class="flex justify-center mb-4 text-md mx-auto">
-                        <a href="{{ route('client.tutorRequests.edit', $tutorRequest->id) }}" class="text-blue-500 ml-4">Edit</a>
-                        <form action="{{ route('admin.tutorRequests.destroy', $tutorRequest->id) }}" method="POST" class="inline-block ml-4">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500">Delete</button>
-                        </form>
+                @if ($tutorRequest->status)
+                    <div class="flex justify-center mb-4 text-md mx-auto gap-4">
+                        <a wire:navigate href="{{ route('client.tutorRequests.edit', $tutorRequest->id) }}" class="text-blue-500 ml-4">Edit</a>
+                        <!-- Delete -->
+                        <button wire:confirm='Are you sure you want to delete this request?' wire:click='destroy({{ $tutorRequest->id }})' class="text-red-500 hover:underline hover:text-red-700 hover:shadow-lg">Delete</button>
                     </div> 
                 @endif
-                
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>

@@ -1,4 +1,16 @@
-<div class="container mx-auto py-8">
+<div class="container mx-auto py-8 min-h-svh">
+    <x-slot name="header" class="">
+        <h2 class="font-semibold text-xl text-cyan-200 dark:text-gray-200 leading-tight flex items-center justify-between">
+            <div class="">
+                {{ __('Coding Tutor Requests') }}
+            </div>
+
+            <div class="">
+                <a wire:navigate href="{{ route('client.dashboard') }}" class="text-cyan-50 bg-cyan-700 p-1 rounded-sm font-semibold hover:shadow-lg hover:shadow-cyan-400 hover:bg-cyan-800">Dashboard</a>
+            </div>
+        </h2>
+        
+    </x-slot>
     <div class="flex flex-col space-y-12">
         
         <!-- Coding Tutor Requests Section -->
@@ -306,5 +318,6 @@
         @endif
         
     </div>
+
 </div>
 

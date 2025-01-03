@@ -15,7 +15,12 @@ class NewsletterSubscription extends Component
     public function mount()
     {
         // Set initial subscription status from the logged-in user
-        $this->isSubscribed = Auth::user()->is_subscribed;
+        $user = Auth::user(); 
+
+        if ($user) {
+        
+            $this->isSubscribed = $user->is_subscribed;
+        }
     }
 
     public function toggleSubscription()

@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
+
+#[Title('Coding Request | MephEd')]
 class CodingAndClubsIndex extends Component
 {
     use WithPagination;
@@ -85,7 +88,7 @@ class CodingAndClubsIndex extends Component
         session()->flash('success', 'Request Submitted Successfully');
     }
 
-    #[Layout('layouts.app')]
+    #[Layout('layouts.apps')]
     public function render()
     {
         $codingRequests = Crm::where('request_type', 'coding_tutor')->where('user_id', Auth::id())->latest()->paginate(5);

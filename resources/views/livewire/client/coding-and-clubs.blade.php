@@ -1,5 +1,17 @@
-<div class="max-w-6xl mx-auto p-6 rounded-lg shadow-md mb-4">
-    <div class="flex flex-col space-y-12">
+<div class="container mx-auto py-8 min-h-svh">
+    <x-slot name="header" class="">
+        <h2 class="font-semibold text-xl text-cyan-200 dark:text-gray-200 leading-tight flex items-center justify-between">
+            <div class="">
+                {{ __('Club Requests') }}
+            </div>
+
+            <div class="">
+                <a wire:navigate href="{{ route('client.dashboard') }}" class="text-cyan-50 bg-cyan-700 p-1 rounded-sm font-semibold hover:shadow-lg hover:shadow-cyan-400 hover:bg-cyan-800">Dashboard</a>
+            </div>
+        </h2>
+        
+    </x-slot>
+    <div class="flex flex-col space-y-12 ">
             <!-- Club Requests Section -->
         @if (!$makeRequest)
             <div class="bg-white shadow rounded-lg p-6 text-gray-900">
@@ -131,7 +143,7 @@
         @endif
         
         @if ($makeRequest)
-            <form wire:submit.prevent="submit" class="space-y-6 bg-white text-gray-900 rounded-md p-6 text-gray-900">
+            <form wire:submit.prevent="submit" class=" mx-auto space-y-6 bg-white text-gray-900 rounded-md p-6 text-gray-900 w-4/5">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Request Club Instructors</h2>
                 <!-- Common Fields -->
                 <div class="grid grid-cols-1 gap-4">

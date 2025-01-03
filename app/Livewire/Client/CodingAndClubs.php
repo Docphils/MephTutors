@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
 
+
+#[Title('Club Request | MephEd')]
 class CodingAndClubs extends Component
 {
     use WithPagination;
@@ -86,7 +89,7 @@ class CodingAndClubs extends Component
         $this->makeRequest = null;
     }
 
-    #[Layout('layouts.app')]
+    #[Layout('layouts.apps')]
     public function render()
     {
         $clubRequests = Crm::where('request_type', 'club')->where('user_id', Auth::id())->latest()->paginate(5);

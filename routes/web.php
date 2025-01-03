@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TutorRequestController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientDashboardController;
 use App\Http\Controllers\CrmController;
@@ -14,10 +13,15 @@ use App\Livewire\Admin\Lesson\Create;
 use App\Livewire\Admin\Lesson\EditLesson;
 use App\Livewire\Admin\Newsletter;
 use App\Livewire\Admin\TutorprofileManager;
+use App\Livewire\Admin\Users\Index;
 use App\Livewire\Client\CodingAndClubs;
 use App\Livewire\Client\CodingAndClubsIndex;
 use App\Livewire\TermsOfService;
 use App\Livewire\Client\TutorRequests\CreateRequest;
+use App\Livewire\Admin\TutorRequests\RequestIndex;
+use App\Livewire\Client\TutorRequests\ClientRequests;
+use App\Livewire\Client\TutorRequests\EditRequest;
+use App\Livewire\Client\TutorRequests\ShowRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +67,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/terms-of-service', TermsOfService::class)->name('terms.service');
 
-Route::middleware(['auth', 'can:AdminOrClient'])->group(function () {
-    //Tutor Request Route
-    Route::put('tutor-requests/{id}', [TutorRequestController::class, 'update'])->name('tutorRequests.update');
-});
 
 Route::middleware(['auth', 'can:Client'])->group(function () {
     // Client Dashboard
@@ -80,10 +80,11 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
     Route::put('client/crm/{id}', [CrmController::class, 'update'])->name('client.crm.update');
     Route::delete('client/crm/{id}', [CrmController::class, 'clientDestroy'])->name('client.crm.destroy');
     //Tutor Requests Routes
-    Route::get('client/tutor-requests', [TutorRequestController::class, 'clientIndex'])->name('client.tutorRequests.index');
+    Route::get('client/tutor-requests', ClientRequests::class)->name('client.tutorRequests.index');
+    Route::get('/client/tutor-requests/{id}/edit', EditRequest::class)->name('client.tutorRequests.edit');
     Route::get('/tutor-requests/create', CreateRequest::class)->name('client.tutorRequests.create');
-    Route::get('client/tutor-requests/{id}', [TutorRequestController::class, 'clientShow'])->name('client.tutorRequests.show');
-    Route::get('client/tutor-requests/{id}/edit', [TutorRequestController::class, 'clientEdit'])->name('client.tutorRequests.edit');
+    Route::get('/tutor-requests/{id}', ShowRequest::class)->name('client.tutorRequests.show');
+
 });
 
 Route::middleware(['auth', 'can:Tutor'])->group(function () {
@@ -104,10 +105,8 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     // Admin Dashboard
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');    
     //Tutor Request Routes
-    Route::get('admin/tutor-requests', [TutorRequestController::class, 'index'])->name('tutorRequests.index');
-    Route::get('admin/tutor-requests/{id}', [TutorRequestController::class, 'show'])->name('admin.tutorRequests.show');
-    Route::get('admin/tutor-requests/{id}/edit', [TutorRequestController::class, 'edit'])->name('admin.tutorRequests.edit');
-    Route::delete('admin/tutor-requests/{id}', [TutorRequestController::class, 'destroy'])->name('admin.tutorRequests.destroy');
+    Route::get('admin/tutor-requests', RequestIndex::class)->name('tutorRequests.index');
+
     //Bookings
     Route::get('/lessons/create', Create::class)->name('bookings.create');
     Route::get('/lessons/{id}/edit', EditLesson::class)->name('bookings.edit');
