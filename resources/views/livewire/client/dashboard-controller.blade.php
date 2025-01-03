@@ -65,7 +65,7 @@
                                         <path d="M6 2a1 1 0 000 2h8a1 1 0 000-2H6zM3 5a1 1 0 011-1h12a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V5zm10 6a1 1 0 112 0v2a1 1 0 11-2 0v-2zm-4 0a1 1 0 112 0v2a1 1 0 11-2 0v-2zM7 9a1 1 0 000 2h2a1 1 0 000-2H7z"/>
                                     </svg>
                                     <div class="ml-4">
-                                        <h4 class="text-lg font-semibold"> <a href="{{ route('client.tutorRequests.create') }}" class="text-blue-500 hover:underline">Request Tutor</a></h4>
+                                        <h4 class="text-lg font-semibold"> <a wire:navigate href="{{ route('client.tutorRequests.create') }}" class="text-blue-500 hover:underline">Request Tutor</a></h4>
                                         <p>Request a tutor for yourself or wards.</p>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                         <path d="M9 2a1 1 0 00-1 1v14a1 1 0 001.707.707l5-5A1 1 0 0015 11H9V3a1 1 0 00-1-1zM3 7a1 1 0 011-1h4a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V7zm0 4a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-1z"/>
                                     </svg>
                                     <div class="ml-4">
-                                        <h4 class="text-lg font-semibold"><a href="{{ route('client.tutorRequests.index') }}" class="text-blue-500 hover:underline">View/Edit Tutor Requests</a></h4>
+                                        <h4 class="text-lg font-semibold"><a wire:navigate href="{{ route('client.tutorRequests.index') }}" class="text-blue-500 hover:underline">View/Edit Tutor Requests</a></h4>
                                         <p>View and edit your requested sessions.</p>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                         <path d="M4 3a1 1 0 00-1 1v12a1 1 0 002 0V4a1 1 0 00-1-1zM8 4a1 1 0 00-1 1v10a1 1 0 002 0V5a1 1 0 00-1-1zm6 2a1 1 0 00-1 1v8a1 1 0 002 0V7a1 1 0 00-1-1zm4 3a1 1 0 00-1 1v4a1 1 0 002 0v-4a1 1 0 00-1-1z"/>
                                     </svg>
                                     <div class="ml-4">
-                                        <h4 class="text-lg font-semibold"><a href="{{ route('client.lessons') }}" class="text-blue-500 hover:underline">All Booked Lessons</a></h4>
+                                        <h4 class="text-lg font-semibold"><a wire:navigate href="{{ route('client.lessons') }}" class="text-blue-500 hover:underline">All Booked Lessons</a></h4>
                                         <p>View all your booked lessons.</p>
                                     </div>
                                 </div>

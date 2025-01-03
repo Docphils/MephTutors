@@ -16,6 +16,8 @@ use App\Livewire\Admin\Newsletter;
 use App\Livewire\Admin\TutorprofileManager;
 use App\Livewire\Client\CodingAndClubs;
 use App\Livewire\Client\CodingAndClubsIndex;
+use App\Livewire\TermsOfService;
+use App\Livewire\Client\TutorRequests\CreateRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,9 +50,8 @@ Route::get('/privacy-policy', function () {
     return view('privacy-policy');
 });
 
-Route::get('/terms-of-service', function () {
-    return view('terms-of-service');
-});
+
+
 
 
 Route::middleware('auth')->group(function () {
@@ -60,6 +61,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/terms-of-service', TermsOfService::class)->name('terms.service');
 
 Route::middleware(['auth', 'can:AdminOrClient'])->group(function () {
     //Tutor Request Route
@@ -79,8 +81,7 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
     Route::delete('client/crm/{id}', [CrmController::class, 'clientDestroy'])->name('client.crm.destroy');
     //Tutor Requests Routes
     Route::get('client/tutor-requests', [TutorRequestController::class, 'clientIndex'])->name('client.tutorRequests.index');
-    Route::get('client/tutor-requests/create', [TutorRequestController::class, 'create'])->name('client.tutorRequests.create');
-    Route::post('client/tutor-requests', [TutorRequestController::class, 'store'])->name('client.tutorRequests.store');
+    Route::get('/tutor-requests/create', CreateRequest::class)->name('client.tutorRequests.create');
     Route::get('client/tutor-requests/{id}', [TutorRequestController::class, 'clientShow'])->name('client.tutorRequests.show');
     Route::get('client/tutor-requests/{id}/edit', [TutorRequestController::class, 'clientEdit'])->name('client.tutorRequests.edit');
 });

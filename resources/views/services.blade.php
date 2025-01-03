@@ -43,8 +43,8 @@
                                 Experience personalized home tutoring for every subject and level. Enjoy customized lessons designed just for you to enhance your learning and achieve your academic and career goals.
                             </p>
                             <div class="mt-6">
-                                <a class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
-                                    href="{{ route('client.tutorRequests.create') }}"  wire:navigate>
+                                <a wire:navigate class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
+                                    href="{{ route('client.tutorRequests.create') }}" >
                                     Request Tutor
                                 </a>
                             </div>
@@ -83,7 +83,7 @@
                                 Learn coding from basics to advanced levels with our expert tutors. Whether you're starting out or looking to master complex concepts, our personalized guidance will help you succeed.
                             </p>
                             <div class="mt-6">
-                                <a class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
+                                <a wire:navigate class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
                                     href="{{ route('codingRequest.index') }}">
                                     Book now
                                 </a>
@@ -122,7 +122,7 @@
                                 Whether you want to render an impactful community service for shaping the future, or you want your school to stand out through co-curricular activities, MephEd is here for you.
                             </p>
                             <div class="mt-6">
-                                <a class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
+                                <a wire:navigate class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
                                     href="{{ route('clubRequest.index') }}">
                                     Book now
                                 </a>

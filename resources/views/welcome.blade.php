@@ -34,7 +34,7 @@
         </div>
 
             <div class="mt-5">
-                <a class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
+                <a wire:navigate class="inline-flex rounded-lg bg-pink-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-pink-600 hover:bg-pink-700 hover:ring-pink-700"
                     href="{{ route('client.tutorRequests.create') }}">
                     Request Tutor
                 </a>

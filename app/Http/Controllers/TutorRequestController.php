@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\TutorRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Mail\TutorRequestNotification;
-use Illuminate\Support\Facades\Mail;
-use App\Models\User;
-use Illuminate\Support\Facades\Log;
+
 
 class TutorRequestController extends Controller
 {
@@ -54,48 +51,6 @@ class TutorRequestController extends Controller
         Gate::authorize('Client');
         $tutorRequest = TutorRequest::findOrFail($id);
         return view('client.tutorRequests.show', compact('tutorRequest'));
-    }
-
-    //Client Create
-    public function create()
-    {
-        Gate::authorize('Client');
-        return view('client.tutorRequests.create');
-    }
-
-    //Client Store
-    public function store(Request $request)
-    {
-        Gate::authorize('Client');   
-        $request->validate([
-            'start_date' => 'required|date|after_or_equal:today',
-            'end_date' => 'required|date|after:start_date',
-            'location' => 'required|string',
-            'days_times' => 'required|string',
-            'subjects' => 'required|string',
-            'learners' => 'required|string',
-            'sessions' => 'required|string',
-            'duration' => 'required|string',
-            'tutor_gender' => 'required|in:Male,Female,Any',            
-            'curriculum' => 'required|in:British,French,Nigerian,Blended',
-            'status' => 'sometimes|in:Pending,Cancelled,Assigned',
-            'amount' => 'required|string',
-            'remarks' => 'nullable|string',
-        ]);
-        $tutorRequestData = $request->all();
-        $tutorRequestData['user_id'] = Auth::user()->id;
-
-        
-        $tutorRequest = TutorRequest::create($tutorRequestData);
-
-        try {
-            Mail::to('admin@mephed.ng')->send(new TutorRequestNotification($tutorRequest));
-        } catch (\Exception $e) {
-            Log::error('Mail sending failed: ' . $e->getMessage());
-            return redirect()->route('client.tutorRequests.index')->with('error', 'Request submitted, but notification failed. Please contact our support team');
-        }
-
-        return redirect()->route('client.tutorRequests.index')->with('success', 'Request submitted successfully');
     }
 
     //Admin Edit
