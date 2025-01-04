@@ -75,6 +75,10 @@ class Lessons extends Component
             'tutorRemarks' => $this->tutorRemarks,
             'status' => $this->status
         ]);
+        if ($this->selectedLesson->status === 'Completed') {
+            $this->selectedLesson->completed_at = now();
+            $this->selectedLesson->save(); 
+        }
 
         $completedLesson = $this->selectedLesson->refresh()->load('client');
 

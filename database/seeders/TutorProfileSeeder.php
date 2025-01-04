@@ -25,12 +25,12 @@ class TutorProfileSeeder extends Seeder
                 'phone' => $faker->randomNumber(5),
                 'address' => $faker->address,
                 'DOB' => $faker->date('Y-m-d', '-30 years'),
-                'image' => 'default_tutor_image.jpg', // Replace with actual image handling
+                'image' => 'default_tutor_image.jpg',
                 'gender' => $faker->randomElement(['Male', 'Female']),
                 'qualification' => $faker->randomElement(['SSCE', 'Diploma', 'NCE', 'HND/BSc/BEd/BA/BEng', 'MSc/MA', 'PhD']),
-                'discipline' => $faker->randomElement(['Mathematics', 'English', 'Physics', 'Chemistry', 'Biology']), // Replace with relevant disciplines
+                'discipline' => $faker->randomElement(['Mathematics', 'English', 'Physics', 'Chemistry', 'Biology']), 
                 'experience' => $faker->randomElement(['0-1 year', '2-5 years', '6-10 years', 'Above 10 years']),
-                'CV' => 'tutor_cv.pdf', // Replace with actual CV handling
+                'CV' => 'tutor_cv.pdf', 
                 'careerProfile' => $faker->text,
                 'bankName' => $faker->text,
                 'accountName' => $faker->name,

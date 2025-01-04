@@ -29,7 +29,7 @@
                     <li><strong>Lesson ID:</strong> {{ $closedLesson['id'] ?? 'N/A' }}</li>
                     <li><strong>Tutor's Name:</strong> {{ $closedLesson->tutor->tutorProfile->fullName ?? 'N/A' }}</li>
                     <li><strong>Payment ID:</strong> {{ $closedLesson->payment->id ?? 'N/A' }}</li>
-                    <li><strong>Club Type:</strong> {{ $closedLesson['status'] ?? 'N/A' }}</li>
+                    <li><strong>Status:</strong> {{ $closedLesson['status'] ?? 'N/A' }}</li>
                 </ul>
             </div>
 

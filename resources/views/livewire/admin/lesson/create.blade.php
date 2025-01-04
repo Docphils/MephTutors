@@ -140,6 +140,7 @@
         
             <div class="flex justify-between">
                 <a href="{{ route('lessons.index') }}" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Cancel</a>
+                <button wire:loading class="bg-cyan-200 text-cyan-900 px-3 py-1 font-semibold">Assigning Lesson ....</button>
                 <button type="submit" class="bg-cyan-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Assign Lesson</button>
             </div>
         </form>

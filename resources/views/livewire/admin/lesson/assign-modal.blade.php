@@ -1,8 +1,7 @@
 <div>
     <button wire:click="modal" wire:navigate class="bg-cyan-100 shadow-sm hover:shadow-lg hover:underline shadow-cyan-50  text-cyan-800 p-2 rounded-sm">Assign New Lesson</button>
 
-
-
+    
     @if ($openModal)
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
         <div class="bg-white w-1/2 rounded-lg shadow-lg p-6 relative">

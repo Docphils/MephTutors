@@ -16,7 +16,7 @@ class UserProfileSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $users = User::all();
+        $users = User::where('role', 'client')->get();
 
         foreach ($users as $user) {
             UserProfile::create([

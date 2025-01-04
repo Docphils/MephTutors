@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('tutorRemarks')->nullable(); 
             $table->string('clientAcceptanceRemarks')->nullable();
             $table->string('clientApprovalRemarks')->nullable();
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         
             // Foreign key constraints linking to the users table

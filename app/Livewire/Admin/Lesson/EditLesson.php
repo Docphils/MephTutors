@@ -7,7 +7,6 @@ use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Layout;
 
@@ -76,6 +75,11 @@ class EditLesson extends Component
         }
 
         $this->booking->update($validatedData);
+
+        if ($this->booking->status === 'Completed') {
+            $this->booking->completed_at = now();
+            $this->booking->save(); 
+        }
 
         $payment = Payment::where('booking_id', $this->booking->id)->first();
         if ($payment) {
