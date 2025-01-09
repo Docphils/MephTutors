@@ -80,23 +80,7 @@
 
     
         <!-- Testimonials Section -->
-        <section class="mx-auto mx-10 px-6 py-20">
-            <h3 class="text-3xl font-semibold text-gray-800 text-center">What Our Clients Say</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <p class="text-gray-600 italic">"MephEd has completely transformed my understanding of coding. The tutors are amazing!"</p>
-                    <p class="mt-4 text-gray-800 font-bold">- John Doe</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <p class="text-gray-600 italic">"The home tutoring service is excellent. My grades have improved significantly."</p>
-                    <p class="mt-4 text-gray-800 font-bold">- Jane Smith</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <p class="text-gray-600 italic">"Their club instructors are topnotch and professional. I recommend!"</p>
-                    <p class="mt-4 text-gray-800 font-bold">- Sam Wilson</p>
-                </div>
-            </div>
-        </section>
+        <livewire:testimonials.home-testimonials />
 
         <!-- Become a Tutor Section -->
         <section class="px-20 py-20 bg-gradient-to-r  from-cyan-400 to-cyan-300">
@@ -107,7 +91,7 @@
                         support you for maximum impact and efficiency. 
                     </p>
                     <div class="mt-4">
-                        <a href="{{ route('register') }}" class="bg-blue-500 text-lg text-white px-4 py-2 rounded-lg hover:text-cyan-100 transition">Join Us</a>
+                        <a wire:navigate href="{{ route('register') }}" class="bg-blue-500 text-lg text-white px-4 py-2 rounded-lg hover:text-cyan-100 transition">Join Us</a>
                     </div>
                 </div>
                 <div class="relative sm:flex mx-auto gap-4 text-center justify-between">

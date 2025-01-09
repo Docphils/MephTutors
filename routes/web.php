@@ -9,11 +9,11 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\TutorDashboardController;
+use App\Livewire\Admin\AdminIndexTestimonials;
 use App\Livewire\Admin\Lesson\Create;
 use App\Livewire\Admin\Lesson\EditLesson;
 use App\Livewire\Admin\Newsletter;
 use App\Livewire\Admin\TutorprofileManager;
-use App\Livewire\Admin\Users\Index;
 use App\Livewire\Client\CodingAndClubs;
 use App\Livewire\Client\CodingAndClubsIndex;
 use App\Livewire\TermsOfService;
@@ -22,6 +22,8 @@ use App\Livewire\Admin\TutorRequests\RequestIndex;
 use App\Livewire\Client\TutorRequests\ClientRequests;
 use App\Livewire\Client\TutorRequests\EditRequest;
 use App\Livewire\Client\TutorRequests\ShowRequest;
+use App\Livewire\Testimonials\Testimonials;
+use App\Livewire\Testimonials\IndexTestimonials;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +38,7 @@ use App\Livewire\Client\TutorRequests\ShowRequest;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/services', function () {
     return view('services');
@@ -56,16 +58,16 @@ Route::get('/privacy-policy', function () {
 
 
 
+Route::get('/terms-of-service', TermsOfService::class)->name('terms.service');
+Route::get('testimonials', IndexTestimonials::class)->name('testimonials.index');
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::get('add-testimonial', Testimonials::class)->name('testimonial');
 });
-
-Route::get('/terms-of-service', TermsOfService::class)->name('terms.service');
 
 
 Route::middleware(['auth', 'can:Client'])->group(function () {
@@ -106,6 +108,7 @@ Route::middleware(['auth', 'can:Admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');    
     //Tutor Request Routes
     Route::get('admin/tutor-requests', RequestIndex::class)->name('tutorRequests.index');
+    Route::get('admin/testimonials', AdminIndexTestimonials::class)->name('admin.testimonials');
 
     //Bookings
     Route::get('/lessons/create', Create::class)->name('bookings.create');
