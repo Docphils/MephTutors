@@ -18,7 +18,7 @@ class IndexTestimonials extends Component
     #[Layout('layouts.visitor')]
     public function render()
     {
-        $testimonials = Testimonial::where('status', 'Approved' || 'WelcomePage')->latest()->paginate(9);
+        $testimonials = Testimonial::where('status', 'Approved')->orWhere('status', 'WelcomePage')->latest()->paginate(9);
         
         return view('livewire.testimonials.index-testimonials', [
             'testimonials' => $testimonials,

@@ -20,7 +20,7 @@ class Testimonials extends Component
 
     public function submit(){
         $validated = $this->validate([
-            'comment'=> 'required|string|min:100|max:200',
+            'comment'=> 'required|string|min:50|max:250',
         ]);
 
         Testimonial::create([
