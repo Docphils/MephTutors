@@ -24,11 +24,12 @@ return new class extends Migration
             $table->string('discipline');
             $table->enum('experience', ['0-1 year', '2-5 years', '6-10 years', 'Above 10 years']);
             $table->string('CV');
+            $table->enum('status', ['Pending', 'Approved', 'Review'])->default('Pending');
+            $table->string('approvalRemarks');
             $table->text('careerProfile');
             $table->string('bankName');
             $table->string('accountName');
             $table->string('accountNumber');
-            $table->boolean('Approved')->default(false);
             $table->text('approvalRemark')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();

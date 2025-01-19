@@ -66,7 +66,7 @@ class TutorprofileManager extends Component
 
         $profile = TutorProfile::findOrFail($this->tutorProfileId);
         $profile->update([
-            'status' => $this->status,
+            'Approved' => $this->status,
             'approvalRemark' => $this->approvalRemark,
         ]);
 

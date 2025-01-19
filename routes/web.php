@@ -24,6 +24,7 @@ use App\Livewire\Client\TutorRequests\EditRequest;
 use App\Livewire\Client\TutorRequests\ShowRequest;
 use App\Livewire\Testimonials\Testimonials;
 use App\Livewire\Testimonials\IndexTestimonials;
+use App\Livewire\Tutor\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,9 +90,9 @@ Route::middleware(['auth', 'can:Client'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'can:Tutor'])->group(function () {
+Route::middleware(['auth', 'can:Tutor', 'verified'])->group(function () {
     // Tutor Dashboard
-    Route::get('/tutor/dashboard', [TutorDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('tutor.dashboard');
+    Route::get('/tutor/dashboard', DashboardController::class)->name('tutor.dashboard');
    
     //Bookings
     Route::post('bookings/{booking}/tutorRemarks', [BookingController::class, 'addTutorRemarks'])->name('bookings.addTutorRemarks');

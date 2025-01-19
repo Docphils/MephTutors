@@ -7,7 +7,11 @@ use App\Models\Booking;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On; 
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
+
+#[Title('Coding Request | MephEd')]
 class DashboardController extends Component
 {
     public $mainPage = '';
@@ -25,6 +29,7 @@ class DashboardController extends Component
         $this->tutorVideo = false;
     }
     
+    #[Layout('layouts.apps')]
     public function render()
     {
         $user = Auth::user();
