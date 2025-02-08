@@ -9,13 +9,16 @@ use App\Models\Payment;
 use App\Models\TutorRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
-class DashboardController extends Component
+#[Title('MephEd - Admin dashboard')]
+class AdminDashboardController extends Component
 {
     public $Main = '';
 
 
-
+    #[Layout('layouts.app')]
     public function render()
     {
         $users = User::all();
@@ -42,6 +45,6 @@ class DashboardController extends Component
         $payments = Payment::all();
         $earnedPayments = Payment::where('status', 'Earned')->get();
 
-        return view('livewire.admin.dashboard-controller', compact('newCRM', 'ongoingCRM', 'closedCRM','userProfile', 'user', 'users', 'tutors', 'clients', 'administrators', 'tutorRequests', 'bookings', 'activeBookings', 'completedBookings', 'closedBookings', 'adjustBookings', 'acceptedBookings', 'declinedBookings', 'pendingBookings', 'payments', 'earnedPayments'));
+        return view('livewire.admin.admin-dashboard-controller', compact('newCRM', 'ongoingCRM', 'closedCRM','userProfile', 'user', 'users', 'tutors', 'clients', 'administrators', 'tutorRequests', 'bookings', 'activeBookings', 'completedBookings', 'closedBookings', 'adjustBookings', 'acceptedBookings', 'declinedBookings', 'pendingBookings', 'payments', 'earnedPayments'));
     }
 }

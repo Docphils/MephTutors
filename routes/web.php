@@ -7,8 +7,7 @@ use App\Http\Controllers\ClientDashboardController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\TutorDashboardController;
+use App\Livewire\Admin\AdminDashboardController;
 use App\Livewire\Admin\AdminIndexTestimonials;
 use App\Livewire\Admin\Lesson\Create;
 use App\Livewire\Admin\Lesson\EditLesson;
@@ -25,6 +24,7 @@ use App\Livewire\Client\TutorRequests\ShowRequest;
 use App\Livewire\Testimonials\Testimonials;
 use App\Livewire\Testimonials\IndexTestimonials;
 use App\Livewire\Tutor\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -104,9 +104,9 @@ Route::middleware(['auth', 'can:Tutor', 'verified'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'can:Admin'])->group(function () {
+Route::middleware(['auth', 'can:Admin', 'verified'])->group(function () {
     // Admin Dashboard
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');    
+    Route::get('/admin/dashboard', AdminDashboardController::class)->name('admin.dashboard');    
     //Tutor Request Routes
     Route::get('admin/tutor-requests', RequestIndex::class)->name('tutorRequests.index');
     Route::get('admin/testimonials', AdminIndexTestimonials::class)->name('admin.testimonials');

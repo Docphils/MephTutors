@@ -1,7 +1,7 @@
 <div class="grid sm:grid-cols-5">
     <!-- Sidebar-->
     <section class="flex justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-10 border-l-4">
-        <div class="block mb-6">
+        <div class="hidden sm:block mb-6">
             <livewire:user-profile lazy="on-load">
         </div>
         <hr class="hidden sm:block w-full mb-4">
@@ -27,18 +27,25 @@
                 <i class="fas fa-chalkboard-teacher text-cyan-300 w-4"></i>
                 <a wire:navigate href="{{ route('client.lessons') }}" class="p-1 hover:border hover:border-cyan-300">Manage Lessons</a>
             </div>
+
+            <div class="self-end">
+                @livewire('newsletter-subscription')
+            </div>
         </div>
 
-        <div class="self-end">
-            @livewire('newsletter-subscription')
-        </div>
+        
     </section>
     
     <div class="sm:col-span-4 ">
         <x-slot name="header">
-            <h2 class="font-semibold text-xl text-cyan-200 dark:text-gray-200 leading-tight">
-                {{ __('Client Dashboard') }}
-            </h2>
+            <div class="flex items-center">
+                <h2 class="font-semibold text-lg text-cyan-200 dark:text-gray-200 leading-tight w-full">
+                    {{ __('Cleint Dashboard') }}
+                </h2>
+                <div class="flex sm:hidden w-full justify-end">
+                    <livewire:user-profile lazy="on-load">
+                </div>
+            </div>
         </x-slot>
         <!-- Main-->
         <div wire:offline class="text-center text-red-600 bg-red-100 px-5 py-1 rounded w-full">

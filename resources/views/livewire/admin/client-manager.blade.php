@@ -18,7 +18,7 @@
     @if (!$search)
         <div class="min-w-full divide-y divide-gray-200">
             <div class="bg-gray-50">
-                <div class="grid grid-cols-8">
+                <div class="grid grid-cols-8 pr-4">
                     <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase divacking-wider col-span-2">Username</div>
                     <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider col-span-3">Email</div>
                     <div class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -37,9 +37,9 @@
             </div>
             <div class="bg-white divide-y divide-gray-200">
                 @foreach($clients as $client)
-                <div class="grid grid-cols-8">
+                <div class="grid grid-cols-8 pr-4">
                     <div class="px-4 py-3 text-sm text-gray-700 col-span-2">{{ $client->name }}</div>
-                    <div class="px-4 py-3 text-sm text-gray-700  col-span-3">{{ $client->email }}</div>
+                    <div class="px-4 py-3 text-sm text-gray-700  col-span-3 truncate">{{ $client->email }}</div>
                     <div class="px-4 py-3 text-sm text-gray-700">
                         {{ $client->tutorRequests()->count() }}
                         @if ($client->tutorRequests()->where('status', 'Pending')->exists())
@@ -58,7 +58,7 @@
                     </div>
                     <div class="px-4 py-3 text-sm text-gray-700">
                         <button wire:click="showClientDetails({{ $client->id }})" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 hidden md:block">Show</button>
-                        <button wire:click="showClientDetails({{ $client->id }})" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 md:hidden"><i class="fas fa-eye"></i>
+                        <button wire:click="showClientDetails({{ $client->id }})" class="px-1  bg-gray-500 text-white rounded hover:bg-gray-600 md:hidden"><i class="fas fa-eye"></i>
                     </div>
                 </div>
                 @endforeach

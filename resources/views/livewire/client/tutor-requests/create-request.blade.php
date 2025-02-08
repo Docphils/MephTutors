@@ -27,7 +27,7 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <form wire:submit.prevent="submit">
                             @csrf
-                            <div class="mb-4 flex justify-between gap-3">
+                            <div class="mb-4 sm:flex justify-between gap-3">
                                 <div class="w-full">
                                     <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Intended Start Date</label>
                                     <input type="date" wire:model="start_date" id="start_date" class="mt-1 block w-full" required>
@@ -60,7 +60,7 @@
                                 <input type="text" wire:model="learners" id="learners" class="mt-1 block w-full" placeholder="Isah Adams, and Abel John" required>
                                 @error('learners') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-4 flex justify-between gap-3">
+                            <div class="mb-4 sm:flex justify-between gap-3">
                                 <div class="w-full">
                                     <label for="sessions" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Number of Contacts in session</label>
                                     <input type="text" wire:model="sessions" id="sessions" class="mt-1 block w-full" placeholder="8 Contacts" required>
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                            
-                            <div class="mb-4 flex justify-between gap-3">
+                            <div class="mb-4 sm:flex justify-between gap-3">
                                 <div class="w-full">
                                     <label for="gender" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Preferred Tutor's Gender</label>
                                     <select wire:model="tutor_gender" id="gender" class="mt-1 block w-full" required>
@@ -96,7 +96,7 @@
                             </div>
                                                
                             <div class="mb-4">
-                                <label for="amount" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Proposed Amount</label>
+                                <label for="amount" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Proposed Amount (NGN) </label>
                                 <input type="text" wire:model="amount" id="amount" class="mt-1 block w-full" required>
                                 @error('amount') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             </div>
@@ -109,7 +109,7 @@
                                 <button type="reset" onclick="window.location='{{ route('client.tutorRequests.index')}}'" class="bg-gray-600 hover:bg-gray-400 text-white px-4 py-2 rounded-md">Cancel</button>
 
                                 <div wire:loading class="bg-cyan-100 text-cyan-900 px-6 py-1">Submitting....</div>
-                                <button type="submit" class="bg-cyan-700 hover:bg-cyan-900 text-white px-4 py-2 rounded-md">
+                                <button type="submit" class="bg-cyan-700 hover:bg-cyan-900 text-white px-2 sm:px-4 py-2 rounded-md">
                                     Request Tutor
                                 </button>
                             </div>

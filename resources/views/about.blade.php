@@ -22,7 +22,7 @@
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-gray-800 mb-8">About MephEd</h2>
 
-            <div class="relative grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="relative sm:grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="relative sm:col-span-2">
                     <div class="relative sm:flex gap-4">
                         <div class="mb-12">
@@ -56,7 +56,7 @@
                 <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">With several years of industry experience and diverse expertise, our team members are committed to transforming education by connecting learners of all ages with the ideal tutors to foster their growth and success.</p>
             </div>
 
-            <div class="flex flex-col md:flex-row justify-center w-1/2 mx-auto items-center gap-8 mt-8">
+            <div class="flex flex-col md:flex-row justify-center sm:w-1/2 w-3/4 mx-auto items-center gap-8 mt-8">
                 <div class="relative w-full text-center border border-4 border-white bg-cyan-400">
                     <div class="relative w-full">
                         <img src="/images/mercy.jpg" class="object-cover w-full h-64 ">

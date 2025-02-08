@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="w-2/3 mx-auto sm:px-6 lg:px-8">
+    <div class="py-8">
+        <div class="sm:w-2/3 mx-auto sm:px-6 lg:px-8">
             @if (session('success'))
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
                     class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" 
@@ -32,50 +32,33 @@
                         <h3 class="text-lg text-cyan-800 font-semibold">{{ $tutorRequest->subjects }}</h3>
                         <p><strong>Status:</strong> <span class="text-green-400">{{ $tutorRequest->status }}</span></p>
                     </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Address:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->location }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Intended Start Date:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->start_date }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Expected End Date:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->end_date }}</p>
-                    </div>
-
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Days & Times:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->days_times }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Learners Names:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->learners }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Number of Sessions:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->sessions }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Duration per Session:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->duration }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Preferred Tutor Gender:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->tutor_gender }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Curriculum:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->curriculum }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Proposed Amount:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">NGN{{ $tutorRequest->amount }}</p>
-                    </div>
-                    <div class="grid grid-cols-3 items-center border-b-2">
-                        <p><strong class="p-2">Remark:</strong></p>
-                        <p class="border-l-2 p-2 col-span-2">{{ $tutorRequest->remarks }}</p>
+                    <div class="grid grid-cols-2 border-b-2">
+                        <div class="space-y-4">
+                            <p class="border-b">Address</p>
+                            <p class="border-b">Intended Start Date</p>
+                            <p class="border-b">Expected End Date</p>
+                            <p class="border-b">Days & Times</p>
+                            <p class="border-b">Learners Names</p>
+                            <p class="border-b">No. of Sessions</p>
+                            <p class="border-b" >Daily duration</p>
+                            <p class="border-b">Tutor Gender</p>
+                            <p class="border-b">Curriculum</p>
+                            <p class="border-b">Proposed Amount</p>
+                            <p class="">Remark</p>
+                        </div>
+                        <div class="border-l-2  space-y-4 px-2 font-bold">
+                            <p class="border-b">{{ $tutorRequest->location }}</p>
+                            <p class="border-b">{{ $tutorRequest->start_date }}</p>
+                            <p class="border-b">{{ $tutorRequest->end_date }}</p>
+                            <p class="border-b">{{ $tutorRequest->days_times }}</p>
+                            <p class="border-b">{{ $tutorRequest->learners }}</p>
+                            <p class="border-b">{{ $tutorRequest->sessions }}</p>
+                            <p class="border-b">{{ $tutorRequest->duration }}</p>
+                            <p class="border-b">{{ $tutorRequest->tutor_gender }}</p>
+                            <p class="border-b">{{ $tutorRequest->curriculum }}</p>
+                            <p class="border-b">NGN{{ $tutorRequest->amount }}</p>
+                            <p class="border-b">{{ $tutorRequest->remarks }}</p>
+                        </div>
                     </div>
                 </div>
 

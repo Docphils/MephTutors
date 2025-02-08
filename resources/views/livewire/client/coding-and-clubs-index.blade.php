@@ -143,7 +143,7 @@
             </div>
         @endif
         @if ($makeRequest)
-            <form wire:submit.prevent="submit" class="space-y-6 bg-white p-16 text-gray-900 rounded-md mx-8">
+            <form wire:submit.prevent="submit" class="space-y-6 bg-white p-6 text-gray-900 rounded-md mx-8">
                 <div class="text-xl font-semibold">Request Coding Tutor</div>
                 <!-- Common Fields -->
                 <div class="grid grid-cols-1 gap-4">

@@ -12,28 +12,37 @@
     @endif
     <!-- Tabs for Filtering Bookings by Status -->
     <div class="flex justify-around mb-6 border-b text-sm sm:text-base">
-        <button wire:click="setTab('Closed Lessons')" class="{{ $activeTab == 'Closed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Closed</button>
-        <button wire:click="setTab('Completed Lessons')" class="{{ $activeTab == 'Completed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Completed</button>
-        <button wire:click="setTab('Active Lessons')" class="{{ $activeTab == 'Active Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Active</button>
-        <button wire:click="setTab('Accepted Lessons')" class="{{ $activeTab == 'Accepted Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Accepted</button>
-        <button wire:click="setTab('Pending Lessons')" class="{{ $activeTab == 'Pending Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Pending</button>
+        <div class="sm:flex">
+            <button wire:click="setTab('Closed Lessons')" class="{{ $activeTab == 'Closed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Closed</button>
+            <button wire:click="setTab('Completed Lessons')" class="{{ $activeTab == 'Completed Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Completed</button>
+        </div>
+        
+        <div class="sm:flex">
+            <button wire:click="setTab('Active Lessons')" class="{{ $activeTab == 'Active Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Active</button>
+            <button wire:click="setTab('Accepted Lessons')" class="{{ $activeTab == 'Accepted Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Accepted</button>
+        </div>
+        
+        <div class="sm:flex">
+            <button wire:click="setTab('Pending Lessons')" class="{{ $activeTab == 'Pending Lessons' ? 'border-b-2 border-indigo-500 bg-cyan-950' : '' }} px-1 sm:px-4 py-2">Pending</button>
+        </div>
+        
     </div>
 
     <!-- Bookings Display -->
     <div>
         <h2 class="font-bold text-lg mb-4">{{ ucfirst($activeTab) }}</h2>
-        <div class="font-bold grid grid-cols-5 gap-4 p-4 bg-cyan-100 shadow-md rounded-sm text-gray-900 text-sm sm:text-base border-b-4">
+        <div class="font-bold grid grid-cols-4 gap-4 p-4 bg-cyan-100 shadow-md rounded-sm text-gray-900 text-sm sm:text-base border-b-4">
             <div>Tutor</div>
             <div>Start Date</div>
-            <div>Subjects</div>
+            <div class="hidden sm:block">Subjects</div>
             <div>Status</div>
             <div>Actions</div>
         </div>
         @forelse($lessons as $booking)
-        <div class="grid grid-cols-5 gap-4 py-2 px-4 bg-white shadow-md text-gray-900 border-b border-cyan-800 text-sm sm:text-base items-center">
+        <div class="grid grid-cols-4 gap-4 py-2 px-4 bg-white shadow-md text-gray-900 border-b border-cyan-800 text-sm sm:text-base items-center">
             <div>{{ $booking->tutor->name }}</div>
             <div>{{ $booking->start_date}}</div>
-            <div>{{ $booking->subjects }}</div>
+            <div class="hiidden sm:block">{{ $booking->subjects }}</div>
             <div>{{ $booking->status }}</div>
             <div class="flex items-center space-x-1 sm:space-x-4 ml-1 sm:ml-0">
                 <button class="bg-blue-500 text-white p-1 px-2 rounded-md" wire:click="showLesson({{ $booking->id }})">

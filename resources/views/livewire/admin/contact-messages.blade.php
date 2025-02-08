@@ -14,13 +14,13 @@
             <div class="flex space-x-4 items-center">
                 <button 
                     wire:click="sortBy('created_at')" 
-                    class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
-                    Sort by Date
+                    class="px-3 py-2 bg-cyan-600 text-white rounded-md hover:bg-blue-600 focus:outline-none flex items-center">
+                    Date <i class="fas fa-sort ml-2"></i>
                 </button>
                 <button 
                     wire:click="sortBy('is_read')" 
-                    class="px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none">
-                    Sort by Status
+                    class="px-3 py-2 bg-cyan-500 text-white rounded-md hover:bg-green-600 focus:outline-none flex items-center">
+                    Status <i class="fas fa-sort ml-2"></i>
                 </button>
                 <select wire:model="perPage" class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none">
                     <option value="5">5 per page</option>
@@ -31,7 +31,7 @@
         </div>
 
         <!-- Messages List -->
-        <div class="bg-white shadow rounded-lg">
+        <div class="bg-white shadow rounded-lg pr-4 mr-2">
             @forelse($messages as $message)
                 <div class="p-4 border-b flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0 {{ $message->is_read ? 'bg-gray-100' : 'bg-white' }}">
                     <div class="flex-1">

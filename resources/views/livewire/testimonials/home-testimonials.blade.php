@@ -21,9 +21,9 @@
         </div>
         @auth
         <div class="my-5 justify-center sm:flex gap-4 mx-auto">
-            <a wire:navigate href="{{ route('testimonial')}}" class="px-3 py-2 bg-cyan-600 text-white text-md font-semibold hover:shadow-lg hover:border hover:bg-cyan-900 "> Give your testimonial</a>
+            <a wire:navigate href="{{ route('testimonial')}}" class="px-3 py-2 bg-cyan-600 text-white text-md font-semibold hover:shadow-lg hover:border hover:bg-cyan-900 "> Give testimonial</a>
 
-            <a wire:navigate href="{{ route('testimonials.index')}}" class="px-3 py-2 bg-cyan-800 text-white text-md font-semibold hover:shadow-lg hover:border hover:bg-cyan-700 "> View all testimonials</a>
+            <a wire:navigate href="{{ route('testimonials.index')}}" class="px-3 py-2 bg-cyan-800 text-white text-md font-semibold hover:shadow-lg hover:border hover:bg-cyan-700 "> View all</a>
         </div>
             
         @endauth

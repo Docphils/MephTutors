@@ -1,4 +1,11 @@
-<div class="p-6 bg-white shadow-sm rounded-md max-w-3xl mx-auto mt-10">
+<div class="p-6 bg-white shadow-sm rounded-md max-w-3xl mx-auto">
+    <x-slot name="header">
+        <div class="mb-4">
+            <a wire:navigate href="{{ route('admin.dashboard') }}" class="px-4 py-2 rounded-lg text-white bg-cyan-700 hover:bg-cyan-900 hover:shadow-xl shadow-md">
+                Dashboard
+            </a>
+        </div>
+    </x-slot>
     <h2 class="text-2xl font-semibold mb-4 text-cyan-700">Compose Newsletter</h2>
 
     <form wire:submit.prevent="sendNewsletter" class="space-y-4 text-gray-900">

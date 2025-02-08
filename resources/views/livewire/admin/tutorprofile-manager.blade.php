@@ -57,21 +57,29 @@
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
         <div class="min-w-full divide-y divide-gray-200">
             <div class="bg-cyan-50">
-                <div class="grid grid-cols-5">
+                <div class="grid grid-cols-3 sm:grid-cols-5 pr-4 gap-2">
                     <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase divacking-wider">Full Name</div>
                     <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Qual.</div>
-                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Exp.</div>
-                    <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Status</div>
+                    <div class="hidden sm:block px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Exp.</div>
+                    <div class="hidden sm:block px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Status</div>
                     <div class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</div>
                 </div>
             </div>
             <div class="bg-white divide-y divide-gray-200">
                 @foreach($tutorProfiles as $profile)
-                <div class="grid grid-cols-5">
+                <div class="grid grid-cols-3 sm:grid-cols-5 pr-4 gap-2">
                     <div class="px-4 py-3 text-sm text-gray-700">{{ $profile->fullName }}</div>
-                    <div class="px-4 py-3 text-sm text-gray-700">{{ $profile->qualification }}</div>
-                    <div class="px-4 py-3 text-sm text-gray-700">{{ $profile->experience }}</div>
                     <div class="px-4 py-3 text-sm text-gray-700">
+                        @php
+                            if ($profile->qualification === 'HND/BSc/BEd/BA/BEng'){
+                                $qualification = 'Degree';
+                            }else {
+                                $qualification = $profile->qualification;
+                            }
+                        @endphp
+                        {{ $qualification }}</div>
+                    <div class="hidden sm:block px-4 py-3 text-sm text-gray-700">{{ $profile->experience }}</div>
+                    <div class="hidden sm:block px-4 py-3 text-sm text-gray-700">
                         <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $profile->status == 'Approved' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
                             {{ $profile->status }}
                         </span>

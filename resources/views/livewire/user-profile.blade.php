@@ -1,4 +1,4 @@
-<div class=" w-full mx-auto">
+<div class=" w-full sm:mx-auto">
     
     <div>
         @if ($editMode)
@@ -85,7 +85,7 @@
                         <p class="font-semibold">{{ $fullname }}</p>
                         <p class="text-xs text-green-400">{{ strToUpper($userProfile->user->role) }}</p>
                     </div>
-                    <button wire:click="edit" class="bg-cyan-600 hover:bg-cyan-800 text-white sm:px-2 sm:py-1 rounded-md text-xs sm:text-sm">Update profile</button>
+                    <button wire:click="edit" class="hidden sm:block bg-cyan-600 hover:bg-cyan-800 text-white sm:px-2 sm:py-1 rounded-md text-xs sm:text-sm">Update profile</button>
                 </div>
                 @else
                 Click the button to update your profile<button wire:click="edit" class="bg-cyan-600 hover:bg-cyan-800 text-white px-1 sm:px-2 sm:py-1 rounded-md text-xs sm:text-sm">Update profile</button>
