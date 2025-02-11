@@ -11,7 +11,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
 
-#[Title('Coding Request | MephEd')]
+#[Title('MephEd - Tutor dashboard')]
 class DashboardController extends Component
 {
     public $mainPage = '';

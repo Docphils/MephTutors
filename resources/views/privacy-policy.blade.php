@@ -66,7 +66,7 @@
             <p class="mb-4">If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
             <p class="mb-4">
                 MephEd<br>
-                Email: <a href="https://www.mephconsults.com.ng" class="text-blue-500">info@mephconsults.com.ng</a><br>
+                Email: <a href="https://www.mephconsults.com.ng" class="text-blue-500">info@mephed.ng</a><br>
                 Phone: <a href="tel:+2347062599737" class="text-blue-500">+234(0)7062599737, +234(0)8062869170</a>
             </p>
         </div>

@@ -83,7 +83,7 @@
         <livewire:testimonials.home-testimonials />
 
         <!-- Become a Tutor Section -->
-        <section class="px-20 py-20 bg-gradient-to-r  from-cyan-400 to-cyan-300">
+        <section class="px-8 sm:px-20 py-20 bg-gradient-to-r  from-cyan-400 to-cyan-300">
             <div class="container sm:flex justify-between items-center mx-auto text-center gap-4">
                 <div class="text-justify my-4">
                     <h3 class="text-3xl font-semibold text-gray-50">Become a Tutor</h3>

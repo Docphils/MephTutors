@@ -1,7 +1,21 @@
 <div class="grid sm:grid-cols-5 min-h-full">
+    <x-slot name="header">
+        <div class="flex justify-between align-center">
+            <div class="text-cyan-200 align-center text-xl font-semibold">Tutor Dashboard</div>
+            <div class="block sm:hidden ">
+                <!-- Profile Display -->
+                @if ($tutorProfile)
+                    <div class="">
+                        <img src="{{ asset('storage/' . $tutorProfile->image) }}" alt="Profile image" class="h-8 w-8 rounded-full object-cover border-2 border-white shadow-sm shadow-white">
+                    </div>
+                @endif
+            </div>
+        </div>
+        
+    </x-slot>
     <!-- Sidebar-->
-    <section class="flex justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-10 border-l-4 min-h-full">
-        <div class="block mb-6">
+    <section class="justify-between sm:block bg-gradient-to-t from-cyan-500 to-cyan-900 shadow-lg shadow-cyan-600 sm:px-10 p-6 sm:py-10 border-l-4 min-h-full">
+        <div class="hidden sm:block mb-6">
             <!-- Profile Display -->
             @if ($tutorProfile)
                 <div class="sm:text-center mb-3">
@@ -17,50 +31,58 @@
         </div>
         <hr class="hidden sm:block w-full mb-6">
         <!--Menu Buttons-->
-        <div class="text-xs md:text-base">
-            <div class="sm:mb-4">
+        <div class="text-xs md:text-base grid grid-cols-5 sm:grid-cols-1 ">
+            <div class="sm:mb-4 p-1 border">
                 <button type="button" wire:click.prevent="$set('mainPage', 'lessons')" class="flex gap-2 items-center">
-                    <i class="fas fa-book text-cyan-100 w-6"></i><span>Lessons</span>
+                    <i class="fas fa-book text-cyan-100 w-6 hidden md:block"></i><span>Lessons</span>
                 </button>
             </div>
-            <div class="sm:mb-4">
+            <div class="sm:mb-4 p-1 border">
                 <button type="button" wire:click.prevent="$set('mainPage', 'coding')" class="flex gap-2 items-center">
-                    <i class="fas fa-code text-cyan-100 w-6"></i><span>Coding</span>
+                    <i class="fas fa-code text-cyan-100 w-6 hidden md:block"></i><span>Coding</span>
                 </button>
             </div>
-            <div class="sm:mb-4">
+            <div class="sm:mb-4 p-1 border">
                 <button type="button" wire:click.prevent="$set('mainPage', 'clubs')" class="flex gap-2 items-center">
-                    <i class="fas fa-users text-cyan-100 w-6"></i><span>Clubs</span>
+                    <i class="fas fa-users text-cyan-100 w-6 hidden md:block"></i><span>Clubs</span>
                 </button>
             </div>
-            <div class="sm:mb-4">
+            <div class="sm:mb-4 p-1 border">
                 <button type="button" wire:click.prevent="$set('mainPage', 'payments')" class="flex gap-2 items-center">
-                    <i class="fas fa-money-bill-wave text-cyan-100 w-6"></i><span>Payments</span>
+                    <i class="fas fa-money-bill-wave text-cyan-100 w-6 hidden md:block"></i><span>Payments</span>
                 </button>
             </div>
-            <div class="sm:mb-4">
+            
+           
+        </div>
+
+        <div class="text-xs md:text-base flex sm:block mt-4">
+            <div class="sm:mb-4 p-1 border">
                 <button type="button" wire:click.prevent="$set('createProfile', true)" class="flex gap-2 items-center">
-                    <i class="fas fa-user text-cyan-100 w-6"></i><span>Profile</span>
+                    <i class="fas fa-user text-cyan-100 w-6 hidden md:block"></i><span>Profile</span>
                 </button>
             </div>
+
             @if ($tutorProfile)
-            <div class="sm:mb-4">
+            <div class="sm:mb-4 p-1 border">
                 <button type="button" wire:click.prevent="$set('tutorVideo', true)" class="flex gap-2 items-center">
-                    <i class="fas fa-video text-cyan-100 w-6"></i><span>Upload Video</span>
+                    <i class="fas fa-video text-cyan-100 w-6 hidden md:block"></i><span class="">Upload Video</span>
                 </button>
             </div> 
             @endif
-            <div class="sm:mb-4">
-                <a href="https://chat.whatsapp.com/Gum1YqOp0G31WlyyokKxE0" target="_blank" class="flex gap-2 items-center">
-                    <i class="fab fa-whatsapp text-green-300 w-6"></i><span>Tutor community</span>
+            <div class="sm:mb-4 p-1 border">
+                <a href="https://chat.whatsapp.com/Gum1YqOp0G31WlyyokKxE0" target="_blank" class="flex items-center ml-2">
+                    <i class="fab fa-whatsapp text-green-300 w-6 hidden md:block"></i><span class="">Tutor community</span>
                 </a>
             </div>
-            
+            <div class=" hidden md:block self-end p-1 border col-span-6">
+                @livewire('newsletter-subscription')
+            </div>
         </div>
-
-        <div class="self-end">
+        <div class=" sm:hidden block self-end border mt-3">
             @livewire('newsletter-subscription')
         </div>
+        
     </section>
     
     <div class="sm:col-span-4 ">
@@ -88,7 +110,7 @@
                         <h3 class="text-2xl mb-4">Hello, {{ $user->name }}!</h3>    
                         @if (!$tutorProfile)
                             <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
-                                <strong>Profile Incomplete!</strong> Please complete your profile to enjoy seemless services <button type="button" wire:click="$set('createProfile', true)">here</button>
+                                <strong>Profile Incomplete!</strong> Please complete your profile to enjoy seemless services <button class="text-cyan-600" type="button" wire:click="$set('createProfile', true)">here</button>
                             </div>
                         @endif
     
